@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//WebContent/appcss/app.css=UTF-8
+encoding//WebContent/page/ktbInquiry.zul=UTF-8
+encoding//src/com/dtac/billerweb/controller/FileDownloadInquiryController.java=UTF-8
+encoding//src/com/dtac/billerweb/controller/MTTransactionInquiryController.java=UTF-8
+encoding//src/com/dtac/billerweb/test/TestAll.java=UTF-8
+encoding//src/com/dtac/billerweb/test/TestEJB.java=UTF-8
+encoding//src/com/dtac/billerweb/validation/Validation.java=UTF-8

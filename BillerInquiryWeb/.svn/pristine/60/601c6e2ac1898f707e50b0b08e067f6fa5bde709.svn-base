@@ -1,0 +1,7 @@
+<window width="80%" title="Session Timeout" border="normal">
+	<zscript>
+	Session session = Sessions.getCurrent();
+	session.removeAttribute(com.dtac.bmweb.common.AppConstant.S_AUTHORIZATION);
+	Executions.getCurrent().sendRedirect(com.dtac.bmweb.common.AppConfig.getValue(com.dtac.bmweb.common.AppConfig.SESS_TIMEOUT_ERR_PAGE_URL));
+</zscript>
+</window>

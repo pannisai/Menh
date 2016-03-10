@@ -1,0 +1,167 @@
+<?page id="pBw4210" title="Edit Bank Channel" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	<vlayout id="bw4210" hflex="1" vflex="min" style="min-height:300px"
+		apply="com.dtac.billerweb.controller.BW4210Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW4210_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<separator height="10px" />
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="80%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="7%">Blank</column>
+						<column width="29%">a</column>
+						<column width="5%">:</column>
+						<column width="51%">C</column>
+						<column width="5%">Button</column>
+						<column width="3%">Blank</column>
+					</columns>
+					<rows>
+						<!--Bank Channel Code -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lBankChanCode"
+									value="Bank Channel Code" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankChanCode"
+									maxlength="5" sclass="textWidthEdit" disabled="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Bank Channel Name -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Bank Channel Name"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankChanName"
+									sclass="textWidthEdit" maxlength="10" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Bank Channel Name(English) -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label
+									value="Bank Channel Name(English)" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankChanNameEn"
+									sclass="textWidthEdit" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Bank Channel Name(Thai) -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Bank Channel Name(Thai)"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankChanNameTh"
+									sclass="textWidthEdit" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Active Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Active Flag
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag"
+									sclass="selectWidthEdit" mold="select">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="6" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

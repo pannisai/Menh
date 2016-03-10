@@ -1,0 +1,377 @@
+<?page id="pBw2110" title="Edit Inbound" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+
+	<vlayout id="editInbound" hflex="1" vflex="min"
+		style="min-height:480px"
+		apply="com.dtac.billerweb.controller.BW2110Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW2110_EDIT_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<separator height="10px"/>
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="80%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="7%">Blank</column>
+						<column width="26%">a</column>
+						<column width="5%">:</column>
+						<column width="47%">C</column>
+						<column width="11%">Button</column>
+						<column width="4%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Biller Service Code -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lBillerServiceCode"
+									value="Biller Service Code" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerServiceCode"
+									sclass="selectWidthEdit" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_SRVC_NAME_EN}" value="${each}"
+											if="${each.BLLR_SRVC_CODE==null}" />
+										<listitem
+											label="${each.BLLR_SRVC_CODE}:${each.BLLR_SRVC_NAME_EN}"
+											value="${each}" if="${each.BLLR_SRVC_CODE!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Biller Short Code -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Biller Short Code
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBillerCode"
+									sclass="textWidthEdit" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+					
+						<!-- Function ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lFunctionId"
+									value="Function ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbFunctionId" mold="select"
+									sclass="selectWidthEdit">
+									<listitem
+										label="${labels.SELECTBOX_SELECT}" value="${null}"
+										selected="true" />
+									<listitem label="Inquiry"
+										value="720000" />
+									<listitem label="Payment"
+										value="730000" />
+									<listitem label="Online Inquiry"
+										value="910000" />
+									<listitem label="Online Payment"
+										value="920000" />
+									<listitem label="Online Cancel"
+										value="930000" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Inbound Name -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Inbound Name
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txInboundName"
+									sclass="textWidthEdit" maxlength="45" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- MFS Service ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lMFSServiceId"
+									value="MFS Service ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbMFSServiceId"
+									sclass="selectWidthEdit" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.GW_SRVC_NAME}" value="${each}"
+											if="${each.GW_SRVC_ID==null or each.GW_SRVC_ID==-1}" />
+										<listitem
+											label="${each.GW_SRVC_ID}:${each.GW_SRVC_NAME}"
+											value="${each}"
+											if="${each.GW_SRVC_ID!=null and each.GW_SRVC_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<button id="btEditMFSServiceId"
+									label="Edit" mold="trendy" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Inbound Map ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lInboundMapId"
+									value="Inbound Map ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbInboundMapId"
+									sclass="selectWidthEdit" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.DATA_MAP_NAME}" value="${each}"
+											if="${each.DATA_MAP_ID==null or each.DATA_MAP_ID==-1}" />
+										<listitem
+											label="${each.DATA_MAP_ID}:${each.DATA_MAP_NAME}"
+											value="${each}"
+											if="${each.DATA_MAP_ID!=null and each.DATA_MAP_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<button id="btEditInboundMapId"
+									label="Edit" mold="trendy" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Send Receipt -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lSendReceipt"
+									value="Send Receipt" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbSendReceipt"
+									mold="select" sclass="selectWidthEdit">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Send Receipt ID -->
+						<!--	<row>
+							<hlayout style="text-align:left;">
+							<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+							<label id="lSendReceiptId" value="Send Receipt ID" sclass="editLabel"/>
+							<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+							<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+							<listbox id="lbSendReceiptId"
+							sclass="selectWidthEdit" model="${model}" mold="select">
+							<template name="model">
+							<listitem
+							label="${each.GW_RCPT_CONF_NAME}" value="${each}"
+							if="${each.GW_RCPT_CONF_ID==null or each.GW_RCPT_CONF_ID==-1}" />
+							<listitem
+							label="${each.GW_RCPT_CONF_ID}:${each.GW_RCPT_CONF_NAME}"
+							value="${each}" if="${each.GW_RCPT_CONF_ID!=null and each.GW_RCPT_CONF_ID!=-1}" />
+							</template>
+							</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+							<button id="btEditSendReceiptId"
+							label="Edit" mold="trendy" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+							<label value="" />
+							</hlayout>
+							</row>-->
+						<!-- Start Date -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Start Date
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbStartDate" width="255px"
+									format="dd-MM-yyyy" readonly="true" buttonVisible="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- End Date -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									End Date
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbEndDate" width="255px"
+									format="dd-MM-yyyy" readonly="true" buttonVisible="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Active Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Active Flag
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag" mold="select"
+									sclass="selectWidthEdit">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="6" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+
+			</vbox>
+		</hlayout>
+		<separator height="20px" />
+	</vlayout>
+</zk>

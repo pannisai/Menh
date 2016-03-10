@@ -1,0 +1,157 @@
+<?page id="pBw2310" title="Create Outbound Gateway" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+
+	<vlayout id="bw2310" hflex="1" vflex="min" style="min-height:250px"
+		apply="com.dtac.billerweb.controller.BW2310Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW2310_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<separator height="10px"/>
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="80%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="7%">Blank</column>
+						<column width="26%">a</column>
+						<column width="5%">:</column>
+						<column width="47%">C</column>
+						<column width="11%">Button</column>
+						<column width="4%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Outbound ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lOutboundId"
+									value="Outbound ID" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intOutboundId"
+									sclass="textWidthEdit" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Outbound Name -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lOutboundName"
+									value="Outbound Name" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txOutboundName"
+									sclass="textWidthEdit" maxlength="45" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Outbound Map ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lOutboundMapId"
+									value="Outbound Map ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbOutboundMapId"
+									model="${model}" sclass="selectWidthEdit" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.DATA_MAP_NAME}" value="${each}"
+											if="${each.DATA_MAP_ID==null or each.DATA_MAP_ID==-1}" />
+										<listitem
+											label="${each.DATA_MAP_ID}:${each.DATA_MAP_NAME}"
+											value="${each}"
+											if="${each.DATA_MAP_ID!=null and each.DATA_MAP_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<button id="btEditOutboundMapId"
+									label="Edit" mold="trendy" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Active Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Active Flag
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag"
+									sclass="selectWidthEdit" mold="select">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="6" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

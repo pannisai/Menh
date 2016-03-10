@@ -1,0 +1,381 @@
+<?page title="Biller Report Transaction" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
+
+	<vlayout hflex="1" vflex="1"
+		apply="com.dtac.billerweb.controller.BW3000Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW3000_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<!-- Search container -->
+		<hlayout width="100%" sclass="hlayoutGridSearch" valign="top"
+			style="min-height:130px">
+			<!-- Hbox Search container -->
+			<hbox width="98%" sclass="hboxGridSearch">
+				<!-- Grid Search container -->
+				<grid width="100%" sclass="searchGrid">
+					<columns visible="false">
+						<column width="3%">Blank</column>
+						<column width="20%">a</column>
+						<column width="2%">:</column>
+						<column width="24%">C</column>
+						<column width="2%">Blank</column>
+						<column width="20%">D</column>
+						<column width="2%">:</column>
+						<column width="24%">E</column>
+						<column width="3%">Blank</column>
+					</columns>
+					<rows>
+
+						<row>
+							<!-- From Date -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="From Date"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbFROM_DATE" width="125px"
+									readonly="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- To Date -->
+							<hlayout style="text-align:left;">
+								<label value="To Date"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbTO_DATE" width="125px"
+									readonly="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<row>
+							<!-- From Time -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="From Time"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<timebox id="tbFROM_TIME" width="125px"
+									format="HH:mm" readonly="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- To Time -->
+							<hlayout style="text-align:left;">
+								<label value="To Time"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<timebox id="tbTO_TIME" width="125px"
+									format="HH:mm" readonly="false" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<row>
+							<!-- Biller Short Code -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Biller Short Code"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerServiceCode"
+									sclass="selectWidth" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_SRVC_NAME_EN}" value="${each}"
+											if="${each.BLLR_SRVC_CODE==null}" />
+										<listitem
+											label="${each.BLLR_SRVC_CODE}:${each.BLLR_SRVC_NAME_EN}"
+											value="${each}" if="${each.BLLR_SRVC_CODE!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- Payment Channel -->
+							<hlayout style="text-align:left;">
+								<label value="Payment Channel"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerChannelCode"
+									sclass="selectWidth" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_CHNL_NAME}" value="${each}"
+											if="${each.BLLR_CHNL_ID==null or each.BLLR_CHNL_ID==-1}" />
+										<listitem
+											label="${each.BLLR_CHNL_ID}:${each.BLLR_CHNL_NAME}"
+											value="${each}"
+											if="${each.BLLR_CHNL_ID!=null and each.BLLR_CHNL_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<row>
+							<!-- Transaction ID -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Transaction ID"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txTRNS_ID"
+									sclass="textWidth" maxlength="45" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- Function -->
+							<hlayout style="text-align:left;">
+								<label value="Function"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbTRNS_FUNC_CODE"
+									model="${model}" sclass="selectWidth" mold="select">
+									<listitem label="${labels.SELECTBOX_ALL}" value=""
+										selected="true" />
+									<listitem label="Inquiry"
+										value="VER" />
+									<listitem label="payment"
+										value="CON" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<row>
+							<!-- Transaction Status -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Transaction Status"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerFdmCode"
+									sclass="selectWidth" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_MSGE_CODE_MSGE_EN}" value="${each}"
+											if="${each.BLLR_MSGE_CODE==null}" />
+										<listitem
+											label="${each.BLLR_MSGE_CODE}:${each.BLLR_MSGE_CODE_MSGE_EN}"
+											value="${each}" if="${each.BLLR_MSGE_CODE!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- Payment Status -->
+							<hlayout style="text-align:left;">
+								<label value="Payment Status"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerPymtCode"
+									sclass="selectWidth" model="${model}" mold="select"
+									forward="onAfterRender=self.onLastInputRender">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_MSGE_CODE_MSGE_EN}" value="${each}"
+											if="${each.BLLR_MSGE_CODE==null}" />
+										<listitem
+											label="${each.BLLR_MSGE_CODE}:${each.BLLR_MSGE_CODE_MSGE_EN}"
+											value="${each}" if="${each.BLLR_MSGE_CODE!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<row spans="9" style="text-align:center;">
+							<hlayout height="30px">
+								<button id="btSearch" label="Search"
+									mold="trendy" />
+								<button id="btReset" label="Reset"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</hbox>
+		</hlayout>
+		<!-- Space  -->
+		<separator height="5px" />
+		<!-- Result container -->
+		<hlayout vflex="min" sclass="hlayoutGridResult"
+			style="overflow-x:auto;">
+			<!-- VBox Result container -->
+			<vbox vflex="min" align="left">
+				<!-- Paging Top -->
+				<paging id="paging" width="${gdResult.width}"
+					detailed="true" />
+				<!-- Grid Result -->
+				<grid id="gdResult" height="348px"
+					emptyMessage="Data not found" width="1100px">
+					<columns visible="true" sizable="true">
+						<column width="5%">No.</column>
+						<column width="10%">Transaction Id</column>
+						<column width="13%">Transaction Date</column>
+						<column width="10%">Biller Short Code</column>
+						<column width="10%">Biller Short Name</column>
+						<column width="12%">Ref1</column>
+						<column width="13%">Paid Amount</column>
+						<column width="8%">Function</column>
+						<column width="11%">
+							Transaction
+							<h:br />
+							Status
+						</column>
+						<column width="8%">
+							Payment
+							<h:br />
+							Status
+						</column>
+					</columns>
+					<rows>
+						<template name="model">
+							<row value="${each}"
+								forward="onClick=gdResult.onEdit" style="cursor:pointer">
+								<hlayout sclass="center">
+									<label>
+										${(forEachStatus.index+1)+(paging.activePage*paging.pageSize)}
+									</label>
+								</hlayout>
+								<hlayout sclass="left">
+									<label>${each.TRNS_ID}</label>
+								</hlayout>
+								<hlayout sclass="left">
+									<label
+										value='${c:formatDate(each.TRNS_DTTM, "yyyy-MM-dd HH:mm:ss")}'
+										if="${each.TRNS_DTTM!=null}" />
+									<label value=""
+										if="${each.TRNS_DTTM==null}" />
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.TRNS_SRVC_CODE}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.BLLR_SRVC_DESC}
+									</label>
+								</hlayout>
+								<hlayout sclass="left">
+									<label>${each.TRNS_REF1}</label>
+								</hlayout>
+								<hlayout sclass="right">
+									<label
+										value="${c:formatNumber(each.TRNS_PAID_AMNT, '###,###,###.00')}"
+										if="${each.TRNS_PAID_AMNT!=null}" />
+									<label value=""
+										if="${each.TRNS_PAID_AMNT==null}" />
+								</hlayout>
+
+								<hlayout sclass="center">
+									<zk
+										switch="${each.TRNS_FUNC_CODE}">
+										<zk case="VER">
+											<label>Inquiry</label>
+										</zk>
+										<zk case="CON">
+											<label>Payment</label>
+										</zk>
+										<zk>
+											<label></label>
+										</zk>
+									</zk>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.TRNS_STTS_CODE_DESC}
+									</label>
+								</hlayout>
+
+								<hlayout sclass="center">
+									<label>
+										${each.TRNS_PYMT_STTS_CODE_DESC}
+									</label>
+								</hlayout>
+							</row>
+						</template>
+					</rows>
+				</grid>
+				<separator height="15px" />
+			</vbox>
+		</hlayout>
+		<separator height="20px" />
+	</vlayout>
+</zk>

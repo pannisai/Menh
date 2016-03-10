@@ -1,0 +1,6 @@
+<?page title="error" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript>
+	Executions.getCurrent().sendRedirect(com.dtac.billerweb.common.AppConfiguration.getValue(com.dtac.billerweb.common.AppConfiguration.SESS_TIMEOUT_ERR_PAGE_URL));
+</zscript>
+</zk>

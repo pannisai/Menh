@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kb-project>
+ <depends-on-projects/>
+ <used-by-projects/>
+ <paths>
+  <path value="D:/jboss-as-7.1.1.Final/modules/org/eclipse/persistence/main/eclipselink2.5.2.jar"/>
+  <path value="D:/DTACWORKSPACE/BackOffice/Menh/Lib/COMMON/log4j-1.2.8.jar"/>
+  <path value="D:/DTACWORKSPACE/BackOffice/Menh/Lib/COMMON/commons-lang3-3.1.jar"/>
+  <path value="D:/DTACWORKSPACE/BackOffice/Menh/Lib/COMMON/javaee-api-6.0.jar">
+   <libraries>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/c-1_0-rt.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/c-1_0.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/c.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/fmt-1_0-rt.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/fmt-1_0.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/fmt.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/fn.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/html_basic.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/jsf_core.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/mojarra_ext.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/permittedtaglibs.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/scriptfree.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/sql-1_0-rt.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/sql-1_0.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/sql.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/x-1_0-rt.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/x-1_0.tld" project="MFSBackoffUtil"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-javaee-api-6.0.jar/meta-inf/x.tld" project="MFSBackoffUtil"/>
+    </library>
+   </libraries>
+  </path>
+ </paths>
+ <validation>
+  <el/>
+ </validation>
+ <aliases/>
+ <includes/>
+ <uris/>
+</kb-project>

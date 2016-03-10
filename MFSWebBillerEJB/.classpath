@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="oracle.eclipse.tools.weblogic.lib.system"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-lang3-3.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/javaee-api-6.0.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/xercesImpl-2.8.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/JPA/javax.persistence_1.99.0.v200906021518.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/log4j-1.2.8.jar" sourcepath="/JBOSS7/org/apache/log4j/main/log4j-1.2.16.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MFSBackoffUtil"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 7.1 Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.ejb;#system#"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="JBOSS7/org/eclipse/persistence/main/eclipselink2.5.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk160_29">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

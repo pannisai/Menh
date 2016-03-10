@@ -1,0 +1,158 @@
+<?page id="pBw5250" title="Outbound Map ID" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	
+	<vlayout id="bw5250" hflex="1" vflex="1" style="min-height:600px"
+		apply="com.dtac.billerweb.controller.BW5250Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW5250_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="95%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="2%">Blank</column>
+						<column width="18%">a</column>
+						<column width="2%">:</column>
+						<column width="29%">C</column>
+						<column width="2%">Blank</column>
+						<column width="15%">a</column>
+						<column width="2%">:</column>
+						<column width="29%">C</column>
+						<column width="1%">Blank</column>
+					</columns>
+					<rows>
+						<!-- MAP ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">MAP ID</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intMapId"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- MAP Name -->
+							<hlayout style="text-align:left;">
+								<label id="lMapName" value="Map Name"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txMapName"
+									sclass="textWidthEditM" maxlength="10" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- MAP Description -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									MAP Description
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txMapDesc"
+									sclass="textWidthEditM" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- MAP XML Data -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									MAP XML Data
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row spans="9">
+
+							<hlayout style="text-align:left;">
+								<textbox id="txMapXMLData" rows="17"
+									hflex="1" />
+							</hlayout>
+
+						</row>
+						<!--button-->
+						<row spans="9" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btValidateXml"
+									label="Validate XML" mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<separator height="20px" />
+	</vlayout>
+</zk>

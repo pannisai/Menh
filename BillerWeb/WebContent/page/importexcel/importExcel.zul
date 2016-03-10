@@ -1,0 +1,89 @@
+<?page title="Import Excel" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
+	<vlayout id="importExcel" hflex="1" vflex="1"
+		style="min-height:200px"
+		apply="com.dtac.billerweb.controller.ImportExcelController">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="AP Commission Code"
+				sclass="pageTitle" />
+		</hlayout>
+		<separator height="10px" />
+		<grid width="100%" sclass="searchGrid">
+			<rows>
+				<row height="5px" />
+				<row>
+					<hlayout sclass="right">
+						<textbox id="txtUploadName" readonly="true"
+							width="150px" />
+						<label value=":"></label>
+					</hlayout>
+					<button id="btnUpload" label="Upload" upload="true"
+						mold="trendy" />
+				</row>
+				<row>
+					<hlayout sclass="right">
+						<listbox id="lbTableImport" model="${model}"
+							sclass="selectWidth" mold="select" width="155px">
+							<template name="model">
+								<listitem label="${each.TABLE_NAME}"
+									value="${each}" />
+							</template>
+						</listbox>
+						<label value=":"></label>
+					</hlayout>
+					<button id="btnImport" label="Import" mold="trendy" />
+				</row>
+				<row height="5px" />
+			</rows>
+		</grid>
+		<separator height="10px" />
+		<hlayout style="text-align:center;">
+			<label value="Total Row :" />
+			<textbox id="txtTotal" readonly="true" width="50px" />
+			<separator orient="horizontal" width="10px" />
+			<label value="Success :" />
+			<textbox id="txtSuccess" readonly="true" width="50px" />
+			<separator orient="horizontal" width="10px" />
+			<label value="Fail :" />
+			<textbox id="txtFail" readonly="true" width="50px" />
+		</hlayout>
+		<separator height="10px" />
+		<vbox vflex="min" align="left">
+			<!-- Paging Top -->
+			<paging id="pagingTop" width="${gdResult.width}"
+				detailed="true" />
+			<!-- Grid Result -->
+			<grid id="gdResult" height="300px" mold="paging"
+				emptyMessage="Data not found" width="100%">
+				<columns visible="true" sizable="true">
+					<column width="10%">Row No.</column>
+					<column width="90%">Status</column>
+				</columns>
+				<rows>
+					<template name="model">
+						<row value="${each}" nowrap="false">
+							<hlayout sclass="left">
+								<label>${each.rowNo}</label>
+							</hlayout>
+							<hlayout sclass="left">
+								<label>${each.rowStatus}</label>
+							</hlayout>
+						</row>
+					</template>
+				</rows>
+			</grid>
+			<!-- Paging -->
+			<paging id="paging" width="${gdResult.width}"
+				detailed="true" />
+			<separator height="10px" />
+		</vbox>
+		<hlayout style="text-align:center;">
+			<button id="btnSave" label="Save" mold="trendy"
+				disabled="true" />
+			<separator orient="horizontal" width="10px" />
+			<button id="btnReset" label="Reset" mold="trendy" />
+		</hlayout>
+	</vlayout>
+</zk>

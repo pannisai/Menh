@@ -1,0 +1,227 @@
+<?page id="pBw5310" title="Create Service Gateway" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+
+	<vlayout id="bw5310" hflex="1" vflex="min" style="min-height:360px"
+		apply="com.dtac.billerweb.controller.BW5310Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW5310_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<separator height="10px" />
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="80%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="7%">Blank</column>
+						<column width="26%">a</column>
+						<column width="5%">:</column>
+						<column width="47%">C</column>
+						<column width="11%">Button</column>
+						<column width="4%">Blank</column>
+					</columns>
+					<rows>
+						<!--Bank Maintenance ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Bank Maintenance ID"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intBankMaintenanceId"
+									sclass="textWidthEdit" disabled="true" maxlength="9" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Bank Maintenance Name -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Bank Maintenance Name"
+									sclass="editLabel" />
+
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankMaintenanceName"
+									sclass="textWidthEdit" maxlength="20" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Bank Service ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lBankServiceId"
+									value="Bank Service ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBankServiceId"
+									sclass="selectWidthEdit" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BANK_SRVC_NAME}" value="${each}"
+											if="${each.BANK_SRVC_ID==null}" />
+										<listitem
+											label="${each.BANK_SRVC_ID}:${each.BANK_SRVC_NAME}"
+											value="${each}" if="${each.BANK_SRVC_ID!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Bank Service Name -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Bank Service Name"
+									sclass="editLabel" />
+
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBankServiceName"
+									sclass="textWidthEdit" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Start Time -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lStartTime"
+									value="Start Time" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<timebox id="tbStartTime" format="HH:mm"
+									width="255px" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- End Time -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lEndTime" value="End Time"
+									sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<timebox id="tbEndTime" format="HH:mm"
+									width="255px" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Active Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label sclass="editLabel">
+									Active Flag
+								</label>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag"
+									sclass="selectWidthEdit" mold="select">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="6" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<separator height="20px" />
+	</vlayout>
+</zk>

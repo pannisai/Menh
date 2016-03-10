@@ -1,0 +1,379 @@
+<?page id="pBw1412" title="Create Biller Service Validate" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
+	<vlayout hflex="1" vflex="1" style="min-height:200px"
+		apply="com.dtac.billerweb.controller.BW1412Controller">
+		<!-- Page title -->
+		<label id="bw1412Title" value="${labels.BW1412_NEW_TITLE}"
+			visible="false" />
+		<hlayout style="text-align:center;" height="300px">
+			<vbox width="99%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="1%">Blank</column>
+						<column width="20%">a</column>
+						<column width="2%">:</column>
+						<column width="26%">C</column>
+						<column width="2%">Blank</column>
+						<column width="23%">D</column>
+						<column width="2%">:</column>
+						<column width="23%">E</column>
+						<column width="1%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Payment Partial Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Payment Partial Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdPaymentPartialFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Payment Presentment Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Payment Presentment Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup
+									id="rdPaymentPresentmentFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Payment Over Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Payment Over Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdPaymentOverFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Amount Available Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Amount Available Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdAmtAvailableFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Payment Mininum Allowed -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lPaymentMin"
+									value="Payment Mininum Allowed" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<doublebox id="douPaymentMin"
+									value="0.00" sclass="textWidthEditM" format="#,##0.00"
+									maxlength="15" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Overdue Allowed Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Overdue Allowed Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdOverdueFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Payment Maximum Allowed -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lPaymentMax"
+									value="Payment Maximum Allowed" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<doublebox id="douPaymentMax"
+									value="0.00" sclass="textWidthEditM" format="#,##0.00"
+									maxlength="15" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Non Fundamo Service Fee Flag -->
+							<hlayout style="text-align:left;">
+								<label
+									value="Non Fundamo Service Fee Flag" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdNonFundamoFeeFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Denominate Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Denominate Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdDenominateFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Commission applicable for non-Fundamo service Flag -->
+							<hlayout style="text-align:left;">
+								<label
+									value="Commission applicable for non-Fundamo service Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup
+									id="rdComNonFundamoFeeFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--Denominate Maximum No. Of Month -->
+						<row id="rowDenoMaxMonthNo" visible="false">
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label
+									value="Denominate Maximum No. Of Month" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<spinner id="spDenoMaxMonth"
+									width="185px"
+									constraint="no negative,min 0 max 9999: Input between 0 to 9999"
+									maxlength="4" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Blak -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel"></label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<!--button-->
+						<row spans="9" style="text-align:center;">
+							<hlayout>
+								<button id="btBack" label="Back"
+									mold="trendy" />
+								<button id="btSave" label="Save"
+									mold="trendy" />
+								<button id="btReset" label="Reset"
+									mold="trendy" />
+								<button id="btAddDenominate"
+									label="Add Denominate" mold="trendy" />
+								<button id="btNext" label="Next"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<separator height="10px" />
+		<hlayout style="text-align:center;max-height:400px;" vflex="1"
+			sclass="hlayoutGridResult">
+			<vbox width="85%" vflex="1" align="left">
+				<hbox hflex="1" vflex="1">
+					<!-- Grid Result -->
+					<grid id="gdResult" height="350px" mold="paging"
+						emptyMessage="Data not found" vflex="1" hflex="1">
+						<columns visible="true" sizable="true">
+							<column width="5%">No.</column>
+							<column width="15%">Denominate ID</column>
+							<column width="25%">Denominate Rate</column>
+							<column width="15%">Status</column>
+							<column width="20%">
+								Update
+								<h:br />
+								By
+							</column>
+							<column width="20%">
+								Update
+								<h:br />
+								Date
+							</column>
+						</columns>
+						<rows>
+							<template name="model">
+								<row value="${each.billerDenominateId}"
+									forward="onClick=gdResult.onEdit" style="cursor:pointer">
+									<hlayout sclass="center">
+										<label>
+											${forEachStatus.index+1}
+										</label>
+									</hlayout>
+									<hlayout sclass="right">
+										<label
+											value="${each.billerDenominateId}" />
+									</hlayout>
+									<hlayout sclass="right">
+										<label
+											value="${c:formatNumber(each.denominateRate, '#,###.00')}"
+											if="${each.denominateRate!=null}" />
+										<label value=""
+											if="${each.denominateRate==null}" />
+
+									</hlayout>
+									<hlayout sclass="center">
+										<zk
+											switch="${each.activeFlag}">
+											<zk case="A">
+												<label>Active</label>
+											</zk>
+											<zk case="I">
+												<label>Inactive</label>
+											</zk>
+											<zk>
+												<label></label>
+											</zk>
+										</zk>
+									</hlayout>
+									<label>${each.updateBy}</label>
+									<hlayout>
+										<label
+											value='${c:formatDate(each.updateDate," yyyy-MM-dd HH:mm:ss ")}'
+											if="${each.updateDate!=null}" />
+										<label value=""
+											if="${each.updateDate==null}" />
+									</hlayout>
+								</row>
+							</template>
+						</rows>
+					</grid>
+				</hbox>
+				<!-- Paging -->
+				<paging id="paging" width="gdResult.width"
+					detailed="true" />
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

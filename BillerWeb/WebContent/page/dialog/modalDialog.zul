@@ -1,0 +1,8 @@
+<?page  title="Dialog" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="modalDialog" title="Dialog" border="normal" width="80%" height="600px"
+    position="center,center" closable="true"
+    action="show: slideDown;hide: slideUp" >
+		<include id="dialogContent" />
+</window>
+</zk>

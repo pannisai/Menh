@@ -1,0 +1,202 @@
+<?page id="pBw1200" title="Biller Master" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
+	<style src="../appcss/app.css?version=${labels.CSS_VER}" />
+	<style></style>
+	<vlayout hflex="1" vflex="1"
+		apply="com.dtac.billerweb.controller.BW1200Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW1200_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<!-- Search container -->
+		<hlayout width="100%" sclass="hlayoutGridSearch" valign="top"
+			style="min-height:100px">
+			<!-- Hbox Search container -->
+			<hbox width="97%" sclass="hboxGridSearch">
+				<!-- Grid Search container -->
+				<grid width="100%" sclass="searchGrid">
+					<columns visible="false">
+						<column width="20%">Space</column>
+						<column width="25%">A</column>
+						<column width="3%">:</column>
+						<column width="32%">C</column>
+						<column width="20%">Space</column>
+					</columns>
+					<rows>
+						<row style="text-align:center;">
+							<hlayout>
+								<label value="  " />
+							</hlayout>
+							<hlayout style="text-align:right;">
+								<label value="ERP Supplier" />
+							</hlayout>
+							<label value=":" />
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerMaster"
+									model="${model}" sclass="selectWidth" mold="select"
+									forward="onAfterRender=self.onLastInputRender">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_MSTR_ID}${each.BLLR_CODE}" value="${each}"
+											if="${each.BLLR_MSTR_ID==null}" />
+										<listitem
+											label="${each.BLLR_MSTR_ID}:${each.BLLR_CODE}"
+											value="${each}" if="${each.BLLR_MSTR_ID!=null}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<label value=" " />
+
+						</row>
+						<row style="text-align:center;">
+							<hlayout>
+								<label value="  " />
+							</hlayout>
+							<hlayout style="text-align:right;">
+								<label value="Status" />
+							</hlayout>
+							<label value=":" />
+							<hlayout style="text-align:left;">
+								<listbox id="lbStatus"
+									sclass="selectWidth" mold="select">
+									<listitem
+										label="${labels.SELECTBOX_ALL}" value="" selected="true" />
+									<listitem label="Active" value="A" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<label value=" " />
+						</row>
+						<row spans="5" style="text-align:center;">
+							<hlayout height="30px">
+								<button id="btSearch" label="Search"
+									mold="trendy" />
+								<button id="btCreate" label="Create"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</hbox>
+		</hlayout>
+		<!-- Space  -->
+		<separator height="20px" />
+		<!-- Result container -->
+		<hlayout vflex="min" sclass="hlayoutGridResult"
+			style="overflow-x:auto;min-height:465px;">
+			<!-- VBox Result container -->
+			<vbox vflex="min" align="left">
+				<!-- Paging Top -->
+				<paging id="pagingTop" width="${gdResult.width}"
+					detailed="true" />
+				<!-- Grid Result -->
+				<grid id="gdResult" height="360px" mold="paging"
+					emptyMessage="Data not found" width="1200px">
+					<columns visible="true" sizable="true">
+						<column width="5%">No.</column>
+						<column width="7%">
+							ERP
+							<h:br />
+							Supplier
+							<h:br />
+							Code
+						</column>
+						<column width="15%">
+							ERP Supplier Name
+						</column>
+						<column width="15%">
+							ERP Supplier Name Thai
+						</column>
+						<column width="7%">
+							Biller
+							<h:br />
+							Code
+						</column>
+						<column width="10%">Tax ID.</column>
+						<column width="10%">
+							Secondary Tax ID.
+						</column>
+						<column width="7%">
+							Company
+							<h:br />
+							Code
+						</column>
+						<column width="7%">Status</column>
+						<column width="7%">
+							Update
+							<h:br />
+							By
+						</column>
+						<column width="10%">
+							Update
+							<h:br />
+							Date
+						</column>
+					</columns>
+					<rows>
+						<template name="model">
+							<row value="${each.billerId}"
+								forward="onClick=gdResult.onEdit" style="cursor:pointer">
+								<hlayout sclass="center">
+									<label>
+										${forEachStatus.index+1}
+									</label>
+								</hlayout>
+								<hlayout sclass="right">
+									<label value="${each.billerId}" />
+								</hlayout>
+								<hlayout sclass="left">
+									<label>${each.billerNameEn}</label>
+								</hlayout>
+								<hlayout sclass="left">
+									<label>${each.billerNameTh}</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>${each.billerCode}</label>
+								</hlayout>
+								<hlayout sclass="right">
+									<label>${each.taxId}</label>
+								</hlayout>
+								<hlayout sclass="right">
+									<label>${each.secondaryTaxId}</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>${each.companyCode}</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<zk switch="${each.activeFlag}">
+										<zk case="A">
+											<label>Active</label>
+										</zk>
+										<zk case="I">
+											<label>Inactive</label>
+										</zk>
+										<zk>
+											<label></label>
+										</zk>
+									</zk>
+								</hlayout>
+								<label>${each.updateBy}</label>
+								<hlayout>
+									<label
+										value='${c:formatDate(each.updateDate," yyyy-MM-dd HH:mm:ss ")}'
+										if="${each.updateDate!=null}" />
+									<label value=""
+										if="${each.updateDate==null}" />
+								</hlayout>
+							</row>
+						</template>
+					</rows>
+				</grid>
+				<!-- Paging -->
+				<paging id="paging" width="${gdResult.width}"
+					detailed="true" />
+				<separator height="15px" />
+			</vbox>
+		</hlayout>
+		<separator height="20px" />
+	</vlayout>
+</zk>

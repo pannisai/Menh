@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="barcode"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JPOS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AXIS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk160_29">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-codec-1.3.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-fileupload-1.3.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-io-2.4.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-lang3-3.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/commons-logging-1.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/javaee-api-6.0.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/jaxws-api.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/joda-time-2.2.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/log4j-1.2.8.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/xstream-1.3.1.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/jaxb-api.jar"/>
+	<classpathentry kind="var" path="WORKSPACE/Lib/COMMON/jaxb-impl-2.2.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

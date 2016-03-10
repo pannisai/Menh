@@ -1,0 +1,367 @@
+<?page id="pBw1100" title="MT Transaction Inquiry" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
+	<vlayout hflex="1" vflex="1"
+		apply="com.dtac.billerweb.controller.MTTransactionInquiryController">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.KTB_INQUIRY_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<!-- Search container -->
+		<hlayout width="100%" sclass="hlayoutGridSearch" valign="top"
+			style="min-height:130px">
+			<!-- Hbox Search container -->
+			<hbox width="98%" sclass="hboxGridSearch">
+				<!-- Grid Search container -->
+				<grid width="100%" sclass="searchGrid">
+					<columns visible="false">
+						<column width="3%">Blank</column>
+						<column width="18%">a</column>
+						<column width="2%">:</column>
+						<column width="30%">C</column>
+						<column width="2%">Blank</column>
+						<column width="16%">D</column>
+						<column width="2%">:</column>
+						<column width="24%">E</column>
+						<column width="3%">Blank</column>
+					</columns>
+					<rows>
+
+						<row>
+							<!-- From Date -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:right;">
+								<label value="วันที่"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="fromDate" width="125px"
+									readonly="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- To Date -->
+							<hlayout style="text-align:right;">
+								<label value="ถึง"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="toDate" width="125px"
+									readonly="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row>
+							<!-- transactionType -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:right;">
+								<label id="lb1"
+									sclass="editLabel"  pre="true"/>
+									 <zscript><![CDATA[
+								            lb1.value = "Transaction Type \n (ประเภทบริการ)";
+								        ]]></zscript>
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="transactionType"
+									model="${model}" sclass="selectWidth" width="255px" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.displayLabel}" value="${each.value}"
+											if="${each.displayLabel==null or each.displayLabel==-1}" />
+										<listitem
+											label="${each.displayLabel}"
+											value="${each.value}"
+											if="${each.displayLabel!=null and each.displayLabel!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							
+						</row>
+
+						<row>
+							<!-- Transaction ID -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:right;">
+								<label value="FS Transaction ID"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="fundamoTransactionRef"
+									sclass="textWidth" maxlength="45" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+
+							<!-- Transaction Status -->
+							<hlayout style="text-align:right;">
+								<label value="Bank Transaction ID"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="bankTransactionRef"
+									sclass="textWidth" maxlength="45" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row spans="9" style="text-align:center;">
+							<hlayout height="30px">
+								<button id="btSearch" label="Search"
+									mold="trendy" />
+								<button id="btReset" label="Reset"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</hbox>
+		</hlayout>
+		<!-- Space  -->
+		<separator height="5px" />
+
+		<hlayout vflex="min" sclass="hlayoutGridResult"
+				style="overflow-x:auto;min-height:440px;">
+			<!-- VBox Result container -->
+			<vbox vflex="min" align="left">
+				<!-- Paging Top -->
+				<paging id="pagingTop" width="${gdResult.width}"
+					detailed="true" />
+				<!-- Grid Result -->
+				<grid id="gdResult" height="335px" mold="paging"
+					emptyMessage="Data not found" width="2700px">
+					<columns visible="true" sizable="true">
+						<column width="4%">
+							วันที่ทํารายการ
+						</column>
+						<column width="4%">
+							เวลาที่ทํารายการ
+						</column>
+						<column width="4%">
+							Transaction ID
+						</column>
+						<column width="4%">
+							Ref.
+							<h:br />
+							Transaction ID
+						</column>
+						<column width="3%">
+							Reversal ID
+						</column>
+						<column width="4%">
+							Bank
+							<h:br />
+							Transaction ID
+							<h:br />
+							(Paid Number)
+						</column>
+						<column width="12%">
+							ประเภทบริการ
+						</column>
+						<column width="7%">
+							ประเภทผู้ทำรายการ
+						</column>
+						<column width="3%">
+							Partner Code
+						</column>
+						<column width="3%">
+							จำนวนเงิน
+						</column>
+						<column width="5%">
+							Expiration
+							<h:br />
+							Date and Time
+						</column>
+						<column width="7%">
+							FS Status
+						</column>
+						<column width="7%">
+							Bank Status
+						</column>
+						<column width="5%">
+							ธนาคารที่ทำรายการ
+						</column>
+						<column width="4%">
+							หมายเลข
+							<h:br />
+							โทรศัพท์
+							<h:br />
+							ผู้ส่งเงิน
+						</column>
+						<column width="5%">
+							หมายเลข
+							<h:br />
+							บัตรประชาชน
+							<h:br />
+							ผู้ส่งเงิน
+						</column>
+						<column width="4%">
+							หมายเลข
+							<h:br />
+							โทรศัพท์
+							<h:br />
+							ผู้รับเงิน
+						</column>
+						<column width="5%">
+							หมายเลขบัตร
+							<h:br />
+							ประชาชนผู้รับ
+							<h:br />
+							เงิน
+						</column>
+						<column width="5%">
+							เลขที่บัญชีปลายทาง
+						</column>
+						<column width="5%">
+							Resend Code
+						</column>
+					</columns>
+					<rows>
+						<template name="model">
+							<row value="${each.fundamoTransactionId}"
+								 style="cursor:pointer">
+								<hlayout sclass="center">
+									<label
+										value="${each.displayDate}" />
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.displayTime}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.fundamoTransactionId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.refFundamoTransactionId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.reversedTransactionId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.bankTransactionId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.featureName}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.productName}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.partnerCode}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.transactionAmount}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.displayExpiryDateTime}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.fundamoStatus}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.bankStatus}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.bankName}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.senderMsisdn}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.senderCitizenId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.receiverMsisdn}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.receiverCitizenId}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+									<label>
+										${each.receiverBankAccountNumber}
+									</label>
+								</hlayout>
+								<hlayout sclass="center">
+										<button id="btResendCode_${each.fundamoTransactionId}" 
+										label="Resend Code" if="${each.showResendCodeButton==true or each.showResendCodeButton}"
+										use="com.dtac.billerweb.form.ResendCodeButton" />
+										<label if="${each.showResendCodeButton==false or !each.showResendCodeButton}">
+										-
+										</label>
+								</hlayout>
+							</row>
+						</template>
+					</rows>
+				</grid>
+				<!-- Paging -->
+				<paging id="paging" width="${gdResult.width}"
+					detailed="true" /> 
+			</vbox>
+		</hlayout>
+		<separator height="0px" />
+	</vlayout>
+</zk>

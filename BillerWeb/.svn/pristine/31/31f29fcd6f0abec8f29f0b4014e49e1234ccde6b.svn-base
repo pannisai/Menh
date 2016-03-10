@@ -1,0 +1,279 @@
+<?page id="pBw1450" title="EDIT Biller Service / Popup Barcode" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	<vlayout hflex="1" vflex="min" style="min-height:200px"
+		apply="com.dtac.billerweb.controller.BW1450Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW1450_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="98%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="1%">Blank</column>
+						<column width="18%">a</column>
+						<column width="2%">:</column>
+						<column width="28%">C</column>
+						<column width="2%">Blank</column>
+						<column width="18%">D</column>
+						<column width="2%">:</column>
+						<column width="28%">E</column>
+						<column width="1%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Input ID. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Input ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intInputId"
+									sclass="textWidthEditM" maxlength="9" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Input Name. -->
+							<hlayout style="text-align:left;">
+								<label value="Input Name."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txInputName"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Label Thai -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Label Thai"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txLabelTH"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Label English -->
+							<hlayout style="text-align:left;">
+								<label value="Label English"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txLabelEng"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Barcode Ref ID. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Barcode Ref ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intBarcodeRefId"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Barcode Line ID.-->
+							<hlayout style="text-align:left;">
+								<label value="Barcode Line ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intBarcodeLineId"
+									sclass="textWidthEditM" maxlength="9" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Barcode Type -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lBarcodeType"
+									value="Barcode Type" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBarcodeType"
+									mold="select" sclass="selectWidthEditM">
+									<template name="model">
+										<listitem
+											label="${each.BARC_NAME}" value="${each}"
+											if="${each.BARC_ID==null or each.BARC_ID==-1}" />
+										<listitem
+											label="${each.BARC_ID}:${each.BARC_NAME}" value="${each}"
+											if="${each.BARC_ID!=null and each.BARC_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Partial Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Partial Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdPartialFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Remove Character -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Remove Character"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txRemoveChar"
+									sclass="textWidthEditM" maxlength="1" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Partial Start-->
+							<hlayout style="text-align:left;">
+								<label value="Partial Start"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<spinner id="spPartialStart"
+									width="185px"
+									constraint="no negative,min 0 max 9999: Input between 0 to 9999"
+									maxlength="4" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<!-- Status -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Status"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag" mold="select"
+									sclass="selectWidthEditM">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Partial Length-->
+							<hlayout style="text-align:left;">
+								<label value="Partial Length"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<spinner id="spPartialLength"
+									width="185px"
+									constraint="no negative,min 0 max 9999: Input between 0 to 9999"
+									maxlength="4" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="9" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy" />
+								<button id="btReset" label="Reset"
+									mold="trendy" />
+								<button id="btCancel" label="Cancel"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

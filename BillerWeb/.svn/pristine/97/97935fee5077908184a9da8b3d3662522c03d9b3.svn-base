@@ -1,0 +1,514 @@
+<?page id="pBw1440" title="EDIT Biller Service / Popup Input" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	<vlayout hflex="1" vflex="1" style="min-height:200px"
+		apply="com.dtac.billerweb.controller.BW1440Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW1440_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="98%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="1%">Blank</column>
+						<column width="18%">a</column>
+						<column width="2%">:</column>
+						<column width="28%">C</column>
+						<column width="2%">Blank</column>
+						<column width="18%">D</column>
+						<column width="2%">:</column>
+						<column width="28%">E</column>
+						<column width="1%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Form ID. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Form ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intFormId"
+									sclass="textWidthEditM" maxlength="9" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Form Name. -->
+							<hlayout style="text-align:left;">
+								<label value="Form Name."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txFormName"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Input ID. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Input ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intInputId"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Input Seq. ID. -->
+							<hlayout style="text-align:left;">
+								<label value="Input Seq. ID."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intInputSeqId"
+									sclass="textWidthEditM" maxlength="9" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Label Thai -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Label Thai"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txLabelTH"
+									sclass="textWidthEditM" maxlength="100" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Label English-->
+							<hlayout style="text-align:left;">
+								<label value="Label English"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txLabelEng"
+									sclass="textWidthEditM" maxlength="100" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Input Type -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Input Type"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbInputType" mold="select"
+									sclass="selectWidthEditM">
+									<listitem label="add.ref1"
+										value="add.ref1" selected="true" />
+									<listitem label="add.ref2"
+										value="add.ref2" />
+									<listitem label="add.ref3"
+										value="add.ref3" />
+									<listitem label="add.ref4"
+										value="add.ref4" />
+									<listitem label="add.ref5"
+										value="add.ref5" />
+									<listitem label="add.ref6"
+										value="add.ref6" />
+									<listitem label="add.amount"
+										value="add.amount" />
+									<listitem label="ext.field1"
+										value="ext.field1" />
+									<listitem label="ext.field2"
+										value="ext.field2" />
+									<listitem label="ext.field3"
+										value="ext.field3" />
+									<listitem label="ext.field4"
+									value="ext.field4" />
+									<listitem label="ext.field5"
+									value="ext.field5" />
+									<listitem label="barcode"
+									value="barcode" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Primary Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Primary Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdPrimaryFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Data Type-->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Data Type"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbDataType"
+									sclass="selectWidthEditM" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BILL_REF_DATA_TYPE_NAME}" value="${each}" />
+									</template>
+								</listbox>
+								<!-- <listbox id="lbDataType" mold="select"
+									sclass="selectWidthEditM">
+									<listitem label="String"
+									value="String" selected="true" />
+									<listitem label="Currentcy"
+									value="Currentcy" />
+									<listitem label="DueDate"
+									value="DueDate" />
+									<listitem label="BuddhaDate"
+									value="BuddhaDate" />
+									<listitem label="ChirstDate"
+									value="ChirstDate" />
+									</listbox>-->
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Duplication Flag-->
+							<hlayout style="text-align:left;">
+								<label value="Duplication Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdDuplicationFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+
+						<!-- Data Format -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Data Format"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txDataFormat"
+									sclass="textWidthEditM" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Minimum Length-->
+							<hlayout style="text-align:left;">
+								<label value="Minimum Length"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<spinner id="spMinLength" width="185px"
+									constraint="no negative,min 0 max 9999: Input between 0 to 9999"
+									maxlength="4" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Status -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Status"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbActiveFlag" mold="select"
+									sclass="selectWidthEditM">
+									<listitem label="Active" value="A"
+										selected="true" />
+									<listitem label="Inactive"
+										value="I" />
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Maximum Length-->
+							<hlayout style="text-align:left;">
+								<label value="Maximum Length"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<spinner id="spMaxLength" width="185px"
+									constraint="no negative,max 9999: Input between 0 to 9999"
+									maxlength="4" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>					
+						<row>
+							<!-- Hidden Flag -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Hidden Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdHiddenFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Allow Key-in Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Allow Key-in Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdAllowKeyInFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row>
+							<!-- Blinding Format-->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Blinding Format"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txBlindingFormat"
+									sclass="textWidthEditM" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Search Flag -->
+							<hlayout style="text-align:left;">
+								<label value="Search Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdSearchFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row>
+							<!-- Enable Default Value Flag -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Enable Default Value Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdEnableDefaultValueFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>							
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Default Blank Value -->
+							<hlayout style="text-align:left;">
+								<label value="Default Blank Value"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txDefaultblankvalue"
+									sclass="textWidthEditM" maxlength="50" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row>
+							<!-- SMS Flag -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="SMS Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdSmsFlag">
+									<radio label="Yes" value="Y" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N"
+										selected="true" />
+								</radiogroup>
+							</hlayout>							
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="9" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy" />
+								<button id="btReset" label="Reset"
+									mold="trendy" />
+								<button id="btCancel" label="Cancel"
+									mold="trendy" />
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

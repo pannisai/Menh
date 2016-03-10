@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+externalMigrateFromAuthorizationDatabase/isMigrated=true
+migrateFromAuthorizationDatabase/isMigrated=true
+repositories/0087c6c29ee600151268e8b67f19f1ef=0087c6c29ee600151268e8b67f19f1ef;https\://10.64.119.199/svn/BILLERGW;https\://10.64.119.199/svn/BILLERGW;branches;tags;trunk;true;4cf3d5f0-0fa5-6b4d-8121-f09d932bcc65;https\://10.64.119.199/svn/BILLERGW;;false;;;0
+repositories/10e08ec39ee600151268e8b67f19f1ef=10e08ec39ee600151268e8b67f19f1ef;https\://10.64.119.199/svn/BILLERBO;https\://10.64.119.199/svn/BILLERBO;branches;tags;trunk;true;4e70e8a1-261e-9c4a-965f-bc63ded87068;https\://10.64.119.199/svn/BILLERBO;;false;;;0

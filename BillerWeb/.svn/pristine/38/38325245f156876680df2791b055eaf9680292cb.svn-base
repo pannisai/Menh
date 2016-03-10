@@ -1,0 +1,14 @@
+<?page title="${labels.BW2110_EDIT_TITLE}" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<zscript>
+	public void getDialogTitle(Window w, Include i) {
+		w.setTitle(((Label) i.getFellow("title")).getValue());
+	}
+</zscript>
+	<window id="bw2110Dialog"
+		onCreate="getDialogTitle(self,bw2110DialogInclude)" border="normal"
+		width="95%" height="550px" position="center,center" closable="true"
+		action="show: slideDown;hide: slideUp">
+		<include id="bw2110DialogInclude" dialog="true" />
+	</window>
+</zk>

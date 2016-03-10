@@ -1,0 +1,447 @@
+<?page id="pBw1411" title="Information" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	<vlayout hflex="1" vflex="1" style="min-height:200px"
+		apply="com.dtac.billerweb.controller.BW1411Controller">
+		<!-- Page title -->
+		<label id="bw1411Title" value="${labels.BW1411_NEW_TITLE}"
+			visible="false" />
+		<hlayout style="text-align:center;" vflex="1">
+			<vbox width="99%" vflex="1" align="center"
+				sclass="vboxEdit">
+				<grid vflex="1" sclass="editGrid">
+					<columns visible="false">
+						<column width="1%">Blank</column>
+						<column width="20%">a</column>
+						<column width="2%">:</column>
+						<column width="26%">C</column>
+						<column width="2%">Blank</column>
+						<column width="23%">D</column>
+						<column width="2%">:</column>
+						<column width="23%">E</column>
+						<column width="1%">Blank</column>
+					</columns>
+					<rows>
+						<!-- Biller Service ID -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Biller Service ID"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<intbox id="intBillerServiceId"
+									sclass="textWidthEditM" disabled="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Biller Category ID -->
+							<hlayout style="text-align:left;">
+								<label id="lBillerCategoryId"
+									value="Biller Category ID" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerCategoryId"
+									sclass="selectWidthEditM" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_CATG_NAME}" value="${each}"
+											if="${each.BLLR_CATG_ID==null or each.BLLR_CATG_ID==-1}" />
+										<listitem
+											label="${each.BLLR_CATG_ID}:${each.BLLR_CATG_NAME}"
+											value="${each}"
+											if="${each.BLLR_CATG_ID!=null and each.BLLR_CATG_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Biller Short Code -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lServiceCode" value="Biller Short Code"
+									sclass="editLabel" />
+									<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txServiceCode"
+									sclass="textWidthEditM" maxlength="5" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- ERP Supplier Code -->
+							<hlayout style="text-align:left;">
+								<label id="lBillerMasterId"
+									value="ERP Supplier Code" sclass="editLabel" />
+								<label value="*" sclass="required" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbBillerMasterId"
+									sclass="selectWidthEditM" model="${model}" mold="select">
+									<template name="model">
+										<listitem
+											label="${each.BLLR_CODE}" value="${each}"
+											if="${each.BLLR_MSTR_ID==null or each.BLLR_MSTR_ID==-1}" />
+										<listitem
+											label="${each.BLLR_MSTR_ID}:${each.BLLR_CODE}"
+											value="${each}"
+											if="${each.BLLR_MSTR_ID!=null and each.BLLR_MSTR_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Feature -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label id="lFeature" value="Feature"
+									sclass="editLabel" />
+									
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txFeature"
+									sclass="textWidthEditM" maxlength="10" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Integration -->
+							<hlayout style="text-align:left;">
+								<label id="lIntregration"
+									value="Integration" sclass="editLabel" />								
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<listbox id="lbIntegration"
+									sclass="selectWidthEditM" model="${model}" mold="select">
+									 <template name="model">
+										<listitem
+											label="${each.BLLR_INGT_NAME}" value="${each}"
+											if="${each.BLLR_INGT_ID==null or each.BLLR_INGT_ID==-1}" />
+										<listitem
+											label="${each.BLLR_INGT_ID}:${each.BLLR_INGT_NAME}"
+											value="${each}"
+											if="${each.BLLR_INGT_ID!=null and each.BLLR_INGT_ID!=-1}" />
+									</template>
+								</listbox>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Service Name Eng. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Service Name Eng."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txServiceNameEng"
+									sclass="textWidthEditM" maxlength="25" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Service Full Name Eng. -->
+							<hlayout style="text-align:left;">
+								<label value="Service Full Name Eng."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txServiceFullNameEng"
+									sclass="textWidthEditM" maxlength="250" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Service Name Thai -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Service Name Thai"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txServiceNameThai"
+									sclass="textWidthEditM" maxlength="25" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Service Full Name Thai -->
+							<hlayout style="text-align:left;">
+								<label value="Service Full Name Thai"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<textbox id="txServiceFullNameThai"
+									sclass="textWidthEditM" maxlength="250" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Service Active Date -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Service Active Date"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbActiveDate"
+									sclass="textWidthEditM" width="185px" readonly="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Service Expire Date -->
+							<hlayout style="text-align:left;">
+								<label value="Service Expire Date"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<datebox id="dbExpireDate"
+									sclass="textWidthEditM" width="185px" readonly="true" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Service Menu Seq. -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Service Menu Seq."
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+							<spinner id="spMenuSeq"  width="185px"
+									constraint="no negative,min 0 max 9999: Input between 0 to 9999"  maxlength="4"/>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Request Guest Mobile No. Flag -->
+							<hlayout style="text-align:left;">
+								<label
+									value="Request Guest Mobile No. Flag" sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup
+									id="rdReqGuestMobileNoFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!-- Scan Barcode Flag -->
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Scan Barcode Flag"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdScanBarcodeFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Vat Rate%-->
+							<hlayout style="text-align:left;">
+								<label value="Vat Rate%"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<doublespinner id="dspVat" step="0.5"
+									format="#,##0.##" width="185px"
+									constraint="no negative,min 0.0 max 100.0: Input between 0.00 to 100.00" maxlength="5"/>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						
+						<row>
+							<!-- Online Cancel -->
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="Online Cancel"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<radiogroup id="rdOnlineCancelFlag">
+									<radio label="Yes" value="Y"
+										selected="true" />
+									<separator orient="vertical"
+										width="20px" />
+									<radio label="No" value="N" />
+								</radiogroup>
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<!-- Biller Feature -->
+							<hlayout style="text-align:left;">
+								<label value="Feature"
+									sclass="editLabel" />
+							</hlayout>
+							<hlayout style="text-align:center;">
+								<label sclass="editLabel">:</label>
+							</hlayout>
+							<vlayout style="text-align:left;">
+								<intbox id="intBillerFeature" sclass="textWidthEditM" readonly="true"  />
+							</vlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<row>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+							<vlayout style="text-align:left;">
+								<checkbox id="cOffInq" label="1 : Offline Inquiry" /><separator height="0" />
+								<checkbox id="cOffPay" label="2 : Offline Payment" /><separator height="0" />
+								<checkbox id="cOnInq" label="4 : Online Inquiry" /><separator height="0" />
+       							<checkbox id="cOnPay" label="8 : Online Payment" /><separator height="0" />
+       							<checkbox id="cAdvRec" label="16 : Advance Receipt" />     							
+							</vlayout>
+							<hlayout style="text-align:left;">
+								<label value="" />
+							</hlayout>
+						</row>
+						<!--button-->
+						<row spans="9" style="text-align:center;">
+							<hlayout>
+								<button id="btSave" label="Save"
+									mold="trendy">
+								</button>
+								<button id="btReset" label="Reset"
+									mold="trendy">
+								</button>
+								<button id="btCancel" label="Cancel"
+									mold="trendy">
+								</button>
+								<button id="btNext" label="Next"
+									mold="trendy">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</hlayout>
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>

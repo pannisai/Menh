@@ -1,0 +1,48 @@
+<?page id="pBw1410" title="Edit Biller  Service" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+	<vlayout id="bw1410" hflex="1" vflex="1" style="min-height:200px"
+		apply="com.dtac.billerweb.controller.BW1410Controller">
+		<!-- Title -->
+		<hlayout style="text-align:center">
+			<label id="title" value="${labels.BW1411_NEW_TITLE}"
+				sclass="pageTitle" />
+		</hlayout>
+
+		<tabbox id="tbMain" height="600px" width="100%">
+			<tabs id="tabMain">
+				<tab id="tabPaymentInfo" label="Information" />
+				<tab id="tabPaymentValidate" label="Payment Validate" />
+				<tab id="tabPaymentChannel" label="Payment Channel" />
+				<tab id="tabInputForm" label="Input Form" />
+				<tab id="tabBarcode" label="Barcode" />
+				<tab id="tabImage" label="Image" />
+			</tabs>
+			<tabpanels>
+				<zscript>
+	String oid = Executions.getCurrent().getParameter("oid");
+</zscript>
+				<tabpanel>
+					<include src="bw1411.zul?oid=${oid}" />
+				</tabpanel>
+				<tabpanel>
+					<include id="incPaymentValidate" />
+				</tabpanel>
+				<tabpanel>
+					<include id="incPaymentChannel" />
+				</tabpanel>
+				<tabpanel>
+					<include id="incInputForm" />
+				</tabpanel>
+				<tabpanel>
+					<include id="incBarcode" />
+				</tabpanel>
+				<tabpanel>
+					<include id="incImage" />
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+		<hlayout height="20px"></hlayout>
+	</vlayout>
+</zk>
