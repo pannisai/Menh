@@ -1,0 +1,39 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<style src="/appcss/app.css?version=2.7" />
+	<style>
+		.header{
+
+		} .footer{ background-color:green; bottom:0; position:absolute;
+		} 
+		.centerContent{
+			min-height:500px;
+		}
+	
+	</style>
+
+	<!-- load problem when use css class -->
+	<div id="main"
+		style="width:100%;background-color:#C3C3C3;z-index: -20;">
+		<div id="wrapper"
+			style="width: 97%;margin: 0 auto;alignment-adjust: central;height: 100%;min-height:850px;background-color:#C3C3C3;">
+			<borderlayout width="100%" vflex="min"
+				style="margin: 0 auto;alignment-adjust: central;">
+				<north height="150px" minsize="150" hflex="1"
+					splittable="false" collapsible="false" border="solid"
+					sclass="header" self="@insert(header)">
+						<include src="/WEB-INF/template/include/header.zul" />
+				</north>
+				<center id="mainContent"  autoscroll="false"
+					border="none" flex="true" vflex="min" 
+					self="@insert(content)" sclass="centerContent">
+				</center>
+
+				<south size="10%" minsize="100" collapsible="true"
+					border="none" sclass="footer">
+				</south>
+			</borderlayout>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,5 @@
+<?page title="Backoffice"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/WEB-INF/template/template.zul"?>
+<zk>
+	  <include id="mainContentTemplet" self="@define(content)" src="/page/bw1100.zul" /> 
+</zk>

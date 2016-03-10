@@ -1,0 +1,1 @@
+<label forEach="${arg.items}" value="${each}" />
