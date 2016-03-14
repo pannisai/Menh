@@ -13,6 +13,35 @@
         <class>mfs.biller.persistence.bean.GWMasterTrans</class>
         <class>mfs.biller.persistence.bean.BatchMastFile</class>
         <class>mfs.biller.persistence.bean.BillerCategory</class>
+        
+        <class>mfs.biller.persistence.bean.BillerMaster</class>
+        <class>mfs.biller.persistence.bean.BillerChannel</class>
+        <class>mfs.biller.persistence.bean.DropdownlistBillMSRT</class>
+        <class>mfs.biller.persistence.bean.BillerForm</class>
+        <class>mfs.biller.persistence.bean.BillerIntegration</class>
+       	<class>mfs.biller.persistence.bean.BillerPaymentValidate</class>
+       	<class>mfs.biller.persistence.bean.BillerServiceChannel</class>
+       	<class>mfs.biller.persistence.bean.BillerRef</class>
+       	<class>mfs.biller.persistence.bean.BillerServiceImage</class>
+       	<class>mfs.biller.persistence.bean.BillerRefDataType</class>
+       	<class>mfs.biller.persistence.bean.BillerBarcodeRef</class>
+       	<class>mfs.biller.persistence.bean.BillerBarcode</class>
+       	<class>mfs.biller.persistence.bean.BillerDenominate</class>
+       	<class>mfs.biller.persistence.bean.BillerFee</class>
+       	<class>mfs.biller.persistence.bean.BillerFeeMast</class>
+       	<class>mfs.biller.persistence.bean.INBOUNDMAPID</class>
+       	<class>mfs.biller.persistence.bean.MFSServiceId</class>
+       	<class>mfs.biller.persistence.bean.OBJGW_INBOUND</class>
+       	<class>mfs.biller.persistence.bean.SendReceipt</class>
+       	<class>mfs.biller.persistence.bean.SendReceiptId</class>
+       	<class>mfs.biller.persistence.bean.GWXmlDataSrcBean</class>
+       	<class>mfs.biller.persistence.bean.GWService</class>
+       	<class>mfs.biller.persistence.bean.GWServiceMap</class>
+       	<class>mfs.biller.persistence.bean.OutboundId</class>
+       	<class>mfs.biller.persistence.bean.GWOutbound</class>
+       	<class>mfs.biller.persistence.bean.GWOutboundMap</class>
+       	<class>mfs.biller.persistence.bean.BillerFdmCode</class>
+       	<class>mfs.biller.persistence.bean.BillerPymtCode</class>
 		<properties>
 			<property name="javax.persistence.jtaDataSource" value="java:/biller/db" />
 		</properties>
