@@ -20,6 +20,7 @@ import mfs.biller.persistence.bean.BillerServiceDetail;
 import mfs.biller.persistence.bean.BillerServiceImage;
 import mfs.biller.persistence.bean.BillerServiceParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 import mfs.exception.NotFoundDataException;
 
@@ -64,7 +65,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		List<BillerServiceDetail> billerServiceDetails = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			// condition.setPAGE_NO(currentPage);
 			// condition.setPAGE_SIZE(pageSize);
 			billerServiceDetails = billerServiceBeanRemote.searchBillerService(condition, userInfo);
@@ -107,7 +108,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerService billerService = new BillerService();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerService = billerServiceBeanRemote.findBillerService(id, userInfo);
 		} catch (NotFoundDataException nfde) {
 			throw nfde;
@@ -127,7 +128,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.insertInformation(billerService, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -146,7 +147,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerServiceInfo(BillerService billerervice, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerService(billerervice, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -162,7 +163,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerPaymentValidate billerPaymentVal = new BillerPaymentValidate();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerPaymentVal = billerServiceBeanRemote.findBillerPaymentValidate(id, userInfo);
 
 		} catch (NotFoundDataException nfde) {
@@ -183,7 +184,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.insertBillerPaymentValidate(billerPaymentVal, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -202,7 +203,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerPaymentValidate(BillerPaymentValidate billerPaymentVal, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerPaymentValidate(billerPaymentVal, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -218,7 +219,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerServiceChannel billerServiceChannel = new BillerServiceChannel();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceChannel = billerServiceBeanRemote.findBillerServiceChannel(serviceId, id, userInfo);
 
 		} catch (Exception ex) {
@@ -236,7 +237,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void saveBillerServiceChannel(BillerServiceChannel billerServiceChannel, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.insertBillerServiceChannel(billerServiceChannel, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -251,7 +252,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerServiceChannel(BillerServiceChannel billerServiceChannel, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerServiceChannel(billerServiceChannel, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -286,7 +287,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		List<BillerServiceChannel> billerServiceChannels = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceChannels = billerServiceBeanRemote.searchBillerServiceChannel(billerServiceId, userInfo);
 			if (AppUtil.isEmpty(billerServiceChannels)) {
 				billerServiceChannels = new ArrayList<BillerServiceChannel>();
@@ -348,7 +349,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		List<BillerRef> billerRefs = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerRefs = billerServiceBeanRemote.searchBillerRef(billerRefParam, userInfo);
 			if (AppUtil.isEmpty(billerRefs)) {
 				billerRefs = new ArrayList<BillerRef>();
@@ -389,7 +390,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerForm billerForm = new BillerForm();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerForm = billerServiceBeanRemote.findBillerFormBySrvcId(serviceId, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerForm();
@@ -409,7 +410,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.insertBillerForm(billerForm, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -428,7 +429,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerForm(BillerForm billerForm, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerForm(billerForm, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -444,7 +445,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerForm billerForm = new BillerForm();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerForm = billerServiceBeanRemote.findBillerForm(id, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerForm();
@@ -464,7 +465,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerRef billerRef = new BillerRef();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerRef = billerServiceBeanRemote.findBillerRef(id, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerRef();
@@ -484,7 +485,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.insertBillerRef(billerRef, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -503,7 +504,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerRef(BillerRef billerRef, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerRef(billerRef, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -522,7 +523,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		List<BillerBarcodeSO> billerBarcodeSOs = new ArrayList<BillerBarcodeSO>();
 		List<BillerBarcode> billerBarcodes = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerBarcodes = billerServiceBeanRemote.searchBillerBarcode(billerServiceId, userInfo);
 			if (billerBarcodes == null) {
 				return billerBarcodeSOs;
@@ -569,7 +570,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		List<BillerBarcodeDetailSO> billerBarcodeDetailSOs = new ArrayList<BillerBarcodeDetailSO>();
 		List<BillerBarcodeDetail> billerBarcodeDetails = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerBarcodeDetails = billerServiceBeanRemote.searchBillerBarcodeDetail(billerServiceId, userInfo);
 			if (billerBarcodeDetails == null) {
 				return billerBarcodeDetailSOs;
@@ -613,7 +614,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerRefDetail billerRefDetail = new BillerRefDetail();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerRefDetail = billerServiceBeanRemote.findBillerRefDetail(refId, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerRefDetail();
@@ -633,7 +634,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerBarcodeRef billerBarcodeRef = new BillerBarcodeRef();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerBarcodeRef = billerServiceBeanRemote.findBillerBarcodeRef(id, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerBarcodeRef();
@@ -653,7 +654,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.insertBillerBarcodeRef(billerBarcodeRef, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -672,7 +673,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerBarcodeRef(BillerBarcodeRef billerBarcodeRef, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerBarcodeRef(billerBarcodeRef, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -692,7 +693,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		List<BillerDenominateSO> billerDenominateSOs = new ArrayList<BillerDenominateSO>();
 		List<BillerDenominate> billerDenominates = null;
 		try {
-			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(BillerDenominateBeanRemote.JNDI_WEBLOGIC);
+			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerDenominateBean);
 			billerDenominates = billerDenominateBeanRemote.searchBillerDenominateAll(serviceId, userInfo);
 			if (billerDenominates == null) {
 				return billerDenominateSOs;
@@ -737,7 +738,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerDenominateBeanRemote billerDenominateBeanRemote = null;
 		BillerDenominate billerDenominate = new BillerDenominate();
 		try {
-			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(BillerDenominateBeanRemote.JNDI_WEBLOGIC);
+			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerDenominateBean);
 			billerDenominate = billerDenominateBeanRemote.findBillerDenominate(id, userInfo);
 		} catch (NotFoundDataException nfd) {
 			return new BillerDenominate();
@@ -758,7 +759,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerDenominateBeanRemote billerDenominateBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(BillerDenominateBeanRemote.JNDI_WEBLOGIC);
+			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerDenominateBean);
 			oid = billerDenominateBeanRemote.insertBillerDenominate(billerDenominate, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -778,7 +779,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		// TODO Auto-generated method stub
 		BillerDenominateBeanRemote billerDenominateBeanRemote = null;
 		try {
-			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(BillerDenominateBeanRemote.JNDI_WEBLOGIC);
+			billerDenominateBeanRemote = (BillerDenominateBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerDenominateBean);
 			billerDenominateBeanRemote.updateBillerDenominate(billerDenominate, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -794,7 +795,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerServiceImage billerServiceImage = new BillerServiceImage();
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceImage = billerServiceBeanRemote.getBillerServiceImage(serviceId+"");
 		} catch (NotFoundDataException nfd) {
 			return new BillerServiceImage();
@@ -814,7 +815,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			oid = billerServiceBeanRemote.saveBillerImage(billerServiceImage, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -833,7 +834,7 @@ public class BillerServiceServiceImpl extends BaseService implements BillerServi
 	public void updateBillerServiceImage(BillerServiceImage billerServiceImage, UserInfoBean userInfo) throws IsExistException {
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			billerServiceBeanRemote.updateBillerServiceImage(billerServiceImage, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

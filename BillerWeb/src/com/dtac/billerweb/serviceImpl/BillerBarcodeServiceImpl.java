@@ -3,12 +3,13 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import mfs.biller.ejb.interfaces.BillerBarcodeBeanRemote;
 import mfs.biller.persistence.bean.BillerBarcode;
 import mfs.biller.persistence.bean.BillerBarcodeParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
+
+import org.apache.log4j.Logger;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
@@ -30,7 +31,7 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 			
 			List<BillerBarcode> list = new ArrayList<BillerBarcode>();
 			
-			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(BillerBarcodeBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			if (objRemote != null) {
 				list = objRemote.getBillerBarcodeAll(user);
 			}
@@ -53,7 +54,7 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 		BillerBarcodeBeanRemote objRemote = null;
 		List<BillerBarcode> billerBarcode = null;
 		try {
-			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(BillerBarcodeBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			billerBarcode = objRemote.searchBillerBarcode(condition, userInfo);
 			
 			if (AppUtil.isEmpty(billerBarcode)) {
@@ -75,7 +76,7 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 		BillerBarcodeBeanRemote objRemote = null;
 		BillerBarcode billerBarcode = null;
 		try {
-			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(BillerBarcodeBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			billerBarcode = objRemote.findBillerBarcode(id.intValue(), userInfo);
 			
 			if (billerBarcode == null) {
@@ -97,7 +98,7 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 		BillerBarcodeBeanRemote objRemote = null;
 		Integer oid=-1;
 		try {
-			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(BillerBarcodeBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			oid = objRemote.insertBillerBarcode(billerBarcode, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -114,7 +115,7 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 	public void update(BillerBarcode billerBarcode, UserInfoBean userInfo) throws Exception{
 		BillerBarcodeBeanRemote objRemote = null;
 		try {
-			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(BillerBarcodeBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			objRemote.updateBillerBarcode(billerBarcode, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

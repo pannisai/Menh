@@ -7,6 +7,7 @@ import mfs.biller.ejb.interfaces.BillerChannelBeanRemote;
 import mfs.biller.persistence.bean.BillerChannel;
 import mfs.biller.persistence.bean.BillerChannelParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -45,7 +46,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 		BillerChannelBeanRemote billerChannelBeanRemote = null;
 		List<BillerChannel> billerChannels = null;
 		try {
-			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);
+			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);
 			// condition.setPAGE_NO(currentPage);
 			// condition.setPAGE_SIZE(pageSize);
 			billerChannels = billerChannelBeanRemote.searchBillerChannel(condition, userInfo);
@@ -88,7 +89,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 		BillerChannelBeanRemote billerChannelBeanRemote = null;
 		BillerChannel billerChannel = new BillerChannel();
 		try {
-			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);
+			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);
 			billerChannel = billerChannelBeanRemote.findBillerChannel(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -106,7 +107,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 		BillerChannelBeanRemote billerChannelBeanRemote = null;
 		Integer oid = -1;
 		try {
-			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);
+			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);
 			billerChannel.setBLLR_CHNL_ID(0);
 			oid = billerChannelBeanRemote.insertBillerChannel(billerChannel, userInfo);
 		} catch (IsExistException iex) {
@@ -127,7 +128,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 	public void update(BillerChannel billerChannel, UserInfoBean userInfo) throws IsExistException {
 		BillerChannelBeanRemote billerChannelBeanRemote = null;		
 		try {
-			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);	
+			billerChannelBeanRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);	
 			billerChannelBeanRemote.updateBillerChannel(billerChannel, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -143,7 +144,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 		BillerChannelBeanRemote objRemote = null;
 		boolean result = false;
 		try {
-			objRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);
 			result = objRemote.isExistBllrChnlName(BLLR_CHNL_ID, BLLR_CHNL_NAME, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -158,7 +159,7 @@ public class BillerChannelServiceImpl extends BaseService implements BillerChann
 		BillerChannelBeanRemote objRemote = null;
 		boolean result = false;
 		try {
-			objRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(BillerChannelBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (BillerChannelBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerChannelBean);
 			result = objRemote.isExistBllrChnlCode(BLLR_CHNL_ID, BLLR_CHNL_CODE, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

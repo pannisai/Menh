@@ -3,20 +3,17 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-import mfs.biller.ejb.interfaces.BankMasterRemote;
 import mfs.biller.ejb.interfaces.BankServiceRemote;
-import mfs.biller.ejb.interfaces.BillerServiceBeanRemote;
-import mfs.biller.persistence.bean.BankMasterBean;
 import mfs.biller.persistence.bean.BankServiceDetail;
 import mfs.biller.persistence.bean.BankServicebean;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
+
+import org.apache.log4j.Logger;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
-import com.dtac.billerweb.data.BankMasterSO;
 import com.dtac.billerweb.data.BankServiceSO;
 import com.dtac.billerweb.exception.ServiceException;
 import com.dtac.billerweb.service.BankServiceService;
@@ -32,7 +29,7 @@ public class BankServiceServiceImpl extends BaseService implements BankServiceSe
 		List<BankServiceSO> bankServiceSOs = null;
 		List<BankServiceDetail> bankServiceDetails = null;
 		try {
-			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(BankServiceRemote.JNDI_WEBLOGIC);
+			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(Constants.JNDI.bankService);
 			bankServiceDetails = bankServiceRemote.searchBankServiceAll(criteria, userInfo);
 			log.info("bankServiceDetails size::" + bankServiceDetails.size());
 
@@ -74,7 +71,7 @@ public class BankServiceServiceImpl extends BaseService implements BankServiceSe
 		BankServiceRemote bankServiceRemote = null;
 		BankServicebean bankServicebean = new BankServicebean();
 		try {
-			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(BankServiceRemote.JNDI_WEBLOGIC);
+			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(Constants.JNDI.bankService);
 			bankServicebean = bankServiceRemote.findBankService(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -93,7 +90,7 @@ public class BankServiceServiceImpl extends BaseService implements BankServiceSe
 		BankServiceRemote bankServiceRemote = null;
 		Integer oid = -1;
 		try {
-			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(BankServiceRemote.JNDI_WEBLOGIC);
+			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(Constants.JNDI.bankService);
 			oid = bankServiceRemote.insertBankService(bankServicebean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -113,7 +110,7 @@ public class BankServiceServiceImpl extends BaseService implements BankServiceSe
 		// TODO Auto-generated method stub
 		BankServiceRemote bankServiceRemote = null;
 		try {
-			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(BankServiceRemote.JNDI_WEBLOGIC);
+			bankServiceRemote = (BankServiceRemote) EJBInitialContext.lookup(Constants.JNDI.bankService);
 			bankServiceRemote.updateBankService(bankServicebean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

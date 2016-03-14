@@ -9,6 +9,7 @@ import mfs.biller.persistence.bean.ReportTransParam;
 import mfs.biller.persistence.bean.BillerPymtCode;
 import mfs.biller.persistence.bean.BillerFdmCode;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 
 import org.apache.log4j.Logger;
 
@@ -33,7 +34,7 @@ public class ReportTransServiceImpl extends BaseService implements ReportTransSe
 			
 			List<BillerFdmCode> list = new ArrayList<BillerFdmCode>();
 			
-			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 			if (objRemote != null) {
 				list = objRemote.getBillerFdmCodeAll(user);
 			}
@@ -60,7 +61,7 @@ public class ReportTransServiceImpl extends BaseService implements ReportTransSe
 			
 			List<BillerPymtCode> list = new ArrayList<BillerPymtCode>();
 			
-			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 			if (objRemote != null) {
 				list = objRemote.getBillerPymtCodeAll(user);
 			}
@@ -86,7 +87,7 @@ public class ReportTransServiceImpl extends BaseService implements ReportTransSe
 			condition.setPAGE_NO(currentPage);
 			condition.setPAGE_SIZE(pageSize);
 			
-			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 			reportTransDetail = objRemote.searchReportTrans(condition, userInfo);
 			
 			if (AppUtil.isEmpty(reportTransDetail)) {
@@ -108,7 +109,7 @@ public class ReportTransServiceImpl extends BaseService implements ReportTransSe
 		RptTransBeanRemote objRemote = null;
 		int rownum = 0;
 		try {
-			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+			objRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 			rownum = objRemote.countRowReportTrans(condition, userInfo);
 			
 			log.info("ReportTrans Total Row::" + rownum);

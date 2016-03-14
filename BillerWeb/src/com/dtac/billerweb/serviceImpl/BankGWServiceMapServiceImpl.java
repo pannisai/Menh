@@ -1,12 +1,12 @@
 package com.dtac.billerweb.serviceImpl;
 
-import org.apache.log4j.Logger;
-
 import mfs.biller.ejb.interfaces.GWBankGWMapBeanRemote;
-import mfs.biller.ejb.interfaces.GWBankInbMapBeanRemote;
 import mfs.biller.persistence.bean.ObjMapGWxml;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
+
+import org.apache.log4j.Logger;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
@@ -22,7 +22,7 @@ public class BankGWServiceMapServiceImpl extends BaseService implements BankGWSe
 		GWBankGWMapBeanRemote gwBankGWMapBeanRemote = null;
 		ObjMapGWxml mapGWxml = new ObjMapGWxml();
 		try {
-			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(GWBankGWMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankGWMapBean);
 			mapGWxml = gwBankGWMapBeanRemote.findGWBankGWMap(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -41,7 +41,7 @@ public class BankGWServiceMapServiceImpl extends BaseService implements BankGWSe
 		GWBankGWMapBeanRemote gwBankGWMapBeanRemote = null;
 		Integer oid;
 		try {
-			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(GWBankGWMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankGWMapBean);
 			oid = gwBankGWMapBeanRemote.insertGWBankGWMap(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -62,7 +62,7 @@ public class BankGWServiceMapServiceImpl extends BaseService implements BankGWSe
 		// TODO Auto-generated method stub
 		GWBankGWMapBeanRemote gwBankGWMapBeanRemote = null;
 		try {
-			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(GWBankGWMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankGWMapBeanRemote = (GWBankGWMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankGWMapBean);
 			gwBankGWMapBeanRemote.updateGWBankGWMap(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

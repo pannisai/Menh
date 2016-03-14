@@ -7,6 +7,7 @@ import java.util.List;
 import mfs.biller.ejb.interfaces.RptTransBeanRemote;
 import mfs.biller.persistence.bean.GWMasterTrans;
 import mfs.biller.persistence.bean.GWMasterTransParam;
+import mfs.constants.Constants;
 
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,7 @@ public class BillerInquiryServiceImpl extends BaseService implements BillerInqui
 	}
 
 	private Collection<GWMasterTrans> searchMasterTrans(GWMasterTransParam condition, int currentPage, int pageSize) throws Exception {
-		RptTransBeanRemote rptTransBeanRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+		RptTransBeanRemote rptTransBeanRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 		condition.setPAGE_NO(currentPage);
 		condition.setPAGE_SIZE(pageSize);
 		Collection<GWMasterTrans> gwMasterTrans = rptTransBeanRemote.getMasterTransAll(condition);
@@ -68,7 +69,7 @@ public class BillerInquiryServiceImpl extends BaseService implements BillerInqui
 		RptTransBeanRemote rptTransBeanRemote = null;
 		Integer rownum = 0;
 		try {
-			rptTransBeanRemote = (RptTransBeanRemote) EJBInitialContext.lookup(RptTransBeanRemote.JNDI_WEBLOGIC);
+			rptTransBeanRemote = (RptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.rptTransBean);
 			try {
 				rownum = rptTransBeanRemote.countRowAll(condition).intValue();
 			} catch (NullPointerException npe) {

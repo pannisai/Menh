@@ -5,6 +5,7 @@ import java.util.List;
 
 import mfs.biller.ejb.interfaces.ImportExcelRemote;
 import mfs.biller.persistence.bean.ImportExcelBean;
+import mfs.constants.Constants;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
@@ -21,7 +22,7 @@ public class ImportExcelServiceImpl extends BaseService implements ImportExcelSe
 		List<ImportExcelBean> list = new ArrayList<ImportExcelBean>();
 		ImportExcelRemote importExcelRemote;
 		try {
-			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(ImportExcelRemote.JNDI_WEBLOGIC);
+			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(Constants.JNDI.importExcel);
 			if (importExcelRemote == null) {
 				return importExcelListModel;
 			}
@@ -43,7 +44,7 @@ public class ImportExcelServiceImpl extends BaseService implements ImportExcelSe
 		ImportExcelRemote importExcelRemote;
 		ImportExcelBean importExcelBean;
 		try {
-			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(ImportExcelRemote.JNDI_WEBLOGIC);
+			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(Constants.JNDI.importExcel);
 			importExcelBean = importExcelRemote.validateImportExcel(tempBean);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -58,7 +59,7 @@ public class ImportExcelServiceImpl extends BaseService implements ImportExcelSe
 		ImportExcelRemote importExcelRemote;
 		ImportExcelBean importExcelBean;
 		try {
-			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(ImportExcelRemote.JNDI_WEBLOGIC);
+			importExcelRemote = (ImportExcelRemote) EJBInitialContext.lookup(Constants.JNDI.importExcel);
 			importExcelBean = importExcelRemote.insertImportExcel(tempBean);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

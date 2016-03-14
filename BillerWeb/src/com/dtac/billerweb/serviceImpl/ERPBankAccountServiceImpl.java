@@ -7,6 +7,7 @@ import mfs.biller.ejb.interfaces.ERPBankAccountBeanRemote;
 import mfs.biller.persistence.bean.ERPBankAccount;
 import mfs.biller.persistence.bean.ERPBankAccountDtail;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -29,7 +30,7 @@ public class ERPBankAccountServiceImpl extends BaseService implements ERPBankAcc
 		List<ERPBankAccountSO> erpBankAccountSOs = null;
 		List<ERPBankAccountDtail> erpBankAccountDtails = null;
 		try {
-			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(ERPBankAccountBeanRemote.JNDI_WEBLOGIC);
+			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(Constants.JNDI.eRPBankAccountBean);
 			erpBankAccountDtails = erpBankAccountBeanRemote.searchERPBankAccount(billerServiceId, accountBankCode, acctiveFlag, userInfo);
 			log.info("erpBankAccountDtails size::" + erpBankAccountDtails.size());
 
@@ -73,7 +74,7 @@ public class ERPBankAccountServiceImpl extends BaseService implements ERPBankAcc
 		ERPBankAccountBeanRemote erpBankAccountBeanRemote = null;
 		ERPBankAccount erpBankAccount = new ERPBankAccount();
 		try {
-			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(ERPBankAccountBeanRemote.JNDI_WEBLOGIC);
+			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(Constants.JNDI.eRPBankAccountBean);
 			erpBankAccount = erpBankAccountBeanRemote.findERPBankAccount(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -92,7 +93,7 @@ public class ERPBankAccountServiceImpl extends BaseService implements ERPBankAcc
 		ERPBankAccountBeanRemote erpBankAccountBeanRemote = null;
 		Integer oid = -1;
 		try {
-			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(ERPBankAccountBeanRemote.JNDI_WEBLOGIC);
+			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(Constants.JNDI.eRPBankAccountBean);
 			oid = erpBankAccountBeanRemote.insertERPBankAccount(erpBankAccount, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -112,7 +113,7 @@ public class ERPBankAccountServiceImpl extends BaseService implements ERPBankAcc
 		// TODO Auto-generated method stub
 		ERPBankAccountBeanRemote erpBankAccountBeanRemote = null;
 		try {
-			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(ERPBankAccountBeanRemote.JNDI_WEBLOGIC);
+			erpBankAccountBeanRemote = (ERPBankAccountBeanRemote) EJBInitialContext.lookup(Constants.JNDI.eRPBankAccountBean);
 			erpBankAccountBeanRemote.updateERPBankAccount(erpBankAccount, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

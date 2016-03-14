@@ -31,6 +31,7 @@ import mfs.biller.persistence.bean.OutboundId;
 import mfs.biller.persistence.bean.SendReceipt;
 import mfs.biller.persistence.bean.SendReceiptId;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.NotFoundDataException;
 
 import org.apache.log4j.Logger;
@@ -107,7 +108,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<BillerMaster> list = new ArrayList<BillerMaster>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 
 			if (dropdownlistRemote == null) {
 				return list;
@@ -163,7 +164,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerServiceListModel billerServiceListModel = new BillerServiceListModel(new ArrayList<DropdownlistBillservice>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return billerServiceListModel;
 			}
@@ -200,7 +201,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<BillerCategory> list = new ArrayList<BillerCategory>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -241,7 +242,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<DropdownlistBillMSRT> list = new ArrayList<DropdownlistBillMSRT>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -281,7 +282,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<OutboundId> list = new ArrayList<OutboundId>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -319,7 +320,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<MFSServiceId> list = new ArrayList<MFSServiceId>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -357,7 +358,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<INBOUNDMAPID> list = new ArrayList<INBOUNDMAPID>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -395,7 +396,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<SendReceiptId> list = new ArrayList<SendReceiptId>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -433,7 +434,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<SendReceipt> list = new ArrayList<SendReceipt>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -470,7 +471,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		BillerChannelListModel billerChannelListModel = new BillerChannelListModel(new ArrayList<BillerChannel>());
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			List<BillerChannel> list = billerServiceBeanRemote.searchBillerChannel(serviceId, userInfo);
 			billerChannelListModel = new BillerChannelListModel(list);
 		} catch (Exception ex) {
@@ -487,7 +488,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<BillerChannel> list = new ArrayList<BillerChannel>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -524,7 +525,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<GWServiceMap> list = new ArrayList<GWServiceMap>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -561,7 +562,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<GWOutboundMap> list = new ArrayList<GWOutboundMap>();
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return list;
 			}
@@ -598,7 +599,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		List<BillerBarcode> list = new ArrayList<BillerBarcode>();
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			if (billerServiceBeanRemote == null) {
 				return list;
 			}
@@ -621,7 +622,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerRefListModel billerRefListModel = new BillerRefListModel(new ArrayList<BillerRef>());
 		BillerServiceBeanRemote billerServiceBeanRemote = null;
 		try {
-			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(BillerServiceBeanRemote.JNDI_WEBLOGIC);
+			billerServiceBeanRemote = (BillerServiceBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerServiceBean);
 			if (billerServiceBeanRemote == null) {
 				return billerRefListModel;
 			}
@@ -644,7 +645,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		ServiceGatewayListModel serviceGatewayListModel = new ServiceGatewayListModel(new ArrayList<GWService>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return serviceGatewayListModel;
 			}
@@ -667,7 +668,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankCodeListModel bankCodeListModel = new BankCodeListModel(new ArrayList<BankMasterBean>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankCodeListModel;
 			}
@@ -690,7 +691,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankChannelListModel bankChannelListModel = new BankChannelListModel(new ArrayList<BankChannelBean>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankChannelListModel;
 			}
@@ -713,7 +714,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankServiceListModel bankServiceListModel = new BankServiceListModel(new ArrayList<BankServicebean>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankServiceListModel;
 			}
@@ -736,7 +737,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankServiceListModel bankServiceListModel = new BankServiceListModel(new ArrayList<BankServicebean>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankServiceListModel;
 			}
@@ -759,7 +760,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankGWInboundMapListModel bankGatewayMapListModel = new BankGWInboundMapListModel(new ArrayList<GWBankDetail>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankGatewayMapListModel;
 			}
@@ -782,7 +783,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankGWServiceMapListModel bankGWServiceMapListModel = new BankGWServiceMapListModel(new ArrayList<GWBankDetail>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankGWServiceMapListModel;
 			}
@@ -805,7 +806,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankGWOutboundMapListModel bankGWOutboundMapListModel = new BankGWOutboundMapListModel(new ArrayList<GWBankDetail>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return bankGWOutboundMapListModel;
 			}
@@ -828,7 +829,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BankFDMCodeListModel bankFDMCodeListModel = new BankFDMCodeListModel(new ArrayList<BankFdmCode>());
 		BankRptTransBeanRemote bankRptTransBeanRemote = null;
 		try {
-			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(BankRptTransBeanRemote.JNDI_WEBLOGIC);
+			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankRptTransBean);
 			if (bankRptTransBeanRemote == null) {
 				return bankFDMCodeListModel;
 			}
@@ -851,7 +852,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		IntegrationListModel integrationListModel = new IntegrationListModel(new ArrayList<BillerIntegration>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return integrationListModel;
 			}
@@ -874,7 +875,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerRefDataTypeListModel billerRefDataTypeListModel = new BillerRefDataTypeListModel(new ArrayList<BillerRefDataType>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return billerRefDataTypeListModel;
 			}
@@ -897,7 +898,7 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerFeeMastListModel billerFeeMastListModel = new BillerFeeMastListModel(new ArrayList<BillerFeeMast>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {
-			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(DropdownlistRemote.JNDI_WEBLOGIC);
+			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return billerFeeMastListModel;
 			}

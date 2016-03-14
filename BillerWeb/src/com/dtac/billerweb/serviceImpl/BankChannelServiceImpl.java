@@ -3,19 +3,17 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import mfs.biller.ejb.interfaces.BankChannelRemote;
-import mfs.biller.ejb.interfaces.BankMasterRemote;
 import mfs.biller.persistence.bean.BankChannelBean;
-import mfs.biller.persistence.bean.BankMasterBean;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
+
+import org.apache.log4j.Logger;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
 import com.dtac.billerweb.data.BankChannelSO;
-import com.dtac.billerweb.data.BankMasterSO;
 import com.dtac.billerweb.exception.ServiceException;
 import com.dtac.billerweb.service.BankChannelService;
 import com.dtac.billerweb.util.AppUtil;
@@ -30,7 +28,7 @@ public class BankChannelServiceImpl extends BaseService implements BankChannelSe
 		List<BankChannelSO> bankChannelSOs = null;
 		List<BankChannelBean> bankChannelBeans = null;
 		try {
-			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(BankChannelRemote.JNDI_WEBLOGIC);
+			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(Constants.JNDI.bankChannel);
 			bankChannelBeans = bankChannelRemote.searchBankChannelAll(criteria, userInfo);
 			log.info("bankChannelBeans size::" + bankChannelBeans.size());
 
@@ -72,7 +70,7 @@ public class BankChannelServiceImpl extends BaseService implements BankChannelSe
 		BankChannelRemote bankChannelRemote = null;
 		BankChannelBean bankChannelBean = new BankChannelBean();
 		try {
-			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(BankChannelRemote.JNDI_WEBLOGIC);
+			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(Constants.JNDI.bankChannel);
 			bankChannelBean = bankChannelRemote.findBankChannel(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -90,7 +88,7 @@ public class BankChannelServiceImpl extends BaseService implements BankChannelSe
 		// TODO Auto-generated method stub
 		BankChannelRemote bankChannelRemote = null;
 		try {
-			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(BankChannelRemote.JNDI_WEBLOGIC);
+			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(Constants.JNDI.bankChannel);
 			bankChannelRemote.insertBankChannel(bankChannelBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -106,7 +104,7 @@ public class BankChannelServiceImpl extends BaseService implements BankChannelSe
 		// TODO Auto-generated method stub
 		BankChannelRemote bankChannelRemote = null;
 		try {
-			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(BankChannelRemote.JNDI_WEBLOGIC);
+			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(Constants.JNDI.bankChannel);
 			bankChannelRemote.updateBankChannel(bankChannelBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -123,7 +121,7 @@ public class BankChannelServiceImpl extends BaseService implements BankChannelSe
 		BankChannelRemote bankChannelRemote = null;
 		boolean result = false;
 		try {
-			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(BankChannelRemote.JNDI_WEBLOGIC);
+			bankChannelRemote = (BankChannelRemote) EJBInitialContext.lookup(Constants.JNDI.bankChannel);
 			result = bankChannelRemote.isExistBankChannelCode(bankChannelCode, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

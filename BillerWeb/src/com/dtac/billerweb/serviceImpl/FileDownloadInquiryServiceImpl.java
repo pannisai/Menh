@@ -8,6 +8,7 @@ import java.util.List;
 import mfs.biller.ejb.interfaces.BatchMastFileBeanRemote;
 import mfs.biller.persistence.bean.BatchMastFile;
 import mfs.biller.persistence.bean.BatchMastFileParam;
+import mfs.constants.Constants;
 
 import org.apache.log4j.Logger;
 
@@ -43,7 +44,7 @@ public class FileDownloadInquiryServiceImpl extends BaseService implements
 			BatchMastFileParam condition, int currentPage, int pageSize)
 			throws Exception {
 		BatchMastFileBeanRemote batchMastFileBeanRemote = (BatchMastFileBeanRemote) EJBInitialContext
-				.lookup(BatchMastFileBeanRemote.JNDI_WEBLOGIC);
+				.lookup(Constants.JNDI.batchMastFileBean);
 
 		condition.setPAGE_NO(currentPage);
 		condition.setPAGE_SIZE(pageSize);
@@ -72,7 +73,7 @@ public class FileDownloadInquiryServiceImpl extends BaseService implements
 	@Override
 	public int getFileDownloadInquiryRowCount(BatchMastFileParam condition) throws Exception {
 		BatchMastFileBeanRemote batchMastFileBeanRemote = (BatchMastFileBeanRemote) EJBInitialContext
-				.lookup(BatchMastFileBeanRemote.JNDI_WEBLOGIC);
+				.lookup(Constants.JNDI.batchMastFileBean);
 		BigDecimal rownum = batchMastFileBeanRemote.countRowAll(condition);
 	
 		/*--Garbage-*/
@@ -83,7 +84,7 @@ public class FileDownloadInquiryServiceImpl extends BaseService implements
 	@Override
 	public byte[] getFileFromBatchMastFileId(String id) throws Exception {
 		BatchMastFileBeanRemote batchMastFileBeanRemote = (BatchMastFileBeanRemote) EJBInitialContext
-				.lookup(BatchMastFileBeanRemote.JNDI_WEBLOGIC);
+				.lookup(Constants.JNDI.batchMastFileBean);
 		byte[] file = batchMastFileBeanRemote.getBatchMastFile(AppUtil.trim(id));
 		
 		/*--Garbage-*/
@@ -94,7 +95,7 @@ public class FileDownloadInquiryServiceImpl extends BaseService implements
 	@Override
 	public BatchMastFile getBatchMastFileById(String id) throws Exception {
 		BatchMastFileBeanRemote batchMastFileBeanRemote = (BatchMastFileBeanRemote) EJBInitialContext
-				.lookup(BatchMastFileBeanRemote.JNDI_WEBLOGIC);
+				.lookup(Constants.JNDI.batchMastFileBean);
 		BatchMastFile batchMastFile = batchMastFileBeanRemote.findBatchMastFile(AppUtil.trim(id));
 		/*--Garbage-*/
 		batchMastFileBeanRemote=null;

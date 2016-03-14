@@ -1,9 +1,9 @@
 package com.dtac.billerweb.serviceImpl;
 
 import mfs.biller.ejb.interfaces.GWOutboundMapBeanRemote;
-import mfs.biller.ejb.interfaces.GWServiceMapBeanRemote;
 import mfs.biller.persistence.bean.ObjMapGWxml;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import com.dtac.billerweb.common.BaseService;
@@ -18,7 +18,7 @@ public class OutboundMapIdServiceImpl extends BaseService implements OutboundMap
 		GWOutboundMapBeanRemote gwOutboundMapBeanRemote = null;
 		ObjMapGWxml mapGWxml = new ObjMapGWxml();
 		try {
-			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(GWOutboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWOutboundMapBean);
 			mapGWxml = gwOutboundMapBeanRemote.findGWOutboundMap(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -36,7 +36,7 @@ public class OutboundMapIdServiceImpl extends BaseService implements OutboundMap
 		GWOutboundMapBeanRemote gwOutboundMapBeanRemote = null;
 		Integer oid;
 		try {
-			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(GWOutboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWOutboundMapBean);
 			oid = gwOutboundMapBeanRemote.insertGWOutboundMap(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -56,7 +56,7 @@ public class OutboundMapIdServiceImpl extends BaseService implements OutboundMap
 	public void update(ObjMapGWxml mapGwXml, UserInfoBean userInfo) throws IsExistException {
 		GWOutboundMapBeanRemote gwOutboundMapBeanRemote = null;
 		try {
-			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(GWOutboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwOutboundMapBeanRemote = (GWOutboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWOutboundMapBean);
 			gwOutboundMapBeanRemote.updateGWOutboundMap(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

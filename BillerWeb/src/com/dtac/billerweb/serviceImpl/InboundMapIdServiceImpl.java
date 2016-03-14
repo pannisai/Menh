@@ -3,6 +3,7 @@ package com.dtac.billerweb.serviceImpl;
 import mfs.biller.ejb.interfaces.GWInboundMapBeanRemote;
 import mfs.biller.persistence.bean.ObjMapGWxml;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ public class InboundMapIdServiceImpl extends BaseService implements InboundMapId
 		GWInboundMapBeanRemote gwInboundMapBeanRemote = null;
 		ObjMapGWxml mapGWxml = new ObjMapGWxml();
 		try {
-			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(GWInboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWInboundMapBean);
 			mapGWxml = gwInboundMapBeanRemote.findGWInboundMap(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -38,7 +39,7 @@ public class InboundMapIdServiceImpl extends BaseService implements InboundMapId
 		GWInboundMapBeanRemote gwInboundMapBeanRemote = null;
 		Integer oid;
 		try {
-			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(GWInboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWInboundMapBean);
 			oid = gwInboundMapBeanRemote.insertGWInboundMap(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -58,7 +59,7 @@ public class InboundMapIdServiceImpl extends BaseService implements InboundMapId
 	public void update(ObjMapGWxml mapGwXml, UserInfoBean userInfo) throws IsExistException {
 		GWInboundMapBeanRemote gwInboundMapBeanRemote = null;
 		try {
-			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(GWInboundMapBeanRemote.JNDI_WEBLOGIC);
+			gwInboundMapBeanRemote = (GWInboundMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWInboundMapBean);
 			gwInboundMapBeanRemote.updateGWInboundMap(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

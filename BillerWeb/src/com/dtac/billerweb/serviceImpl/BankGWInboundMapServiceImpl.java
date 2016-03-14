@@ -3,6 +3,7 @@ package com.dtac.billerweb.serviceImpl;
 import mfs.biller.ejb.interfaces.GWBankInbMapBeanRemote;
 import mfs.biller.persistence.bean.ObjMapGWxml;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -19,7 +20,7 @@ public class BankGWInboundMapServiceImpl extends BaseService implements BankGWIn
 		GWBankInbMapBeanRemote gwBankInbMapBeanRemote = null;
 		ObjMapGWxml mapGWxml = new ObjMapGWxml();
 		try {
-			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(GWBankInbMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankInbMapBean);
 			mapGWxml = gwBankInbMapBeanRemote.findGWBankInbMap(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -37,7 +38,7 @@ public class BankGWInboundMapServiceImpl extends BaseService implements BankGWIn
 		GWBankInbMapBeanRemote gwBankInbMapBeanRemote = null;
 		Integer oid;
 		try {
-			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(GWBankInbMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankInbMapBean);
 			oid = gwBankInbMapBeanRemote.insertGWBankInbMap(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -58,7 +59,7 @@ public class BankGWInboundMapServiceImpl extends BaseService implements BankGWIn
 		// TODO Auto-generated method stub
 		GWBankInbMapBeanRemote gwBankInbMapBeanRemote = null;
 		try {
-			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(GWBankInbMapBeanRemote.JNDI_WEBLOGIC);
+			gwBankInbMapBeanRemote = (GWBankInbMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWBankInbMapBean);
 			gwBankInbMapBeanRemote.updateGWBankInbMap(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

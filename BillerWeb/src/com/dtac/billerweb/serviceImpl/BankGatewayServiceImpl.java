@@ -3,19 +3,17 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-import mfs.biller.ejb.interfaces.BankChannelRemote;
 import mfs.biller.ejb.interfaces.GWBankRemote;
-import mfs.biller.persistence.bean.BankChannelBean;
 import mfs.biller.persistence.bean.GWBankBean;
 import mfs.biller.persistence.bean.GWBankDetail;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
+
+import org.apache.log4j.Logger;
 
 import com.dtac.billerweb.common.BaseService;
 import com.dtac.billerweb.common.EJBInitialContext;
-import com.dtac.billerweb.data.BankChannelSO;
 import com.dtac.billerweb.data.BankGatewaySO;
 import com.dtac.billerweb.exception.ServiceException;
 import com.dtac.billerweb.service.BankGatewayService;
@@ -31,7 +29,7 @@ public class BankGatewayServiceImpl extends BaseService implements BankGatewaySe
 		List<BankGatewaySO> bankGatewaySOs = null;
 		List<GWBankDetail> gwBankDetails = null;
 		try {
-			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(GWBankRemote.JNDI_WEBLOGIC);
+			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(Constants.JNDI.gWBank);
 			gwBankDetails = gwBankRemote.searchGWBankAll(criteria, userInfo);
 			log.info("gwBankDetails size::" + gwBankDetails.size());
 
@@ -74,7 +72,7 @@ public class BankGatewayServiceImpl extends BaseService implements BankGatewaySe
 		GWBankRemote gwBankRemote = null;
 		GWBankBean gwBankBean = new GWBankBean();
 		try {
-			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(GWBankRemote.JNDI_WEBLOGIC);
+			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(Constants.JNDI.gWBank);
 			gwBankBean = gwBankRemote.findGWBank(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -93,7 +91,7 @@ public class BankGatewayServiceImpl extends BaseService implements BankGatewaySe
 		GWBankRemote gwBankRemote = null;
 		Integer oid = -1;
 		try {
-			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(GWBankRemote.JNDI_WEBLOGIC);
+			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(Constants.JNDI.gWBank);
 			oid = gwBankRemote.insertGWBank(gwBankBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -113,7 +111,7 @@ public class BankGatewayServiceImpl extends BaseService implements BankGatewaySe
 		// TODO Auto-generated method stub
 		GWBankRemote gwBankRemote = null;
 		try {
-			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(GWBankRemote.JNDI_WEBLOGIC);
+			gwBankRemote = (GWBankRemote) EJBInitialContext.lookup(Constants.JNDI.gWBank);
 			gwBankRemote.updateGWBank(gwBankBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

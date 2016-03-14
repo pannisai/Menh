@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mfs.biller.ejb.interfaces.OutboundGatewayRemote;
-import mfs.biller.ejb.interfaces.ServiceGatewayRemote;
 import mfs.biller.persistence.bean.GWOutbound;
 import mfs.biller.persistence.bean.GWOutboundDtail;
-import mfs.biller.persistence.bean.GWService;
 import mfs.biller.persistence.bean.OutboundGatewayParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -47,7 +46,7 @@ public class OutboundGatewayServiceImpl extends BaseService implements OutboundG
 		OutboundGatewayRemote outboundGatewayRemote = null;
 		Integer rownum = 0;
 		try {
-			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(OutboundGatewayRemote.JNDI_WEBLOGIC);
+			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.outboundGateway);
 			try {
 				rownum = outboundGatewayRemote.countRowAll(condition,userInfo).intValue();
 
@@ -70,7 +69,7 @@ public class OutboundGatewayServiceImpl extends BaseService implements OutboundG
 		OutboundGatewayRemote outboundGatewayRemote = null;
 		List<GWOutboundDtail> gwOutbounds = null;
 		try {
-			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(OutboundGatewayRemote.JNDI_WEBLOGIC);
+			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.outboundGateway);
 			condition.setPAGE_NO(currentPage);
 			condition.setPAGE_SIZE(pageSize);
 			gwOutbounds = outboundGatewayRemote.getOutboundGateway(condition,userInfo);
@@ -113,7 +112,7 @@ public class OutboundGatewayServiceImpl extends BaseService implements OutboundG
 		OutboundGatewayRemote outboundGatewayRemote = null;
 		GWOutbound outboundGateway = new GWOutbound();
 		try {
-			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(OutboundGatewayRemote.JNDI_WEBLOGIC);
+			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.outboundGateway);
 			outboundGateway = outboundGatewayRemote.searchOutboundGateway(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -131,7 +130,7 @@ public class OutboundGatewayServiceImpl extends BaseService implements OutboundG
 		OutboundGatewayRemote outboundGatewayRemote = null;
 		Integer oid = -1;
 		try {
-			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(OutboundGatewayRemote.JNDI_WEBLOGIC);
+			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.outboundGateway);
 			oid = outboundGatewayRemote.insertOutboundGateway(outboundGateway, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -150,7 +149,7 @@ public class OutboundGatewayServiceImpl extends BaseService implements OutboundG
 	public void update(GWOutbound outboundGateway, UserInfoBean userInfo) throws IsExistException {
 		OutboundGatewayRemote outboundGatewayRemote = null;
 		try {
-			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(OutboundGatewayRemote.JNDI_WEBLOGIC);
+			outboundGatewayRemote = (OutboundGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.outboundGateway);
 			outboundGatewayRemote.updateOutboundGateway(outboundGateway, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

@@ -3,15 +3,12 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import mfs.biller.ejb.interfaces.BillerChannelBeanRemote;
-import mfs.biller.ejb.interfaces.InboundGatewayResultRemote;
 import mfs.biller.ejb.interfaces.ServiceGatewayRemote;
-import mfs.biller.persistence.bean.BillerChannel;
 import mfs.biller.persistence.bean.GWService;
-import mfs.biller.persistence.bean.OBJGW_SERVICE;
 import mfs.biller.persistence.bean.ServiceGatewayResult;
 import mfs.biller.persistence.bean.ServiceGatewayResultParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -49,7 +46,7 @@ public class ServiceGatewayServiceImpl extends BaseService implements ServiceGat
 		ServiceGatewayRemote serviceGatewayRemote = null;
 		Integer rownum = 0;
 		try {
-			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(ServiceGatewayRemote.JNDI_WEBLOGIC);
+			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.serviceGateway);
 			try {
 				rownum = serviceGatewayRemote.countRowAll(criteria,userInfo).intValue();
 
@@ -72,7 +69,7 @@ public class ServiceGatewayServiceImpl extends BaseService implements ServiceGat
 		ServiceGatewayRemote serviceGatewayRemote = null;
 		List<ServiceGatewayResult> serviceGatewayResults = null;
 		try {
-			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(ServiceGatewayRemote.JNDI_WEBLOGIC);
+			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.serviceGateway);
 			criteria.setPAGE_NO(currentPage);
 			criteria.setPAGE_SIZE(pageSize);
 			serviceGatewayResults = serviceGatewayRemote.getServiceGatewayResult(criteria,userInfo);
@@ -115,7 +112,7 @@ public class ServiceGatewayServiceImpl extends BaseService implements ServiceGat
 		ServiceGatewayRemote serviceGatewayRemote = null;
 		GWService serviceGateway = new GWService();
 		try {
-			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(ServiceGatewayRemote.JNDI_WEBLOGIC);
+			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.serviceGateway);
 			serviceGateway = serviceGatewayRemote.searchServiceGateway(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -133,7 +130,7 @@ public class ServiceGatewayServiceImpl extends BaseService implements ServiceGat
 		ServiceGatewayRemote serviceGatewayRemote = null;
 		Integer oid = -1;
 		try {
-			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(ServiceGatewayRemote.JNDI_WEBLOGIC);
+			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.serviceGateway);
 			serviceGateway.setGW_SRVC_ID(0);
 			oid = serviceGatewayRemote.insertServiceGateway(serviceGateway, userInfo);
 		} catch (IsExistException iex) {
@@ -153,7 +150,7 @@ public class ServiceGatewayServiceImpl extends BaseService implements ServiceGat
 	public void update(GWService serviceGateway, UserInfoBean userInfo) throws IsExistException {
 		ServiceGatewayRemote serviceGatewayRemote = null;
 		try {
-			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(ServiceGatewayRemote.JNDI_WEBLOGIC);
+			serviceGatewayRemote = (ServiceGatewayRemote) EJBInitialContext.lookup(Constants.JNDI.serviceGateway);
 			serviceGatewayRemote.updateServiceGateway(serviceGateway, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

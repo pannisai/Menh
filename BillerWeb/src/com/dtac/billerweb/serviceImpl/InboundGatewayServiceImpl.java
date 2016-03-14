@@ -9,6 +9,7 @@ import mfs.biller.persistence.bean.OBJGW_INBOUND;
 import mfs.biller.persistence.bean.UserInfoBean;
 import mfs.biller.persistence.bean.getInboundGatewayResult;
 import mfs.biller.persistence.bean.getInboundGatewayResultParam;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -50,7 +51,7 @@ public class InboundGatewayServiceImpl extends BaseService implements InboundGat
 		InboundGatewayResultRemote inboundGatewayResultRemote = null;
 		Integer rownum = 0;
 		try {
-			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(InboundGatewayResultRemote.JNDI_WEBLOGIC);
+			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(Constants.JNDI.inboundGatewayResult);
 			try {
 				rownum = inboundGatewayResultRemote.countRowAll(condition,userInfo).intValue();
 
@@ -73,7 +74,7 @@ public class InboundGatewayServiceImpl extends BaseService implements InboundGat
 		InboundGatewayResultRemote inboundGatewayResultRemote = null;
 		List<getInboundGatewayResult> getInboundGatewayResults = null;
 		try {
-			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(InboundGatewayResultRemote.JNDI_WEBLOGIC);
+			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(Constants.JNDI.inboundGatewayResult);
 			condition.setPAGE_NO(currentPage);
 			condition.setPAGE_SIZE(pageSize);
 			getInboundGatewayResults = inboundGatewayResultRemote.getInboundGatewayResult(condition,userInfo);
@@ -117,7 +118,7 @@ public class InboundGatewayServiceImpl extends BaseService implements InboundGat
 		InboundGatewayResultRemote inboundGatewayResultRemote = null;
 		OBJGW_INBOUND objGW_INBOUND = new OBJGW_INBOUND();
 		try {
-			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(InboundGatewayResultRemote.JNDI_WEBLOGIC);
+			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(Constants.JNDI.inboundGatewayResult);
 			getInboundGatewayResultParam inboundGatewayResultParam = new getInboundGatewayResultParam();
 			inboundGatewayResultParam.setINBN_SRVC_ID(Integer.parseInt(id.getInbn_SRVC_ID()));
 			inboundGatewayResultParam.setSRCE_SRVC_ID(id.getSrce_SRVC_ID());
@@ -142,7 +143,7 @@ public class InboundGatewayServiceImpl extends BaseService implements InboundGat
 		InboundGatewaySOPK oid = new InboundGatewaySOPK();
 		GWInboundPK pk = null;
 		try {
-			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(InboundGatewayResultRemote.JNDI_WEBLOGIC);
+			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(Constants.JNDI.inboundGatewayResult);
 
 			pk = inboundGatewayResultRemote.insertGW_INBOUND(objGW_INBOUND, userInfo);
 			if (pk == null) {
@@ -166,7 +167,7 @@ public class InboundGatewayServiceImpl extends BaseService implements InboundGat
 	public void update(OBJGW_INBOUND objGW_INBOUND, UserInfoBean userInfo) throws IsExistException {
 		InboundGatewayResultRemote inboundGatewayResultRemote = null;
 		try {
-			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(InboundGatewayResultRemote.JNDI_WEBLOGIC);
+			inboundGatewayResultRemote = (InboundGatewayResultRemote) EJBInitialContext.lookup(Constants.JNDI.inboundGatewayResult);
 			inboundGatewayResultRemote.updateGW_INBOUND(objGW_INBOUND, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

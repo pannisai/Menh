@@ -1,9 +1,9 @@
 package com.dtac.billerweb.serviceImpl;
 
-import mfs.biller.ejb.interfaces.GWInboundMapBeanRemote;
 import mfs.biller.ejb.interfaces.GWServiceMapBeanRemote;
 import mfs.biller.persistence.bean.ObjMapGWxml;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ public class ServiceMapIdServiceImpl extends BaseService implements ServiceMapId
 		GWServiceMapBeanRemote gwServiceMapBeanRemote = null;
 		ObjMapGWxml mapGWxml = new ObjMapGWxml();
 		try {
-			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(GWServiceMapBeanRemote.JNDI_WEBLOGIC);
+			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWServiceMapBean);
 			mapGWxml = gwServiceMapBeanRemote.findGWServiceMap(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -39,7 +39,7 @@ public class ServiceMapIdServiceImpl extends BaseService implements ServiceMapId
 		GWServiceMapBeanRemote gwServiceMapBeanRemote = null;
 		Integer oid;
 		try {
-			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(GWServiceMapBeanRemote.JNDI_WEBLOGIC);
+			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWServiceMapBean);
 			oid = gwServiceMapBeanRemote.insertGWServiceMap(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -60,7 +60,7 @@ public class ServiceMapIdServiceImpl extends BaseService implements ServiceMapId
 	public void update(ObjMapGWxml mapGwXml, UserInfoBean userInfo) throws IsExistException {
 		GWServiceMapBeanRemote gwServiceMapBeanRemote = null;
 		try {
-			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(GWServiceMapBeanRemote.JNDI_WEBLOGIC);
+			gwServiceMapBeanRemote = (GWServiceMapBeanRemote) EJBInitialContext.lookup(Constants.JNDI.gWServiceMapBean);
 			gwServiceMapBeanRemote.updateGWServiceMap(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

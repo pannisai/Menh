@@ -7,6 +7,7 @@ import mfs.biller.ejb.interfaces.BillerFeeBeanRemote;
 import mfs.biller.persistence.bean.BillerFee;
 import mfs.biller.persistence.bean.BillerFeeParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -46,7 +47,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		List<BillerFee> billerFee = null;
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			//condition.setPAGE_NO(currentPage);
 			//condition.setPAGE_SIZE(pageSize);
 			billerFee = billerFeeBeanRemote.searchBillerFee(condition, userInfo);
@@ -67,7 +68,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		Integer rownum = 0;
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			try {
 				// rownum = //billerFeeBeanRemote.
 			} catch (NullPointerException npe) {
@@ -111,7 +112,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		BillerFee billerFee = new BillerFee();
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			billerFee = billerFeeBeanRemote.findBillerFee(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -129,7 +130,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		BillerFee billerFee = new BillerFee();
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			billerFee = billerFeeBeanRemote.findBillerFeeExpired(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -147,7 +148,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		Integer oid=-1;
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			oid=billerFeeBeanRemote.insertBillerFee(billerFee, userInfo);		
 		} catch (IsExistException iex) {
 			throw iex;
@@ -166,7 +167,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 	public void update(BillerFee billerFee, UserInfoBean userInfo) throws IsExistException{
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			billerFeeBeanRemote.updateBillerFee(billerFee, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -182,7 +183,7 @@ public class BillerFeeServiceImpl extends BaseService implements BillerFeeServic
 		BillerFeeBeanRemote billerFeeBeanRemote = null;
 		boolean result = false;
 		try {
-			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(BillerFeeBeanRemote.JNDI_WEBLOGIC);
+			billerFeeBeanRemote = (BillerFeeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerFeeBean);
 			result = billerFeeBeanRemote.isExistBillerFee(condition, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

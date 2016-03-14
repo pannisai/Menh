@@ -1,9 +1,9 @@
 package com.dtac.billerweb.serviceImpl;
 
-import mfs.biller.ejb.interfaces.GWInboundMapBeanRemote;
 import mfs.biller.ejb.interfaces.GWXmlDataSrcRemote;
 import mfs.biller.persistence.bean.GWXmlDataSrcBean;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ public class ReceiptMapIdServiceImpl extends BaseService implements ReceiptMapId
 		GWXmlDataSrcRemote gwXmlDataSrcRemote = null;
 		GWXmlDataSrcBean mapGWxml = new GWXmlDataSrcBean();
 		try {
-			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(GWXmlDataSrcRemote.JNDI_WEBLOGIC);
+			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(Constants.JNDI.gWXmlDataSrc);
 			mapGWxml = gwXmlDataSrcRemote.findGWXmlDataSrc(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -39,7 +39,7 @@ public class ReceiptMapIdServiceImpl extends BaseService implements ReceiptMapId
 		GWXmlDataSrcRemote gwXmlDataSrcRemote = null;
 		Integer oid;
 		try {
-			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(GWXmlDataSrcRemote.JNDI_WEBLOGIC);
+			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(Constants.JNDI.gWXmlDataSrc);
 			oid = gwXmlDataSrcRemote.insertGWXmlDataSrc(mapGwXml, userInfo);
 
 		} catch (IsExistException iex) {
@@ -60,7 +60,7 @@ public class ReceiptMapIdServiceImpl extends BaseService implements ReceiptMapId
 		// TODO Auto-generated method stub
 		GWXmlDataSrcRemote gwXmlDataSrcRemote = null;
 		try {
-			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(GWXmlDataSrcRemote.JNDI_WEBLOGIC);
+			gwXmlDataSrcRemote = (GWXmlDataSrcRemote) EJBInitialContext.lookup(Constants.JNDI.gWXmlDataSrc);
 			gwXmlDataSrcRemote.updateGWXmlDataSrc(mapGwXml, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

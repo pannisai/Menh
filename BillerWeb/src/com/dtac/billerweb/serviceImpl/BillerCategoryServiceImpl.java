@@ -7,6 +7,7 @@ import mfs.biller.ejb.interfaces.BillerCatalogBeanRemote;
 import mfs.biller.persistence.bean.BillerCategory;
 import mfs.biller.persistence.bean.BillerCategoryParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -47,7 +48,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		Integer rownum = 0;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			try {
 				// rownum = //billerCatalogBeanRemote.
 			} catch (NullPointerException npe) {
@@ -69,7 +70,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		List<BillerCategory> billerCategorys = null;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			// condition.setPAGE_NO(currentPage);
 			// condition.setPAGE_SIZE(pageSize);
 			billerCategorys = billerCatalogBeanRemote.searchBillerCatalog(condition, userInfo);
@@ -112,7 +113,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		BillerCategory billerCategory = new BillerCategory();
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			billerCategory = billerCatalogBeanRemote.findBillerCatalog(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -130,7 +131,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		boolean result = false;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			result = billerCatalogBeanRemote.isExistBillMenuSeq(id, menuSeq, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -145,7 +146,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		boolean result = false;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			result = billerCatalogBeanRemote.isExistBllrCatgName(id, billerCateName, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -160,7 +161,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		Integer oid=-1;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			billerCategory.setBLLR_CATG_ID(0);
 			oid=billerCatalogBeanRemote.insertBillerCatalog(billerCategory, userInfo);		
 		} catch (IsExistException iex) {
@@ -180,7 +181,7 @@ public class BillerCategoryServiceImpl extends BaseService implements BillerCate
 	public void update(BillerCategory billerCategory, UserInfoBean userInfo) throws IsExistException{
 		BillerCatalogBeanRemote billerCatalogBeanRemote = null;
 		try {
-			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(BillerCatalogBeanRemote.JNDI_WEBLOGIC);
+			billerCatalogBeanRemote = (BillerCatalogBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerCatalogBean);
 			billerCatalogBeanRemote.updateBillerCatalog(billerCategory, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

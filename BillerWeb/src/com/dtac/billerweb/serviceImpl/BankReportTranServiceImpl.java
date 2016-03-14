@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mfs.biller.ejb.interfaces.BankRptTransBeanRemote;
-import mfs.biller.ejb.interfaces.BillerServiceBeanRemote;
-import mfs.biller.ejb.interfaces.InboundGatewayResultRemote;
 import mfs.biller.persistence.bean.BankReportTransDetail;
 import mfs.biller.persistence.bean.BankReportTransParam;
-import mfs.biller.persistence.bean.BillerService;
 import mfs.biller.persistence.bean.UserInfoBean;
-import mfs.exception.NotFoundDataException;
+import mfs.constants.Constants;
 
 import org.apache.log4j.Logger;
 
@@ -31,7 +28,7 @@ public class BankReportTranServiceImpl extends BaseService implements BankReport
 		List<BankReportTranSO> bankReportTranSOs = null;
 		List<BankReportTransDetail> bankReportTransDetails = null;
 		try {
-			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(BankRptTransBeanRemote.JNDI_WEBLOGIC);
+			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankRptTransBean);
 			criteria.setPAGE_NO(currentPage);
 			criteria.setPAGE_SIZE(pageSize);
 			bankReportTransDetails = bankRptTransBeanRemote.searchBankReportTrans(criteria, userInfo);
@@ -76,7 +73,7 @@ public class BankReportTranServiceImpl extends BaseService implements BankReport
 		BankRptTransBeanRemote bankRptTransBeanRemote = null;
 		Integer rownum = 0;
 		try {
-			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(BankRptTransBeanRemote.JNDI_WEBLOGIC);
+			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankRptTransBean);
 			try {
 				rownum = bankRptTransBeanRemote.countRowBankReportTrans(criteria, userInfo);
 
@@ -101,7 +98,7 @@ public class BankReportTranServiceImpl extends BaseService implements BankReport
 		BankReportTranSO bankReportTranSO = new BankReportTranSO();
 		BankReportTransDetail bankReportTransDetail = new BankReportTransDetail();
 		try {
-			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(BankRptTransBeanRemote.JNDI_WEBLOGIC);
+			bankRptTransBeanRemote = (BankRptTransBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankRptTransBean);
 			bankReportTransDetail = bankRptTransBeanRemote.findBankMasterTrans(id, userInfo);
 
 		} catch (Exception ex) {

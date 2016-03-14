@@ -3,12 +3,11 @@ package com.dtac.billerweb.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import mfs.biller.ejb.interfaces.BillerCatalogBeanRemote;
 import mfs.biller.ejb.interfaces.BillerMasterBeanRemote;
-import mfs.biller.persistence.bean.BillerCategory;
 import mfs.biller.persistence.bean.BillerMaster;
 import mfs.biller.persistence.bean.BillerMasterParam;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -47,7 +46,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 		BillerMasterBeanRemote billerMasterBeanRemote = null;
 		List<BillerMaster> billerMasters = null;
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);
 			// condition.setPAGE_NO(currentPage);
 			// condition.setPAGE_SIZE(pageSize);
 			billerMasters = billerMasterBeanRemote.searchBillerMaster(condition, userInfo);
@@ -90,7 +89,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 		BillerMasterBeanRemote billerMasterBeanRemote = null;
 		BillerMaster billerMaster = new BillerMaster();
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);
 			billerMaster = billerMasterBeanRemote.findBillerMaster(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -108,7 +107,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 		BillerMasterBeanRemote billerMasterBeanRemote = null;
 		boolean result = false;
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);
 			result = billerMasterBeanRemote.isExistBllrMstrId(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -123,7 +122,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 		BillerMasterBeanRemote billerMasterBeanRemote = null;
 		boolean result = false;
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);
 			result = billerMasterBeanRemote.isExistBllrCode(id, billerCode, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -137,7 +136,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 	public void save(BillerMaster billerMaster, UserInfoBean userInfo) throws IsExistException {
 		BillerMasterBeanRemote billerMasterBeanRemote = null;		
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);	
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);	
 			billerMasterBeanRemote.insertBillerMaster(billerMaster, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -152,7 +151,7 @@ public class BillerMasterServiceImpl extends BaseService implements BillerMaster
 	public void update(BillerMaster billerMaster, UserInfoBean userInfo) throws IsExistException {
 		BillerMasterBeanRemote billerMasterBeanRemote = null;		
 		try {
-			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(BillerMasterBeanRemote.JNDI_WEBLOGIC);	
+			billerMasterBeanRemote = (BillerMasterBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerMasterBean);	
 			billerMasterBeanRemote.updateBillerMaster(billerMaster, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;

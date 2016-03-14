@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mfs.biller.ejb.interfaces.BankMasterRemote;
-import mfs.biller.ejb.interfaces.BillerChannelBeanRemote;
-import mfs.biller.ejb.interfaces.BillerMasterBeanRemote;
 import mfs.biller.persistence.bean.BankMasterBean;
-import mfs.biller.persistence.bean.BillerMaster;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -30,7 +28,7 @@ public class BankMasterServiceImpl extends BaseService implements BankMasterServ
 		List<BankMasterSO> bankMasterSOs = null;
 		List<BankMasterBean> bankMasterBeans = null;
 		try {
-			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(BankMasterRemote.JNDI_WEBLOGIC);
+			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(Constants.JNDI.bankMaster);
 			bankMasterBeans = bankMasterRemote.searchBankMasterAll(criteria, userInfo);
 			log.info("bankMasterBeans size::" + bankMasterBeans.size());
 
@@ -72,7 +70,7 @@ public class BankMasterServiceImpl extends BaseService implements BankMasterServ
 		BankMasterRemote bankMasterRemote = null;
 		BankMasterBean bankMasterBean = new BankMasterBean();
 		try {
-			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(BankMasterRemote.JNDI_WEBLOGIC);
+			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(Constants.JNDI.bankMaster);
 			bankMasterBean = bankMasterRemote.findBankMaster(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -90,7 +88,7 @@ public class BankMasterServiceImpl extends BaseService implements BankMasterServ
 		// TODO Auto-generated method stub
 		BankMasterRemote bankMasterRemote = null;
 		try {
-			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(BankMasterRemote.JNDI_WEBLOGIC);
+			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(Constants.JNDI.bankMaster);
 			bankMasterRemote.insertBankMaster(bankMasterBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -106,7 +104,7 @@ public class BankMasterServiceImpl extends BaseService implements BankMasterServ
 		// TODO Auto-generated method stub
 		BankMasterRemote bankMasterRemote = null;
 		try {
-			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(BankMasterRemote.JNDI_WEBLOGIC);
+			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(Constants.JNDI.bankMaster);
 			bankMasterRemote.updateBankMaster(bankMasterBean, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -123,7 +121,7 @@ public class BankMasterServiceImpl extends BaseService implements BankMasterServ
 		BankMasterRemote bankMasterRemote = null;
 		boolean result = false;
 		try {
-			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(BankMasterRemote.JNDI_WEBLOGIC);
+			bankMasterRemote = (BankMasterRemote) EJBInitialContext.lookup(Constants.JNDI.bankMaster);
 			result = bankMasterRemote.isExistBankMstrCode(bankCode, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);

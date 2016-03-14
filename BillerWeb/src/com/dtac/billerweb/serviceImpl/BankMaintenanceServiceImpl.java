@@ -7,6 +7,7 @@ import mfs.biller.ejb.interfaces.BankSystemMATNBeanRemote;
 import mfs.biller.persistence.bean.BankSystemMATN;
 import mfs.biller.persistence.bean.BankSystemMATNDetail;
 import mfs.biller.persistence.bean.UserInfoBean;
+import mfs.constants.Constants;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -28,7 +29,7 @@ public class BankMaintenanceServiceImpl extends BaseService implements BankMaint
 		List<BankMaintenanceSO> bankMaintenanceSOs = null;
 		List<BankSystemMATNDetail> bankSystemMATNDetails = null;
 		try {
-			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(BankSystemMATNBeanRemote.JNDI_WEBLOGIC);
+			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankSystemMATNBean);
 			bankSystemMATNDetails = bankSystemMATNBeanRemote.searchBankSystemMATNAll(criteria, userInfo);
 			log.info("bankSystemMATNDetails size::" + bankSystemMATNDetails.size());
 
@@ -70,7 +71,7 @@ public class BankMaintenanceServiceImpl extends BaseService implements BankMaint
 		BankSystemMATNBeanRemote bankSystemMATNBeanRemote = null;
 		BankSystemMATN bankSystemMATN = new BankSystemMATN();
 		try {
-			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(BankSystemMATNBeanRemote.JNDI_WEBLOGIC);
+			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankSystemMATNBean);
 			bankSystemMATN = bankSystemMATNBeanRemote.findBankSystemMATN(id, userInfo);
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
@@ -89,7 +90,7 @@ public class BankMaintenanceServiceImpl extends BaseService implements BankMaint
 		BankSystemMATNBeanRemote bankSystemMATNBeanRemote = null;
 		Integer oid = -1;
 		try {
-			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(BankSystemMATNBeanRemote.JNDI_WEBLOGIC);
+			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankSystemMATNBean);
 			oid = bankSystemMATNBeanRemote.insertBankSystemMATN(bankSystemMATN, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
@@ -109,7 +110,7 @@ public class BankMaintenanceServiceImpl extends BaseService implements BankMaint
 		// TODO Auto-generated method stub
 		BankSystemMATNBeanRemote bankSystemMATNBeanRemote = null;
 		try {
-			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(BankSystemMATNBeanRemote.JNDI_WEBLOGIC);
+			bankSystemMATNBeanRemote = (BankSystemMATNBeanRemote) EJBInitialContext.lookup(Constants.JNDI.bankSystemMATNBean);
 			bankSystemMATNBeanRemote.updateBankSystemMATN(bankSystemMATN, userInfo);
 		} catch (IsExistException iex) {
 			throw iex;
