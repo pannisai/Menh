@@ -3,6 +3,7 @@
 	<name>BillerWeb</name>
 	<comment></comment>
 	<projects>
+		<project>MFSBackoffUtil</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
