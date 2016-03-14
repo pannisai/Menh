@@ -5,6 +5,7 @@ import java.util.Collection;
 import mfs.biller.ejb.interfaces.BatchMastFileBeanRemote;
 import mfs.biller.persistence.bean.BatchMastFile;
 import mfs.biller.persistence.bean.BatchMastFileParam;
+import mfs.constants.Constants;
 
 import com.dtac.billerweb.common.EJBInitialContext;
 
@@ -26,7 +27,7 @@ public class TestEJB {
 			// System.out.println(tmp.getBLLR_MSTR_ID()+"  "+tmp.getBLLR_CODE());
 			// }
 			BatchMastFileBeanRemote bmb = (BatchMastFileBeanRemote) EJBInitialContext
-					.lookup(BatchMastFileBeanRemote.JNDI_WEBLOGIC);
+					.lookup(Constants.JNDI.batchMastFileBean);
 			BatchMastFileParam batchMastFileParam=new BatchMastFileParam();
 			batchMastFileParam.setPAGE_NO(1);
 			batchMastFileParam.setPAGE_SIZE(10);
