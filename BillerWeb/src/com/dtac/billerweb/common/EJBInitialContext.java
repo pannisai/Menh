@@ -33,7 +33,8 @@ public class EJBInitialContext {
 					.getValue(AppConfiguration.SECURITY_PRINCIPAL_KEY));
 			env.put(Context.SECURITY_CREDENTIALS, AppConfiguration
 					.getValue(AppConfiguration.SECURITY_CREDENTIALS_KEY));
-			context = new InitialContext(env);
+			//context = new InitialContext(env);
+			context = new InitialContext();
 			log.info("Create context Success");
 		} catch (Exception ex) {
 			log.info("Create context Fail");

@@ -2,9 +2,8 @@ package com.dtac.billerweb.form;
 
 import java.util.Date;
 
-import mfs.biller.ejb.interfaces.BillerMasterBeanLocal;
+//import mfs.biller.ejb.interfaces.BillerMasterBeanLocal;
 import mfs.biller.persistence.bean.BankMasterBean;
-import mfs.biller.persistence.bean.BillerCategory;
 
 import com.dtac.billerweb.common.BaseForm;
 
