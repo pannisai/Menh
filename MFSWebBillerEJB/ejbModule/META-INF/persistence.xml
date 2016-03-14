@@ -11,6 +11,8 @@
 		<class>mfs.biller.persistence.bean.BillerService</class>
         <class>mfs.biller.persistence.bean.DropdownlistBillservice</class>
         <class>mfs.biller.persistence.bean.GWMasterTrans</class>
+        <class>mfs.biller.persistence.bean.BatchMastFile</class>
+        <class>mfs.biller.persistence.bean.BillerCategory</class>
 		<properties>
 			<property name="javax.persistence.jtaDataSource" value="java:/biller/db" />
 		</properties>
