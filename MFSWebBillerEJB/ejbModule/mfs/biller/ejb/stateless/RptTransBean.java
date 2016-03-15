@@ -637,7 +637,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			if (PARAM.getPAGE_SIZE() == null) {
 				PARAM.setPAGE_SIZE(20);
 			}
-			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM " + "( " + sql + ") a " + "WHERE rownum < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
+			
+			sql = "SELECT * FROM " + "( " + "select b.* from (SELECT a.*, row_number() over (order by 1) r__ " + "FROM " + "( " + sql + ") a) b " + "WHERE b.r__ < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") tbl " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
+			
+//			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM " + "( " + sql + ") a " + "WHERE rownum < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
 
 			log.info(user.getName() + "|" + page + "|searchReportTrans|SQL:" + sql);
 
@@ -692,7 +695,8 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|SQL:" + sql);
 
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
+//			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int row = result.intValue();
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Total Row:" + row);
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Time|" + timer.getStopTime());
