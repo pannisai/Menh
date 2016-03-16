@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 
 
+
+
 import mfs.exception.InitialEJBContextException;
 
 public class EJBInitialContext {
@@ -21,6 +23,7 @@ public class EJBInitialContext {
 	}
 
 	public static Context getInitialContext() throws InitialEJBContextException {
+		org.apache.log4j.PropertyConfigurator.configure(AppConstant.USER_HOME+"/conf/MFSWebBillerEJB/MFSWebBillerEJBlog4j.properties");
 		Context context = null;
 		log.info("Create context");
 		try {

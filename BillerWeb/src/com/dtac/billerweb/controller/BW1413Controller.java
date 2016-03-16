@@ -7,7 +7,6 @@ import java.util.Map;
 
 import mfs.biller.persistence.bean.BillerChannel;
 import mfs.biller.persistence.bean.BillerServiceChannel;
-import mfs.biller.persistence.bean.SendReceipt;
 import mfs.exception.IsExistException;
 
 import org.apache.log4j.Logger;
@@ -21,7 +20,6 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.A;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Hlayout;
@@ -41,7 +39,6 @@ import com.dtac.billerweb.common.Dialog;
 import com.dtac.billerweb.common.EditPageController;
 import com.dtac.billerweb.data.BillerServiceChannelSO;
 import com.dtac.billerweb.exception.BillerWebException;
-import com.dtac.billerweb.exception.BillerWebSessionTimeOutException;
 import com.dtac.billerweb.exception.BillerWebValidationException;
 import com.dtac.billerweb.factory.BillerwebServiceFactory;
 import com.dtac.billerweb.form.BW1413Form;

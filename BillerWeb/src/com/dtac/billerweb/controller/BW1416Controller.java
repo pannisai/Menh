@@ -1,11 +1,8 @@
 package com.dtac.billerweb.controller;
 
-import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.faces.application.Application;
 
 import mfs.biller.persistence.bean.BillerService;
 import mfs.biller.persistence.bean.BillerServiceImage;
@@ -25,7 +22,6 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
