@@ -53,8 +53,8 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 		try{
 
 		    Timer timer = new Timer("-");
-			log.error(user.getName() + "|" + page + "|getOutboundGateway|Time:" + timer.getStartTime());
-			log.error(user.getName() + "|" + page + "|getOutboundGateway|Param:" + Param);
+			log.info(user.getName() + "|" + page + "|getOutboundGateway|Time:" + timer.getStartTime());
+			log.info(user.getName() + "|" + page + "|getOutboundGateway|Param:" + Param);
 			String sql = "SELECT GW_OUTB_ID ,GW_OUTB_NAME,GW_OUTB_MAP_ID,ACT_FLAG,CRTD_BY ,CRTD_DTTM,LAST_CHNG_BY,LAST_CHNG_DTTM   ,map.DATA_MAP_NAME     "; 
 					sql=sql+ " FROM GW_OUTBOUND  T1 left join  GW_OUTBOUND_MAP    map   on map.DATA_MAP_ID =  T1.GW_OUTB_MAP_ID  ";
 					
@@ -86,17 +86,17 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 				//log.info("RptTransBean|getMasterTransAll|Default page size:" + Integer.valueOf(conf.getConfig("PAGE_SIZE")));				
 				Param.setPAGE_SIZE(Integer.valueOf(conf.getConfig("PAGE_SIZE")));
 			}
-			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM "
-					+ "( " + sql + ") a " + "WHERE rownum < (("
+			sql = "SELECT * FROM " + "( select * from (" + "SELECT a.*, row_number() over (order by GW_OUTB_ID) r__ " + "FROM "
+					+ "( " + sql + ") a) b " + "WHERE r__ < (("
 					+ Param.getPAGE_NO() + " * " + Param.getPAGE_SIZE()
-					+ ") + 1 ) " + ") " + "WHERE r__ >= ((("
+					+ ") + 1 ) " + ") tbl " + "WHERE r__ >= ((("
 					+ Param.getPAGE_NO() + "-1) * " + Param.getPAGE_SIZE()
 					+ ") + 1) ";
-			log.error(user.getName() + "|" + page + "|getOutboundGateway|sql:" + sql);
+			log.info(user.getName() + "|" + page + "|getOutboundGateway|sql:" + sql);
 			
 			Query query = em.createNativeQuery(sql);
 			List<Object[]> list = query.getResultList();
-			log.error(user.getName() + "|" + page + "|getOutboundGateway|list:" + list.size());
+			log.info(user.getName() + "|" + page + "|getOutboundGateway|list:" + list.size());
 			
 			GWOutboundDtail bean = null;
 			for (Object[] item : list){
@@ -116,7 +116,7 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 			
 			
 		}
-			log.error(user.getName() + "|" + page + "|getOutboundGateway|Time:" + timer.getStopTime());
+			log.info(user.getName() + "|" + page + "|getOutboundGateway|Time:" + timer.getStopTime());
 		}
 		catch (Exception e) {
 			log.error(ExceptionUtils.getStackTrace(e));
@@ -134,8 +134,8 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 
 		try {
 			Timer timer = new Timer("-");
-			log.error(user.getName() + "|" + page + "|countRowAll|Time:" + timer.getStartTime());
-			log.error(user.getName() + "|" + page + "|countRowAll|Param:" + Param);
+			log.info(user.getName() + "|" + page + "|countRowAll|Time:" + timer.getStartTime());
+			log.info(user.getName() + "|" + page + "|countRowAll|Param:" + Param);
 			String sql = " SELECT count(*)     "; 
 			sql=sql+ " FROM GW_OUTBOUND  T1 left join  GW_OUTBOUND_MAP    map   on map.DATA_MAP_ID =  T1.GW_OUTB_MAP_ID  ";
 			
@@ -157,14 +157,14 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 			}
 
 			sql = sql + sb.toString();
-			sql += " order by GW_OUTB_ID ";	
+//			sql += " order by GW_OUTB_ID ";	
 			
-					log.error(user.getName() + "|" + page + "|countRowAll|sql:" + sql);
+					log.info(user.getName() + "|" + page + "|countRowAll|sql:" + sql);
 			Query query = em.createNativeQuery(sql);
 			List list = query.getResultList();
-			log.error(user.getName() + "|" + page + "|countRowAll|list:" + list.size());
-			BigDecimal numRow = (BigDecimal) list.get(0);
-			log.error(user.getName() + "|" + page + "|countRowAll|Time:" + timer.getStopTime());
+			log.info(user.getName() + "|" + page + "|countRowAll|list:" + list.size());
+			BigDecimal numRow = new BigDecimal(list.get(0).toString());
+			log.info(user.getName() + "|" + page + "|countRowAll|Time:" + timer.getStopTime());
 			return numRow;
 		} catch (Exception e) {
 			log.error(ExceptionUtils.getStackTrace(e));

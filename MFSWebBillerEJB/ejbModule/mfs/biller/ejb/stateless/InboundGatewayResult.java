@@ -62,7 +62,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 		try{
 
 			String sql = " SELECT T3.BLLR_SRVC_ID,T4.INBN_SRVC_ID,T3.BLLR_SRVC_DESC,T2.BLLR_CODE,T4.DEST_SRVC_ID,T2.BLLR_MSTR_NAME,T1.BLLR_CATG_NAME,T1.BLLR_CATG_ID,T4.SRCE_SRVC_ID,T4.ACT_FLAG,T4.LAST_CHNG_BY,T4.LAST_CHNG_DTTM  ,T3.BLLR_SRVC_CODE , srvc.GW_SRVC_NAME  ,map.DATA_MAP_NAME    ,T4.INBN_SRVC_NAME  ,T4.GW_SRVC_ID ,T4.GW_INBN_MAP_ID   " ;
-				   sql = sql+ "  FROM   GW_INBOUND T4  left join   BILLER_SERVICE T3 on T4.INBN_SRVC_ID = T3.BLLR_SRVC_CODE left join  BILLER_MASTER T2  on T3.BLLR_MSTR_ID = T2.BLLR_MSTR_ID left join  BILLER_CATEGORY T1 on T3.BLLR_CATG_ID = T1.BLLR_CATG_ID  left join GW_SERVICE   srvc  on T4.GW_SRVC_ID =  srvc.GW_SRVC_ID  left join GW_INBOUND_MAP    map   on T4.GW_INBN_MAP_ID =  MAP.DATA_MAP_ID  ";
+				   sql = sql+ "  FROM   GW_INBOUND T4  left join   BILLER_SERVICE T3 on T4.INBN_SRVC_ID::varchar = T3.BLLR_SRVC_CODE left join  BILLER_MASTER T2  on T3.BLLR_MSTR_ID = T2.BLLR_MSTR_ID left join  BILLER_CATEGORY T1 on T3.BLLR_CATG_ID = T1.BLLR_CATG_ID  left join GW_SERVICE   srvc  on T4.GW_SRVC_ID =  srvc.GW_SRVC_ID  left join GW_INBOUND_MAP    map   on T4.GW_INBN_MAP_ID =  MAP.DATA_MAP_ID  ";
 				   //sql = sql+ "WHERE ";
 				 
 					 
@@ -75,7 +75,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 							v.add(" T4.ACT_FLAG = '"+Param.getACT_FLAG()+"'" );
 						}
 						if (!ValidateUtil.isEmpty(Param.getBLLR_SRVC_CODE())){
-							v.add(" T3.BLLR_SRVC_CODE = " + Param.getBLLR_SRVC_CODE() );
+							v.add(" T3.BLLR_SRVC_CODE = '" + Param.getBLLR_SRVC_CODE() +"'");
 						}
 					
 						if (!v.isEmpty()) {
@@ -102,10 +102,10 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 							Param.setPAGE_SIZE(Integer.valueOf(conf.getConfig("PAGE_SIZE")));
 						}
 				   
-				   sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM "
-							+ "( " + sql + ") a " + "WHERE rownum < (("
+				   sql = "SELECT * FROM " + "( " + "select * from (SELECT a.*, row_number() over (order by BLLR_SRVC_ID) r__ " + "FROM "
+							+ "( " + sql + ") a) b " + "WHERE r__ < (("
 							+ Param.getPAGE_NO() + " * " + Param.getPAGE_SIZE()
-							+ ") + 1 ) " + ") " + "WHERE r__ >= ((("
+							+ ") + 1 ) " + ") " + "tbl WHERE r__ >= ((("
 							+ Param.getPAGE_NO() + "-1) * " + Param.getPAGE_SIZE()
 							+ ") + 1) ";
 				   log.info(user.getName() + "|" + page + "|getInboundGatewayResult|sql:" + sql);
@@ -160,7 +160,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 			log.info(user.getName() + "|" + page + "|countRowAll|Time:" +timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|countRowAll|Param:" +Param.toString());
 			String sql = " SELECT count(*)   " ;
-			   sql = sql+ "  FROM   GW_INBOUND T4  left join   BILLER_SERVICE T3 on T4.INBN_SRVC_ID = T3.BLLR_SRVC_CODE left join  BILLER_MASTER T2  on T3.BLLR_MSTR_ID = T2.BLLR_MSTR_ID left join  BILLER_CATEGORY T1 on T3.BLLR_CATG_ID = T1.BLLR_CATG_ID  left join GW_SERVICE   srvc  on T4.GW_SRVC_ID =  srvc.GW_SRVC_ID  left join GW_INBOUND_MAP    map   on T4.GW_INBN_MAP_ID =  MAP.DATA_MAP_ID  ";
+			   sql = sql+ "  FROM   GW_INBOUND T4  left join   BILLER_SERVICE T3 on T4.INBN_SRVC_ID::varchar = T3.BLLR_SRVC_CODE left join  BILLER_MASTER T2  on T3.BLLR_MSTR_ID = T2.BLLR_MSTR_ID left join  BILLER_CATEGORY T1 on T3.BLLR_CATG_ID = T1.BLLR_CATG_ID  left join GW_SERVICE   srvc  on T4.GW_SRVC_ID =  srvc.GW_SRVC_ID  left join GW_INBOUND_MAP    map   on T4.GW_INBN_MAP_ID =  MAP.DATA_MAP_ID  ";
 			   //sql = sql+ "WHERE ";
 			 
 				 
@@ -173,7 +173,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 					v.add(" T4.ACT_FLAG = '"+Param.getACT_FLAG()+"'" );
 				}
 				if (!ValidateUtil.isEmpty(Param.getBLLR_SRVC_CODE())){
-					v.add(" T3.BLLR_SRVC_CODE = " + Param.getBLLR_SRVC_CODE() );
+					v.add(" T3.BLLR_SRVC_CODE = '" + Param.getBLLR_SRVC_CODE()+"'" );
 				}
 			
 				if (!v.isEmpty()) {
@@ -187,12 +187,12 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 					sb.append(")");
 				}
 				sql = sql + sb.toString();
-				sql = sql + " ORDER BY T3.BLLR_SRVC_ID";
+//				sql = sql + " ORDER BY T3.BLLR_SRVC_ID";
 				 log.info(user.getName() + "|" + page + "|countRowAll|sql:" + sql);
 				Query query = em.createNativeQuery(sql);
 				List list = query.getResultList();
 				log.info(user.getName() + "|" + page + "|countRowAll|list:" + list.size());
-				BigDecimal numRow = (BigDecimal) list.get(0);
+				BigDecimal numRow = new BigDecimal(list.get(0).toString());
 				log.info(user.getName() + "|" + page + "|countRowAll|Time:" +timer.getStopTime());
 				return numRow;
 			} catch (Exception e) {
