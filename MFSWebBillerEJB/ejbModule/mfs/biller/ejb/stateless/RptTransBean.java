@@ -119,14 +119,14 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			if (AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
 				if (!AppUtil.isEmpty(Param.getListparam()) && Param.getListparam().size() != 0) {
 					List<String> service1 = Param.getListparam();
-					sb.append("AND TRNS_SRVC_CODE in (" + "");
+					sb.append("AND TRNS_SRVC_CODE in ('");
 					for (int i = 0; i < service1.size(); i++) {
 						if (i != 0) {
-							sb.append(" , ");
+							sb.append("','");
 						}
 						sb.append(service1.get(i));
 					}
-					sb.append(")");
+					sb.append("')");
 				}
 			}
 			
@@ -287,14 +287,14 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			if (AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
 				if (!AppUtil.isEmpty(Param.getListparam()) && Param.getListparam().size() != 0) {
 					List<String> service1 = Param.getListparam();
-					sb.append("AND TRNS_SRVC_CODE in (" + "");
+					sb.append("AND TRNS_SRVC_CODE in ('");
 					for (int i = 0; i < service1.size(); i++) {
 						if (i != 0) {
-							sb.append(" , ");
+							sb.append("','");
 						}
 						sb.append(service1.get(i));
 					}
-					sb.append(")");
+					sb.append("')");
 				}
 			}
 					
@@ -425,14 +425,14 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			if (AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
 				if (!AppUtil.isEmpty(Param.getListparam()) && Param.getListparam().size() != 0) {
 					List<String> service1 = Param.getListparam();
-					sb.append("AND TRNS_SRVC_CODE in (" + "");
+					sb.append("AND TRNS_SRVC_CODE in ('");
 					for (int i = 0; i < service1.size(); i++) {
 						if (i != 0) {
-							sb.append(" , ");
+							sb.append(" ',' ");
 						}
 						sb.append(service1.get(i));
 					}
-					sb.append(")");
+					sb.append("')");
 				}
 			}
 			
@@ -637,7 +637,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			if (PARAM.getPAGE_SIZE() == null) {
 				PARAM.setPAGE_SIZE(20);
 			}
-			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM " + "( " + sql + ") a " + "WHERE rownum < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
+			
+			sql = "SELECT * FROM " + "( " + "select b.* from (SELECT a.*, row_number() over (order by 1) r__ " + "FROM " + "( " + sql + ") a) b " + "WHERE b.r__ < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") tbl " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
+			
+//			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM " + "( " + sql + ") a " + "WHERE rownum < ((" + PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE() + ") + 1 ) " + ") " + "WHERE r__ >= (((" + PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE() + ") + 1) ";
 
 			log.info(user.getName() + "|" + page + "|searchReportTrans|SQL:" + sql);
 
@@ -692,7 +695,8 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|SQL:" + sql);
 
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
+//			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int row = result.intValue();
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Total Row:" + row);
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Time|" + timer.getStopTime());
@@ -770,194 +774,6 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 		return billerBlindRefView;
 	}
 	
-	private void addMobileCreditList(StringBuilder sql,
-			GWMasterTransParam Param, List<Object> params, String selectCause){
-		getSqlTranMobileCredit(sql, Param, params, selectCause, "CON");
-		sql.append(" AND SUBSTR(TRN.TRNS_ID,0,5) = 'PSBCC'");
-	}
-	
-	private BigDecimal addMobileCreditCount(StringBuilder sql,List<Object> params) {
-		BigDecimal item = null;
-		try {
-			Timer timer = new Timer("-");
-			log.info("RptTransBean|addMobileCreditCount|Time:"
-					+ timer.getStartTime());
-			log.info("RptTransBean|addMobileCreditCount|sql:" + sql.toString());
-
-			Query query = em.createNativeQuery(sql.toString());
-			dbUtil.setParams(query, params);
-			List list = query.getResultList();
-			item = getCountList(list);
-			log.info("RptTransBean|addMobileCreditCount|numRow:" + item);
-			log.info("RptTransBean|addMobileCreditCount|Time:"
-					+ timer.getStopTime());
-		} catch (Exception e) {
-			log.error(ExceptionUtils.getStackTrace(e));
-			log.info("RptTransBean|addMobileCreditCount|Exception:" + e);
-		}
-		return item;
-	}
-	
-	private BigDecimal addMobileTotalAmount(StringBuilder sql,List<Object> params) {
-		BigDecimal count = null;
-		try {
-			Timer timer = new Timer("-");
-			log.info("RptTransBean|addMobileTotalAmount|Time:"
-					+ timer.getStartTime());
-			log.info("RptTransBean|addMobileTotalAmount|sql:" + sql.toString());
-
-			Query query = em.createNativeQuery(sql.toString());
-			dbUtil.setParams(query, params);
-			List list = query.getResultList();	
-			count = getCountList(list);			
-			log.info("RptTransBean|addMobileTotalAmount|numRow:" + count);
-			log.info("RptTransBean|addMobileTotalAmount|Time:"
-					+ timer.getStopTime());
-		} catch (Exception e) {
-			log.error(ExceptionUtils.getStackTrace(e));
-			log.info("RptTransBean|addMobileTotalAmount|Exception:" + e);
-		}
-		return count;
-	}
-	
-	private void getSqlTranCode(StringBuilder sql,GWMasterTransParam Param,List<Object> params,String selectCause,String tranCode){
-		sql.append(selectCause); 
-		sql.append(" FROM BILLER_SERVICE SRV");
-		sql.append(" LEFT JOIN GW_MAST_TRNS_01 TRN"); 
-		sql.append(" ON TRN.TRNS_SRVC_CODE = SRV.BLLR_SRVC_CODE"); 
-		sql.append(" LEFT JOIN (");
-		sql.append(" SELECT R1.*");		
-		if (!AppUtil.isEmpty(Param.getBRANCH())) {
-			sql.append(" , S.SSO_LOCN_CODE_39");
-		}
-		sql.append(" FROM RCPT_MAST R1");
-		sql.append(" INNER JOIN (");
-		sql.append(" SELECT MAX (RCPT_ID) RCPT_ID, FDM_TRNS_ID");
-		sql.append(" FROM RCPT_MAST");
-		sql.append(" WHERE 1=1");
-		sql.append(" AND DOCM_TYPE IN ('R2A','R2','R3','R4','R739','R739A','R740','R740A') GROUP BY FDM_TRNS_ID");
-		sql.append(" ) R2");
-		sql.append(" ON R2.RCPT_ID = R1.RCPT_ID");
-		sql.append(" AND R2.FDM_TRNS_ID = R1.FDM_TRNS_ID");
-		if (!AppUtil.isEmpty(Param.getBRANCH())) {
-			sql.append(" INNER JOIN BACK_OFFC_RTR_SHOP S");
-			sql.append(" ON r1.RTR_CODE = s.RTR_CODE");
-		}
-		sql.append(" ) RCPT");
-		sql.append(" ON RCPT.FDM_TRNS_ID = TRN.TRNS_ID");
-		sql.append(" LEFT JOIN RCPT_MTHD MTHD");
-		sql.append(" ON MTHD.RCPT_ID = RCPT.RCPT_ID");			
-		sql.append(" INNER JOIN VIEW_BILLER_CUS_INFO VW_CUS");
-		sql.append(" ON TRN.TRNS_ID = VW_CUS.FDM_TRNS_ID");				    
-		sql.append(" WHERE 1=1");
-		if("REV".equals(tranCode)){
-			sql.append(" AND (RCPT.RCPT_STTS = 'C' AND NOT EXISTS (SELECT 'X' FROM RCPT_MAST X WHERE RCPT.RCPT_ID = X.RCPT_REFN_ID))");
-		}
-		sql.append(" AND RCPT.DOCM_TYPE IN ('R2A','R2','R3','R4','R739','R739A','R740','R740A')");
-		if("CON".equals(tranCode)){
-			sql.append(" AND TRN.TRNS_FUNC_CODE = '"+tranCode+"'");
-			sql.append(" AND TRN.TRNS_STTS_CODE = '00'");
-			sql.append(" AND RCPT.RCPT_STTS = 'N'");
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_ID())) {
-			sql.append(" AND TRN.TRNS_ID = ?");
-			params.add(Param.getTRNS_ID());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
-			sql.append(" AND TRN.TRNS_SRVC_CODE = ?");
-			params.add(Param.getTRNS_SRVC_CODE());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_SRCE_CHNL_CODE())) {
-			sql.append(" AND TRN.TRNS_SRCE_CHNL_CODE = ?");
-			params.add(Param.getTRNS_SRCE_CHNL_CODE());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_DEST_CODE())) {
-			sql.append(" AND TRN.TRNS_DEST_CODE = ?");
-			params.add(Param.getTRNS_DEST_CODE());
-		}		
-		if (Param.getFROM_DTTM() != null) {
-			sql.append(" AND TRN.CRTD_DTTM >= TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')");
-			params.add(DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss"));
-		}
-		if (Param.getTO_DTTM() != null) {
-			sql.append(" AND TRN.CRTD_DTTM <= TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')");
-			params.add(DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss"));
-		}
-		if (!AppUtil.isEmpty(Param.getBRANCH())) {
-			sql.append(" AND RCPT.SSO_LOCN_CODE_39 = ?");
-			params.add(Param.getBRANCH());
-		}
-		if (AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
-			if (!AppUtil.isEmpty(Param.getListparam()) && Param.getListparam().size() != 0) {
-				List<String> service1 = Param.getListparam();
-				sql.append(" AND  TRN.TRNS_SRVC_CODE in (" + "");
-				for (int i = 0; i < service1.size(); i++) {
-					if (i != 0) {
-						sql.append(" , ");
-					}
-					sql.append("?");
-					params.add(service1.get(i) );
-				}
-				sql.append(")");
-			}
-		}
-	}
-	
-	private void getSqlTranMobileCredit(StringBuilder sql,GWMasterTransParam Param,List<Object> params,String selectCause,String tranCode){
-		sql.append(selectCause);
-		sql.append(" FROM BILLER_SERVICE SRV");
-		sql.append(" LEFT JOIN GW_MAST_TRNS_01 TRN");
-		sql.append(" ON TRN.TRNS_SRVC_CODE = SRV.BLLR_SRVC_CODE");
-		sql.append(" INNER JOIN VIEW_BILLER_CUS_INFO VW_CUS");
-		sql.append(" ON TRN.TRNS_ID = VW_CUS.FDM_TRNS_ID");
-		sql.append(" WHERE 1=1");
-		sql.append(" AND TRN.TRNS_FUNC_CODE = '"+tranCode+"'");
-		sql.append(" AND TRN.TRNS_STTS_CODE = '00'");
-
-		if (!AppUtil.isEmpty(Param.getTRNS_ID())) {
-			sql.append(" AND TRN.TRNS_ID = ?");
-			params.add(Param.getTRNS_ID());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
-			sql.append(" AND TRN.TRNS_SRVC_CODE = ?");
-			params.add(Param.getTRNS_SRVC_CODE());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_SRCE_CHNL_CODE())) {
-			sql.append(" AND TRN.TRNS_SRCE_CHNL_CODE = ?");
-			params.add(Param.getTRNS_SRCE_CHNL_CODE());
-		}
-		if (!AppUtil.isEmpty(Param.getTRNS_DEST_CODE())) {
-			sql.append(" AND TRN.TRNS_DEST_CODE = ?");
-			params.add(Param.getTRNS_DEST_CODE());
-		}
-		if (Param.getFROM_DTTM() != null) {
-			sql.append(" AND TRN.TRNS_DTTM >= TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')");
-			params.add(DateTimeUtil.parseToString(Param.getFROM_DTTM(),
-					"yyyy-MM-dd HH:mm:ss"));
-		}
-		if (Param.getTO_DTTM() != null) {
-			sql.append(" AND TRN.TRNS_DTTM <= TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS')");
-			params.add(DateTimeUtil.parseToString(Param.getTO_DTTM(),
-					"yyyy-MM-dd HH:mm:ss"));
-		}
-
-		if (AppUtil.isEmpty(Param.getTRNS_SRVC_CODE())) {
-			if (!AppUtil.isEmpty(Param.getListparam())
-					&& Param.getListparam().size() != 0) {
-				List<String> service1 = Param.getListparam();
-				sql.append(" AND  TRN.TRNS_SRVC_CODE in (" + "");
-				for (int i = 0; i < service1.size(); i++) {
-					if (i != 0) {
-						sql.append(" , ");
-					}
-					sql.append("?");
-					params.add(service1.get(i));
-				}
-				sql.append(")");
-			}
-		}
-	}
-	
 	private BigDecimal getCountList(List list) {
 		BigDecimal item = new BigDecimal(0);
 		for (Object count : list) {
@@ -972,7 +788,6 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 		PropertyConfigurator.configure("log4j.properties");
 		RptTransBean rtb = new RptTransBean();
 		try {
-			System.out.println(rtb.getBillerBlindRefView(12, "add.ref1").getRefBlindFomt());
 //			GWMasterTransParam param=new GWMasterTransParam();
 //			param.setTRNS_SRCE_CHNL_CODE("sd_web");
 //			param.setFROM_DTTM(new Date());
