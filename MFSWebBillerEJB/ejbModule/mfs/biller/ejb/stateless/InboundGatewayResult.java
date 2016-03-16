@@ -192,7 +192,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 				Query query = em.createNativeQuery(sql);
 				List list = query.getResultList();
 				log.info(user.getName() + "|" + page + "|countRowAll|list:" + list.size());
-				BigDecimal numRow = (BigDecimal) list.get(0);
+				BigDecimal numRow = new BigDecimal(list.get(0).toString());
 				log.info(user.getName() + "|" + page + "|countRowAll|Time:" +timer.getStopTime());
 				return numRow;
 			} catch (Exception e) {

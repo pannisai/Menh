@@ -99,10 +99,10 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 				//log.info("RptTransBean|getMasterTransAll|Default page size:" + Integer.valueOf(conf.getConfig("PAGE_SIZE")));				
 				Param.setPAGE_SIZE(Integer.valueOf(conf.getConfig("PAGE_SIZE")));
 			}	   
-	   sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM "
-				+ "( " + sql + ") a " + "WHERE rownum < (("
+	   sql = "SELECT * FROM " + "( select * from ( " + "SELECT a.*, row_number() over (order by GW_SRVC_ID) r__ " + "FROM "
+				+ "( " + sql + ") a ) b " + "WHERE r__ < (("
 				+ Param.getPAGE_NO() + " * " + Param.getPAGE_SIZE()
-				+ ") + 1 ) " + ") " + "WHERE r__ >= ((("
+				+ ") + 1 ) " + ") tbl " + "WHERE r__ >= ((("
 				+ Param.getPAGE_NO() + "-1) * " + Param.getPAGE_SIZE()
 				+ ") + 1) ";
 	   log.info(user.getName() + "|" + page + "|getServiceGatewayResult|sql:" + sql);
@@ -215,13 +215,13 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 				}
 				sql = sql + sb.toString();
 			   
-			   sql=sql+(" order by  T2.GW_SRVC_ID");	
+//			   sql=sql+(" order by  T2.GW_SRVC_ID");	
 				   log.info(user.getName() + "|" + page + "|countRowAll|sql:" + sql);
 
 				Query query = em.createNativeQuery(sql);
 				List list = query.getResultList();
 				log.info(user.getName() + "|" + page + "|countRowAll|list:" + list.size());
-				BigDecimal numRow = (BigDecimal) list.get(0);
+				BigDecimal numRow = new BigDecimal(list.get(0).toString());
 				log.info(user.getName() + "|" + page + "|countRowAll|Time:" + timer.getStopTime());
 				return numRow;
 			} catch (Exception e) {
