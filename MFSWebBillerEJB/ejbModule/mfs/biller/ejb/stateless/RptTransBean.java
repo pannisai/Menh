@@ -60,7 +60,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			log.info("RptTransBean|getMasterTransAll|Time:" + timer.getStartTime());
 
 			StringBuilder sb = new StringBuilder();			
-			sb.append("SELECT * FROM VIEW_BILLER_TRANSACTION ");
+			sb.append("SELECT *,row_number() over() r FROM VIEW_BILLER_TRANSACTION ");
 
 			Vector<String> v = new Vector<String>();
 			if (!AppUtil.isEmpty(Param.getTRNS_ID())) {
@@ -134,7 +134,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			sb.append(" ORDER BY 2 desc");
 
 			if(!AppUtil.isEmpty(Param.getEXPORT()) && "Y".equals(Param.getEXPORT())){
-				sqlStr = "SELECT a.*,rownum r__ FROM( " + sb.toString()
+				sqlStr = "SELECT a.*,row_number() over() r__ FROM( " + sb.toString()
 						+ ")a ";		
 			}else{
 				if (Param.getPAGE_NO() == null) {
@@ -143,7 +143,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				if (Param.getPAGE_SIZE() == null) {
 					Param.setPAGE_SIZE(20);
 				}
-				sqlStr = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + "FROM " + "( " + sb.toString() + ") a " + "WHERE rownum < ((" + Param.getPAGE_NO() + " * " + Param.getPAGE_SIZE() + ") + 1 ) " + ") " + "WHERE r__ >= (((" + Param.getPAGE_NO() + "-1) * " + Param.getPAGE_SIZE() + ") + 1) ";
+				sqlStr = "SELECT * FROM " + "( " + "SELECT a.*, row_number() over() r__ " + "FROM " + "( " + sb.toString() + ") a " + "WHERE r < ((" + Param.getPAGE_NO() + " * " + Param.getPAGE_SIZE() + ") + 1 ) " + ") tbl " + "WHERE r__ >= (((" + Param.getPAGE_NO() + "-1) * " + Param.getPAGE_SIZE() + ") + 1) ";
 			}			
 			
 			log.info("RptTransBean|getMasterTransAll|sql:" + sqlStr);
@@ -778,7 +778,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 		BigDecimal item = new BigDecimal(0);
 		for (Object count : list) {
 			if(null != count){
-				item = item.add((BigDecimal) count);
+				item = item.add(new BigDecimal((Long)count));
 			}
 		}
 		return item;

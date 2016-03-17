@@ -51,15 +51,15 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			log.info("BatchMastFileBean|getBatchMastFileAll|BatchMastFileParam:"
 					+ PARAM.toString());
 
-			String sql = "SELECT * " + " FROM BATCH_MAST_FILE ";
+			String sql = "SELECT *,row_number() over() r " + " FROM BATCH_MAST_FILE ";
 
 			Vector<String> v = new Vector<String>();
 
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))
-				v.add(" TRUNC(BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" TRUNC(BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getBTCH_DEST_CODE() != null && !"".equals(PARAM.getBTCH_DEST_CODE()))
 				v.add(" BTCH_DEST_CODE = '" + PARAM.getBTCH_DEST_CODE() + "'");
@@ -105,13 +105,13 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			if(PARAM.getEnableAuthorize() != null && "Y".equalsIgnoreCase(PARAM.getEnableAuthorize())){
 				x.add("1 != 1");				
 				if(PARAM.getTextFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getTextFilePattern() + "')");
+					x.add(" BTCH_MAST_FILE_NAME ~ '" + PARAM.getTextFilePattern() + "'");
 				}
 				if(PARAM.getSummaryReportFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getSummaryReportFilePattern() + "')");
+					x.add(" BTCH_MAST_FILE_NAME ~ '" + PARAM.getSummaryReportFilePattern() + "'");
 				}
 				if(PARAM.getDetailReportFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getDetailReportFilePattern() + "')");
+					x.add(" BTCH_MAST_FILE_NAME ~ '" + PARAM.getDetailReportFilePattern() + "'");
 				}				
 			}			
 			if (!x.isEmpty()) {
@@ -125,7 +125,7 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 				sb.append(")");						
 			}
 			if(PARAM.getIgnoreFilePattern() != null){
-				sb.append(" AND NOT REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getIgnoreFilePattern() + "')");
+				sb.append(" AND NOT BTCH_MAST_FILE_NAME ~ '" + PARAM.getIgnoreFilePattern() + "'");
 			}
 			
 			sql = sql + sb.toString();
@@ -140,10 +140,10 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 				PARAM.setPAGE_SIZE(20);
 			}
 
-			sql = "SELECT * FROM " + "( " + "SELECT a.*, rownum r__ " + " FROM "
-					+ "( " + sql + ") a " + " WHERE rownum < (("
+			sql = "SELECT * FROM " + "( " + "SELECT a.*, row_number() over() r__ " + " FROM "
+					+ "( " + sql + ") a " + " WHERE r < (("
 					+ PARAM.getPAGE_NO() + " * " + PARAM.getPAGE_SIZE()
-					+ ") + 1 ) " + ") " + " WHERE r__ >= ((("
+					+ ") + 1 ) " + ") tbl " + " WHERE r__ >= ((("
 					+ PARAM.getPAGE_NO() + "-1) * " + PARAM.getPAGE_SIZE()
 					+ ") + 1) ";
 
@@ -244,10 +244,10 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 
 			Vector<String> v = new Vector<String>();				
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))
-				v.add(" TRUNC(BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" TRUNC(BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getBTCH_DEST_CODE() != null && !"".equals(PARAM.getBTCH_DEST_CODE()))
 				v.add(" BTCH_DEST_CODE = '" + PARAM.getBTCH_DEST_CODE() + "'");
@@ -292,13 +292,13 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			if(PARAM.getEnableAuthorize() != null && "Y".equalsIgnoreCase(PARAM.getEnableAuthorize())){
 				x.add("1 != 1");
 				if(PARAM.getTextFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getTextFilePattern() + "')");
+					x.add(" BTCH_MAST_FILE_NAME ~ '" + PARAM.getTextFilePattern() + "'");
 				}
 				if(PARAM.getSummaryReportFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getSummaryReportFilePattern() + "')");
+					x.add("BTCH_MAST_FILE_NAME ~ '" + PARAM.getSummaryReportFilePattern() + "'");
 				}
 				if(PARAM.getDetailReportFilePattern() != null){
-					x.add(" REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getDetailReportFilePattern() + "')");
+					x.add("BTCH_MAST_FILE_NAME ~ '" + PARAM.getDetailReportFilePattern() + "'");
 				}
 			}			
 			if (!x.isEmpty()) {
@@ -312,7 +312,7 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 				sb.append(")");				
 			}
 			if(PARAM.getIgnoreFilePattern() != null){
-				sb.append(" AND NOT REGEXP_LIKE (BTCH_MAST_FILE_NAME, '" + PARAM.getIgnoreFilePattern() + "')");
+				sb.append(" AND NOT BTCH_MAST_FILE_NAME ~ '" + PARAM.getIgnoreFilePattern() + "'");
 			}
 			
 			sql = sql + sb.toString();
@@ -321,7 +321,7 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			Query query = em.createNativeQuery(sql);
 
 			List list = query.getResultList();
-			BigDecimal numRow = (BigDecimal) list.get(0);
+			BigDecimal numRow = new BigDecimal((Long)list.get(0));
 //			BigDecimal numRow = Integer.parseInt("" + item.get(0));
 			log.info("BatchMastFileBean|countRowAll|Time:" +timer.getStopTime());
 			return numRow;

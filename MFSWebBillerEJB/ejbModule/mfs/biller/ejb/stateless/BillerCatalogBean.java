@@ -112,7 +112,7 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -141,7 +141,7 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -172,14 +172,14 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 				throw new IsExistException("BLLR_CATG_MENU_SEQ");
 			}
 			
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_CATEGORY.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_CATEGORY')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int BLLR_CATG_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertBillerCatalog|BLLR_CATG_ID:" + BLLR_CATG_ID);
-			
+			em.getTransaction().begin();
 			String sql = "INSERT INTO BILLER_CATEGORY(BLLR_CATG_ID, BLLR_CATG_NAME, BLLR_CATG_DESC, ACT_FLAG, BLLR_CATG_MENU_SEQ, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)"
-					   + "VALUES(?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+					   + "VALUES(?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, BLLR_CATG_ID);
@@ -190,7 +190,6 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 			query.setParameter(++i, user.getName());
 			query.setParameter(++i, user.getName());
 			query.executeUpdate();
-			
 			log.info(user.getName() + "|" + page + "|insertBillerCatalog|Success");
 			log.info(user.getName() + "|" + page + "|insertBillerCatalog|Time|" + timer.getStopTime());
 			return BLLR_CATG_ID;
@@ -201,6 +200,8 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertBillerCatalog|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -226,7 +227,7 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 					.append(", ACT_FLAG = ? ")
 					.append(", BLLR_CATG_MENU_SEQ = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_date ")
 					.append("WHERE BLLR_CATG_ID = ? ");
 			
 			int i = 0;
