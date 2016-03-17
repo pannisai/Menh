@@ -76,7 +76,7 @@ public class FileDownloadInquiryController extends SearchPageController {
 		try {
 			selectBoxService = BillerwebServiceFactory.getSelectBoxService();
 			billerServiceListModel = selectBoxService.getBillerServiceListModel(getServiceIds());
-			if (getServiceIds().size() > 1) {
+			if (getServiceIds().size() != 1) {
 				billerServiceListModel.addItemAll();
 			}
 			billerServiceListModel.addDataToSelection(0);
