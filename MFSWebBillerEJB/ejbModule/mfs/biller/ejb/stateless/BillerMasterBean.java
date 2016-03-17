@@ -223,7 +223,7 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -252,7 +252,7 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -282,9 +282,9 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 			if (isExistBllrCode(0, bean.getBLLR_CODE(), user)){
 				throw new IsExistException("BLLR_CODE");
 			}
-			
+			em.getTransaction().begin();
 			String sql = "INSERT INTO BILLER_MASTER(BLLR_MSTR_ID, BLLR_MSTR_NAME, NAME_THA, BLLR_CODE, BLLR_TAX_NUMB, COMP_CODE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM, BLLR_TAX_NUMB2)"
-					   + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ?)";
+					   + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)";
 			int i = 0;
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(++i, bean.getBLLR_MSTR_ID());
@@ -307,6 +307,8 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertBillerMaster|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -330,10 +332,10 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 					.append(", COMP_CODE = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append(", BLLR_TAX_NUMB2 = ? ")
 					.append("WHERE BLLR_MSTR_ID = ? ");
-			
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_MSTR_NAME());
@@ -355,6 +357,8 @@ public class BillerMasterBean implements BillerMasterBeanRemote, BillerMasterBea
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateBillerMaster|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 }

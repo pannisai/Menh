@@ -231,7 +231,7 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -260,7 +260,7 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{
@@ -290,15 +290,15 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 			if (isExistBllrChnlCode(0, bean.getBLLR_CHNL_CODE(), user)){
 				throw new IsExistException("BLLR_CHNL_CODE");
 			}
-			
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_CHANNEL.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_CHANNEL')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int BLLR_CHNL_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertBillerChannel|BLLR_CHNL_ID:" + BLLR_CHNL_ID);
 			
 			String sql = "INSERT INTO BILLER_CHANNEL(BLLR_CHNL_ID, BLLR_CHNL_NAME, BLLR_CHNL_CODE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)"
-					   + "VALUES(?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+					   + "VALUES(?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, BLLR_CHNL_ID);
@@ -319,6 +319,8 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertBillerChannel|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -343,9 +345,9 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 					.append(", BLLR_CHNL_CODE = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE BLLR_CHNL_ID = ? ");
-			
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_CHNL_NAME());
@@ -363,6 +365,8 @@ public class BillerChannelBean implements BillerChannelBeanRemote, BillerChannel
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateBillerChannel|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 }

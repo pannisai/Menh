@@ -135,14 +135,14 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|insertInformation|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertInformation|Param|" + bean.toString());
-
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_SERVICE.nextval from DUAL");
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_SERVICE')");
 			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int BLLR_SRVC_ID = result.intValue();
 
 			log.info(user.getName() + "|" + page + "|insertInformation|BLLR_SRVC_ID:" + BLLR_SRVC_ID);
 
-			String sql = "INSERT INTO BILLER_SERVICE(BLLR_SRVC_ID, BLLR_CATG_ID, BLLR_SRVC_CODE, BLLR_MSTR_ID, BLLR_SRVC_NAME_EN, BLLR_SRVC_NAME_FULL_EN, BLLR_SRVC_NAME_TH, BLLR_SRVC_NAME_FULL_TH, BLLR_SRVC_STAT_DATE, BLLR_SRVC_EXPR_DATE, BLLR_SRVC_MENU_SEQ, BLLR_SRVC_GUST_MOBN_FLAG, BLLR_SRVC_BARC_FLAG, BLLR_SERV_VAT_PERC, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_SRVC_FETR,BLLR_INGT_ID)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE,?,?)";
+			String sql = "INSERT INTO BILLER_SERVICE(BLLR_SRVC_ID, BLLR_CATG_ID, BLLR_SRVC_CODE, BLLR_MSTR_ID, BLLR_SRVC_NAME_EN, BLLR_SRVC_NAME_FULL_EN, BLLR_SRVC_NAME_TH, BLLR_SRVC_NAME_FULL_TH, BLLR_SRVC_STAT_DATE, BLLR_SRVC_EXPR_DATE, BLLR_SRVC_MENU_SEQ, BLLR_SRVC_GUST_MOBN_FLAG, BLLR_SRVC_BARC_FLAG, BLLR_SERV_VAT_PERC, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_SRVC_FETR,BLLR_INGT_ID)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp,?,?)";
 			int i = 0;
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, BLLR_SRVC_ID);
@@ -212,6 +212,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertInformation|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -221,8 +223,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|insertPaymentValidate|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertPaymentValidate|Param|" + bean.toString());
-
-			String sql = "INSERT INTO BILLER_PAYMENT_VALIDATE(BLLR_PMNT_VALD_ID, BLLR_SRVC_ID, BLLR_PMNT_FULL_FLAG, BLLR_PRES_FLAG, BLLR_PMNT_PART_FLAG, BLLR_BILL_AMNT_FLAG, BLLR_PMNT_OVER_FLAG, BLLR_PMNT_AMNT_MIN, BLLR_PMNT_AMNT_MAX, BLLR_NON_FDM_FEE_FLAG, BLLR_NON_FDM_COMS_FLAG, BLLR_OVER_DUE_FLAG, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_MAX_NO_MNTH ,BLLR_DENM_FLAG)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE,?,?)";
+			em.getTransaction().begin();
+			String sql = "INSERT INTO BILLER_PAYMENT_VALIDATE(BLLR_PMNT_VALD_ID, BLLR_SRVC_ID, BLLR_PMNT_FULL_FLAG, BLLR_PRES_FLAG, BLLR_PMNT_PART_FLAG, BLLR_BILL_AMNT_FLAG, BLLR_PMNT_OVER_FLAG, BLLR_PMNT_AMNT_MIN, BLLR_PMNT_AMNT_MAX, BLLR_NON_FDM_FEE_FLAG, BLLR_NON_FDM_COMS_FLAG, BLLR_OVER_DUE_FLAG, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_MAX_NO_MNTH ,BLLR_DENM_FLAG)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp,?,?)";
 			int i = 0;
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(++i, bean.getBLLR_PMNT_VALD_ID());
@@ -252,6 +254,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertPaymentValidate|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -307,8 +311,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|insertBillerServiceChannel|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerServiceChannel|Param|" + bean.toString());
-
-			String sql = "INSERT INTO BILLER_SERVICE_CHANNEL(BLLR_SRVC_ID, BLLR_CHNL_ID, BLLR_SRVC_CHNL_BARC_FLAG, BLLR_SRVC_CHNL_KEYN_FLAG, BLLR_SRVC_CHNL_CODE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)" + "VALUES(?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+			em.getTransaction().begin();
+			String sql = "INSERT INTO BILLER_SERVICE_CHANNEL(BLLR_SRVC_ID, BLLR_CHNL_ID, BLLR_SRVC_CHNL_BARC_FLAG, BLLR_SRVC_CHNL_KEYN_FLAG, BLLR_SRVC_CHNL_CODE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)" + "VALUES(?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(++i, bean.getBLLR_SRVC_ID());
@@ -329,6 +333,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerServiceChannel|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -338,8 +344,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|insertBillerForm|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerForm|Param|" + bean.toString());
-
-			String sql = "INSERT INTO BILLER_FORM(BLLR_FORM_ID, BLLR_FORM_NAME, BLLR_FORM_CAPT_TH, BLLR_FORM_CAPT_EN, BLLR_SRVC_ID, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)" + "VALUES(?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+			em.getTransaction().begin();
+			String sql = "INSERT INTO BILLER_FORM(BLLR_FORM_ID, BLLR_FORM_NAME, BLLR_FORM_CAPT_TH, BLLR_FORM_CAPT_EN, BLLR_SRVC_ID, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)" + "VALUES(?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(++i, bean.getBLLR_FORM_ID());
@@ -360,6 +366,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerForm|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -505,14 +513,15 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|insertBillerRef|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerRef|Param|" + bean.toString());
 
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_REF.nextval from DUAL");
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_REF')");
 			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int REF_ID = result.intValue();
 
 			log.info(user.getName() + "|" + page + "|insertBillerRef|REF_ID:" + REF_ID);
 
 			String sql = "INSERT INTO BILLER_REF(REF_ID, BLLR_SRVC_ID, BLLR_FORM_ID, REF_SEQ, REF_LABL_TH, REF_LABL_EN, REF_TYPE, REF_DEFT_VALE, REF_VALE_LENT_MIN, REF_VALE_LENT_MAX, REF_REQU_FLAG, REF_HIDN_FLAG, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM,REF_ALLW_KEY_IN,REF_PRIM_FLAG,REF_DATA_TYPE,REF_DUP_FLAG,REF_DATA_FOMT)" +
-			"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE,?,?,?,?,?)";
+			"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp,?,?,?,?,?)";
 
 			int i = 0;
 			query = em.createNativeQuery(sql);
@@ -548,6 +557,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerRef|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -618,14 +629,14 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|Param|" + bean.toString());
-
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_BARCODE_REF.nextval from DUAL");
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_BARCODE_REF')");
 			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int BARC_REF_ID = result.intValue();
 
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|BARC_REF_ID:" + BARC_REF_ID);
 
-			String sql = "INSERT INTO BILLER_BARCODE_REF(BARC_REF_ID, REF_ID, BARC_ID, BARC_LINE_ID, BARC_REMV_CHAR, BARC_PART_FLAG, BARC_PART_STAT, BARC_PART_LENT, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE)";
+			String sql = "INSERT INTO BILLER_BARCODE_REF(BARC_REF_ID, REF_ID, BARC_ID, BARC_LINE_ID, BARC_REMV_CHAR, BARC_PART_FLAG, BARC_PART_STAT, BARC_PART_LENT, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 
 			int i = 0;
 			query = em.createNativeQuery(sql);
@@ -657,6 +668,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerBarcodeRef|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -696,10 +709,10 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			StringBuffer sb = new StringBuffer();
 			sb.append("UPDATE BILLER_SERVICE ").append("SET BLLR_CATG_ID = ? ").append(", BLLR_SRVC_CODE = ? ").append(", BLLR_MSTR_ID = ? ").append(", BLLR_SRVC_NAME_EN = ? ").append(", BLLR_SRVC_NAME_FULL_EN = ? ").append(", BLLR_SRVC_NAME_TH = ? ").append(", BLLR_SRVC_NAME_FULL_TH = ? ").append(", BLLR_SRVC_STAT_DATE = ? ").append(", BLLR_SRVC_EXPR_DATE = ? ").append(", BLLR_SRVC_MENU_SEQ = ? ").append(", BLLR_SRVC_GUST_MOBN_FLAG = ? ").append(", BLLR_SRVC_BARC_FLAG = ? ").append(", BLLR_SERV_VAT_PERC = ? ")
 			// .append(", ACT_FLAG = ? ")			
-			.append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append(", BLLR_SRVC_FETR = ? ").append(", BLLR_INGT_ID = ? ")
+			.append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append(", BLLR_SRVC_FETR = ? ").append(", BLLR_INGT_ID = ? ")
 			.append(", BLLR_CNCL_ONLN_FLAG = ? ").append(", BLLR_FETR_ID = ? ")
 			.append("WHERE BLLR_SRVC_ID = ? ");
-
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_CATG_ID());
@@ -729,6 +742,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerService|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -766,8 +781,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerPaymentValidate|Param|" + bean.toString());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_PAYMENT_VALIDATE ").append("SET BLLR_PMNT_FULL_FLAG = ? ").append(", BLLR_PRES_FLAG = ? ").append(", BLLR_PMNT_PART_FLAG = ? ").append(", BLLR_BILL_AMNT_FLAG = ? ").append(", BLLR_PMNT_OVER_FLAG = ? ").append(", BLLR_PMNT_AMNT_MIN = ? ").append(", BLLR_PMNT_AMNT_MAX = ? ").append(", BLLR_NON_FDM_FEE_FLAG = ? ").append(", BLLR_NON_FDM_COMS_FLAG = ? ").append(", BLLR_OVER_DUE_FLAG = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append(", BLLR_MAX_NO_MNTH = ? ").append(", BLLR_DENM_FLAG = ? ").append("WHERE BLLR_PMNT_VALD_ID = ? ");
-
+			sb.append("UPDATE BILLER_PAYMENT_VALIDATE ").append("SET BLLR_PMNT_FULL_FLAG = ? ").append(", BLLR_PRES_FLAG = ? ").append(", BLLR_PMNT_PART_FLAG = ? ").append(", BLLR_BILL_AMNT_FLAG = ? ").append(", BLLR_PMNT_OVER_FLAG = ? ").append(", BLLR_PMNT_AMNT_MIN = ? ").append(", BLLR_PMNT_AMNT_MAX = ? ").append(", BLLR_NON_FDM_FEE_FLAG = ? ").append(", BLLR_NON_FDM_COMS_FLAG = ? ").append(", BLLR_OVER_DUE_FLAG = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append(", BLLR_MAX_NO_MNTH = ? ").append(", BLLR_DENM_FLAG = ? ").append("WHERE BLLR_PMNT_VALD_ID = ? ");
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_PMNT_FULL_FLAG());
@@ -793,6 +808,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerPaymentValidate|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -830,8 +847,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerServiceChannel|Param|" + bean.toString());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_SERVICE_CHANNEL ").append("SET BLLR_SRVC_CHNL_KEYN_FLAG = ? ").append(", BLLR_SRVC_CHNL_BARC_FLAG = ? ").append(", ACT_FLAG = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append("WHERE BLLR_SRVC_ID = ? ").append("AND BLLR_CHNL_ID = ? ");
-
+			sb.append("UPDATE BILLER_SERVICE_CHANNEL ").append("SET BLLR_SRVC_CHNL_KEYN_FLAG = ? ").append(", BLLR_SRVC_CHNL_BARC_FLAG = ? ").append(", ACT_FLAG = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append("WHERE BLLR_SRVC_ID = ? ").append("AND BLLR_CHNL_ID = ? ");
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_SRVC_CHNL_KEYN_FLAG());
@@ -849,6 +866,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerServiceChannel|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -887,8 +906,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerForm|Param|" + bean.toString());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_FORM ").append("SET BLLR_FORM_NAME = ? ").append(", BLLR_FORM_CAPT_TH = ? ").append(", BLLR_FORM_CAPT_EN = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append("WHERE BLLR_FORM_ID = ? ");
-
+			sb.append("UPDATE BILLER_FORM ").append("SET BLLR_FORM_NAME = ? ").append(", BLLR_FORM_CAPT_TH = ? ").append(", BLLR_FORM_CAPT_EN = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append("WHERE BLLR_FORM_ID = ? ");
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_FORM_NAME());
@@ -905,6 +924,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerForm|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -953,7 +974,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			.append(", REF_HIDN_FLAG = ? ")
 			.append(", ACT_FLAG = ? ")
 			.append(", LAST_CHNG_BY = ? ")
-			.append(", LAST_CHNG_DTTM = SYSDATE ")
+			.append(", LAST_CHNG_DTTM = current_timestamp ")
 			.append(", REF_ALLW_KEY_IN = ? ")
 			.append(", REF_PRIM_FLAG = ? ")
 			.append(", REF_DATA_TYPE = ? ")
@@ -965,7 +986,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			.append(", REF_SMS_FLAG = ? ")
 			.append(", REF_BLIND_FOMT = ? ")		
 			.append("WHERE REF_ID = ? ");
-	
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getREF_SEQ());
@@ -1004,6 +1025,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerRef|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -1041,8 +1064,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerBarcodeRef|Param|" + bean.toString());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_BARCODE_REF ").append("SET BARC_LINE_ID = ? ").append(", BARC_ID = ? ").append(", BARC_REMV_CHAR = ? ").append(", BARC_PART_FLAG = ? ").append(", ACT_FLAG = ? ").append(", BARC_PART_STAT = ? ").append(", BARC_PART_LENT = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append("WHERE BARC_REF_ID = ? ");
-
+			sb.append("UPDATE BILLER_BARCODE_REF ").append("SET BARC_LINE_ID = ? ").append(", BARC_ID = ? ").append(", BARC_REMV_CHAR = ? ").append(", BARC_PART_FLAG = ? ").append(", ACT_FLAG = ? ").append(", BARC_PART_STAT = ? ").append(", BARC_PART_LENT = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append("WHERE BARC_REF_ID = ? ");
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBARC_LINE_ID());
@@ -1076,6 +1099,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerBarcodeRef|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -1087,11 +1112,11 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerServiceCenter|Param|" + BLLR_SRVC_ID);
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_SERVICE ").append("SET LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").append("WHERE BLLR_SRVC_ID = ? ");
+			sb.append("UPDATE BILLER_SERVICE ").append("SET LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append("WHERE BLLR_SRVC_ID = ? ");
 		
 			int i = 0;
 			log.debug("SB::" + sb.toString());
-			log.debug("EM::" + em);
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, user.getName());
 			query.setParameter(++i, BLLR_SRVC_ID);
@@ -1102,6 +1127,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerServiceCenter|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 
@@ -1159,7 +1186,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			billerServiceImage.setCreateDate(new Date());
 			billerServiceImage.setLastChangeBy(user.getName());
 			billerServiceImage.setLastChangeDate(new Date());
-			
+			em.getTransaction().begin();
 			em.persist(billerServiceImage);
 
 			log.info(user.getName() + "|" + page + "|saveBillerImage|Success");
@@ -1170,6 +1197,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|saveBillerImage|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -1204,12 +1233,13 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			}
 			sb.append(" LAST_CHNG_BY = ?,");
 			params.add(user.getName());
-			sb.append(" LAST_CHNG_DTTM = SYSDATE ");
+			sb.append(" LAST_CHNG_DTTM = current_timestamp ");
 			sb.append(" WHERE BLLR_SRVC_ID = ? ");
 			params.add(billerServiceImage.getBllrSrvcId());
 		
 			log.debug("Sql::" + sb.toString());
 			log.debug("EM::" + em);
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			dbUtil.setParams(query, params);	
 			query.executeUpdate();
@@ -1219,6 +1249,8 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|updateBillerServiceImage|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
