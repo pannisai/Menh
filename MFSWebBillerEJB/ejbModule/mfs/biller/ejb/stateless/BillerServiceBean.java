@@ -2,6 +2,7 @@ package mfs.biller.ejb.stateless;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -631,44 +632,54 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|Param|" + bean.toString());
 			em.getTransaction().begin();
 			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_BARCODE_REF')");
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			int BARC_REF_ID = result.intValue();
 
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|BARC_REF_ID:" + BARC_REF_ID);
 
-			String sql = "INSERT INTO BILLER_BARCODE_REF(BARC_REF_ID, REF_ID, BARC_ID, BARC_LINE_ID, BARC_REMV_CHAR, BARC_PART_FLAG, BARC_PART_STAT, BARC_PART_LENT, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
-
-			int i = 0;
-			query = em.createNativeQuery(sql);
-			query.setParameter(++i, BARC_REF_ID);
-			query.setParameter(++i, bean.getREF_ID());
-			query.setParameter(++i, bean.getBARC_ID());
-			query.setParameter(++i, bean.getBARC_LINE_ID());
-			query.setParameter(++i, bean.getBARC_REMV_CHAR());
-			query.setParameter(++i, bean.getBARC_PART_FLAG());
-			query.setParameter(++i, bean.getBARC_PART_STAT());
-			query.setParameter(++i, bean.getBARC_PART_LENT());
-			query.setParameter(++i, bean.getACT_FLAG());
-			query.setParameter(++i, user.getName());
-			query.setParameter(++i, user.getName());
-			query.executeUpdate();
+			bean.setBARC_REF_ID(BARC_REF_ID);
+			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+			bean.setLAST_CHNG_BY(user.getName());
+			bean.setCRTD_DTTM(Calendar.getInstance().getTime());
+			bean.setCRTD_BY(user.getName());
+			em.persist(bean);
+			
+			
+//			String sql = "INSERT INTO BILLER_BARCODE_REF(BARC_REF_ID, REF_ID, BARC_ID, BARC_LINE_ID, BARC_REMV_CHAR, BARC_PART_FLAG, BARC_PART_STAT, BARC_PART_LENT, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
+//
+//			int i = 0;
+//			query = em.createNativeQuery(sql);
+//			query.setParameter(++i, BARC_REF_ID);
+//			query.setParameter(++i, bean.getREF_ID());
+//			query.setParameter(++i, bean.getBARC_ID());
+//			query.setParameter(++i, bean.getBARC_LINE_ID());
+//			query.setParameter(++i, bean.getBARC_REMV_CHAR());
+//			query.setParameter(++i, bean.getBARC_PART_FLAG());
+//			query.setParameter(++i, bean.getBARC_PART_STAT());
+//			query.setParameter(++i, bean.getBARC_PART_LENT());
+//			query.setParameter(++i, bean.getACT_FLAG());
+//			query.setParameter(++i, user.getName());
+//			query.setParameter(++i, user.getName());
+//			query.executeUpdate();
 
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|Success");
 			log.info(user.getName() + "|" + page + "|insertBillerBarcodeRef|Time|" + timer.getStopTime());
 
 			Query query1 = em.createNativeQuery("SELECT T1.BLLR_SRVC_ID " + " FROM  BILLER_SERVICE T1 LEFT JOIN BILLER_REF T2 ON  T1.BLLR_SRVC_ID = T2.BLLR_SRVC_ID " + " WHERE T2.REF_ID = (SELECT T4.REF_ID " + "  FROM   BILLER_BARCODE_REF T3   LEFT JOIN BILLER_REF T4 ON T4.REF_ID = T3.REF_ID " + " WHERE    T3.BARC_REF_ID = " + BARC_REF_ID + " )");
 
-			BigDecimal result1 = (BigDecimal) query1.getSingleResult();
+			BigDecimal result1 = new BigDecimal(query1.getSingleResult().toString());
 			int BLLR_SRVC_ID = result1.intValue();
 
 			updateBillerServiceCenter(BLLR_SRVC_ID, user,em);
-
+			em.getTransaction().commit();
 			return BARC_REF_ID;
 
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerBarcodeRef|Exception:" + e.getMessage());
 			throw e;
-		}finally{
+		}
+		
+		finally{
 			em.clear();
 		}
 	}
@@ -1015,7 +1026,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 	
 			Query query1 = em.createNativeQuery("SELECT T1.BLLR_SRVC_ID " + " FROM  BILLER_SERVICE T1 LEFT JOIN BILLER_REF T2 ON  T1.BLLR_SRVC_ID = T2.BLLR_SRVC_ID " + " WHERE  T2.REF_ID = " + bean.getREF_ID());
 
-			BigDecimal result = (BigDecimal) query1.getSingleResult();
+			BigDecimal result = new BigDecimal(query1.getSingleResult().toString());
 			int BLLR_SRVC_ID = result.intValue();
 
 			updateBillerServiceCenter(BLLR_SRVC_ID, user,em);
@@ -1089,7 +1100,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 
 			Query query1 = em.createNativeQuery("SELECT T1.BLLR_SRVC_ID " + " FROM  BILLER_SERVICE T1 LEFT JOIN BILLER_REF T2 ON  T1.BLLR_SRVC_ID = T2.BLLR_SRVC_ID " + " WHERE T2.REF_ID = (SELECT T4.REF_ID " + "  FROM   BILLER_BARCODE_REF T3   LEFT JOIN BILLER_REF T4 ON T4.REF_ID = T3.REF_ID " + " WHERE    T3.BARC_REF_ID = " + bean.getBARC_REF_ID() + ")");
 
-			BigDecimal result = (BigDecimal) query1.getSingleResult();
+			BigDecimal result = new BigDecimal(query1.getSingleResult().toString());
 			int BLLR_SRVC_ID = result.intValue();
 
 			updateBillerServiceCenter(BLLR_SRVC_ID, user,em);
@@ -1152,7 +1163,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			sql.append(" LAST_CHNG_BY,"); 
 			sql.append(" LAST_CHNG_DTTM");
 			sql.append(" FROM BILLER_SERVICE_IMAGE BSI");
-			sql.append(" WHERE BLLR_SRVC_ID=?");
+			sql.append(" WHERE BLLR_SRVC_ID::varchar=?");
 			params.add(serviceId);			
 			
 			log.info("BillerServiceBean|getBillerServiceImage|sql:" + sql.toString());

@@ -109,7 +109,7 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			if (result.intValue() > 0) {
 				bResult = true;
 			} else {
@@ -147,7 +147,7 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 
 			Query query1 = em.createNativeQuery("SELECT BLLR_SRVC_ID " + " FROM  BILLER_DENOMINATE  " + " WHERE  BLLR_DENM_ID = " + bean.getBLLR_DENM_ID());
 
-			BigDecimal result = (BigDecimal) query1.getSingleResult();
+			BigDecimal result = new BigDecimal(query1.getSingleResult().toString());
 			int BLLR_SRVC_ID = result.intValue();
 
 			BillerServiceBean BillerServiceBean = new BillerServiceBean();

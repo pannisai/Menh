@@ -696,7 +696,6 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 
 			Query query = em.createNativeQuery(sql);
 			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
-//			BigDecimal result = (BigDecimal) query.getSingleResult();
 			int row = result.intValue();
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Total Row:" + row);
 			log.info(user.getName() + "|" + page + "|countRowReportTrans|Time|" + timer.getStopTime());

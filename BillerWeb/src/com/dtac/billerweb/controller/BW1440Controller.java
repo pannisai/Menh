@@ -168,13 +168,13 @@ public class BW1440Controller extends EditPageController {
 			chkInsertPermission(btSave);
 			i = (Include) Path.getComponent("/bw1440Dialog/bw1440DialogInclude");
 			title.setValue(AppMessage.getMessage(AppMessage.BW1440_NEW_TITLE));
-			loadFormData(billerFormId, oid);			
+			loadFormData(billerFormId, oid);
 			rdHiddenFlag.setSelectedIndex(1);
 			rdAllowKeyInFlag.setSelectedIndex(0);
 			rdSearchFlag.setSelectedIndex(1);
 			rdEnableDefaultValueFlag.setSelectedIndex(1);
 			rdSmsFlag.setSelectedIndex(0);
-			//refreshForm();
+			refreshForm();
 		} catch (Exception ex) {
 			throw new BillerWebException(ex);
 		} finally {
@@ -211,7 +211,6 @@ public class BW1440Controller extends EditPageController {
 		BillerRef billerRef = null;
 		try {
 			billerServiceService = BillerwebServiceFactory.getBillerServiceService();
-			log.debug("billerFormId:" + billerFormId);
 			billerForm = billerServiceService.getBillerFormByID(billerFormId, getUserInfo());
 			bw1414Form = bw1414Form.toBW1414Form(billerForm);
 			billerRef = billerServiceService.getBillerRefByID(oid, getUserInfo());

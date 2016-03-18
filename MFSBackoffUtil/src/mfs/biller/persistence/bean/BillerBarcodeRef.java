@@ -62,9 +62,6 @@ public class BillerBarcodeRef implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
     private Date LAST_CHNG_DTTM;
 	
-	@Column(name="BARC_TYPE", nullable=true)
-    private String BARC_TYPE;
-	
 	public String toString() {
 		return "BARC_REF_ID:" + BARC_REF_ID 
 				+ "|REF_ID:" + REF_ID 
@@ -78,8 +75,7 @@ public class BillerBarcodeRef implements Serializable{
 				+ "|CRTD_BY:" + CRTD_BY 
 				+ "|CRTD_DTTM:" + CRTD_DTTM 
 				+ "|LAST_CHNG_BY:" + LAST_CHNG_BY 
-				+ "|LAST_CHNG_DTTM:" + LAST_CHNG_DTTM 
-				+ "|BARC_TYPE:" + BARC_TYPE;
+				+ "|LAST_CHNG_DTTM:" + LAST_CHNG_DTTM;
 	}
 
 	public Integer getBARC_REF_ID() {
@@ -185,14 +181,4 @@ public class BillerBarcodeRef implements Serializable{
 	public void setLAST_CHNG_DTTM(Date lAST_CHNG_DTTM) {
 		LAST_CHNG_DTTM = lAST_CHNG_DTTM;
 	}
-
-	public String getBARC_TYPE() {
-		return BARC_TYPE;
-	}
-
-	public void setBARC_TYPE(String bARC_TYPE) {
-		BARC_TYPE = bARC_TYPE;
-	}
-	
-	
 }

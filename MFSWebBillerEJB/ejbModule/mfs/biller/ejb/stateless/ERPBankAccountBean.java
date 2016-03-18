@@ -68,7 +68,7 @@ public class ERPBankAccountBean implements ERPBankAccountBeanLocal, ERPBankAccou
 			log.info(user.getName() + "|" + page + "|insertERPBankAccount|Param|" + bean.toString());
 
 			Query query = em.createNativeQuery("SELECT SEQ_BILLER_SERVICE_ACCT.nextval from DUAL");
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			int BLLR_SRVC_FIN_ID = result.intValue();
 
 			String sql = "INSERT INTO BILLER_SERVICE_ACCT (BLLR_SRVC_FIN_ID,BLLR_SRVC_ID,BLLR_ACCT_NO,BLLR_ACCT_NAME,"
@@ -121,7 +121,7 @@ public class ERPBankAccountBean implements ERPBankAccountBeanLocal, ERPBankAccou
 
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			if (result.intValue() > 0) {
 				bResult = true;
 			} else {
