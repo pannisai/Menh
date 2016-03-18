@@ -1197,6 +1197,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			billerServiceImage.setLastChangeDate(new Date());
 			em.getTransaction().begin();
 			em.persist(billerServiceImage);
+			em.getTransaction().commit();
 
 			log.info(user.getName() + "|" + page + "|saveBillerImage|Success");
 			log.info(user.getName() + "|" + page + "|saveBillerImage|Time|" + timer.getStopTime());

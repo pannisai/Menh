@@ -289,6 +289,7 @@ public class BW1416Controller extends EditPageController {
 						billerServiceImage = bw1416Form.getBillerServiceImage();
 						billerServiceImage.setCreateBy(getUserName());
 						billerServiceImage.setLastChangeBy(getUserName());
+						
 						oid = billerServiceService.saveBillerServiceImage(billerServiceImage, getUserInfo());
 						EventListener okListener = new EventListener() {
 							public void onEvent(Event evt) throws InterruptedException {
@@ -423,8 +424,6 @@ public class BW1416Controller extends EditPageController {
 		try {
 			log.info(getOperationLogMessage(pageName, "Upload Web Icon", ""));
 			Media media = event.getMedia();
-			log.debug("ContentType:" + media.getContentType());
-			log.debug("Format:" + media.getFormat());
 			validateWebIcon(media);
 			org.zkoss.image.Image image = (org.zkoss.image.Image) media;
 			imWebIcon.setContent(image);
@@ -537,11 +536,7 @@ public class BW1416Controller extends EditPageController {
 
 	private void validateMobIcon(Media media) throws WrongValueException, Exception {
 		String format = media.getFormat();
-		log.debug("Name:" + media.getName());
 		String type = media.getName().substring(media.getName().lastIndexOf(".") + 1);
-		log.debug("Type:" + type);
-		log.debug("Content:" + media.getContentType());
-		log.debug("Format:" + format);
 		int maxFileSize = Integer.parseInt(AppConfiguration.getValue(AppConfiguration.MAX_ICON_FILE_SIZE));
 		if ((media.getByteData().length / 1024) > maxFileSize) {
 			throw new WrongValueException(imMobIcon, AppMessage.getMessage(AppMessage.MSG_INVALID_FILE_SIZE, new String[] { maxFileSize + "" }));
