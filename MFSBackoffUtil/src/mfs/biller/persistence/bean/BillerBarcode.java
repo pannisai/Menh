@@ -78,9 +78,7 @@ public class BillerBarcode implements Serializable{
 	@Column(name="BARC_EXPR_DATE", nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date BARC_EXPR_DATE;
-	
-	private String BLLR_SRVC_NAME_EN;
-	
+		
 	public String toString() {
 		return "BARC_ID:" + BARC_ID 
 				+ "|BARC_NAME:" + BARC_NAME 
@@ -239,13 +237,6 @@ public class BillerBarcode implements Serializable{
 		BARC_SRVC_CODE = bARC_SRVC_CODE;
 	}
 
-	public String getBLLR_SRVC_NAME_EN() {
-		return BLLR_SRVC_NAME_EN;
-	}
-
-	public void setBLLR_SRVC_NAME_EN(String bLLR_SRVC_NAME_EN) {
-		BLLR_SRVC_NAME_EN = bLLR_SRVC_NAME_EN;
-	}
 
 	public Date getBARC_EXPR_DATE() {
 		return BARC_EXPR_DATE;
