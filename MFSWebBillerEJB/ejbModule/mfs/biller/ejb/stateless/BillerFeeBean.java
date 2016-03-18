@@ -42,24 +42,24 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			log.info(user.getName() + "|" + page + "|searchBillerFee|Param|" + PARAM.toString());
 			
 			StringBuilder sql = new StringBuilder();		
-			sql.append("SELECT BF.*, SRV.BLLR_SRVC_NAME_EN, BFM.FEE_TYPE,"); 			
-			sql.append(" DECODE(UPPER(BFM.FEE_TYPE), 'ABSORB',");
-			sql.append(" DECODE(BF.FEE_AMOUNT,NULL,0.00,BF.FEE_AMOUNT) + DECODE(BF.FUNDAMO_FEE_AMOUNT,NULL,0.00,BF.FUNDAMO_FEE_AMOUNT),");
-			sql.append(" 'SHARING', DECODE(BF.FUNDAMO_FEE_AMOUNT,NULL,0.00,BF.FUNDAMO_FEE_AMOUNT),");
-			sql.append(" 0.00) SRVC_FEE");			
-			sql.append(" FROM BILLER_FEE BF");   
-			sql.append(" LEFT JOIN BILLER_SERVICE SRV"); 
-			sql.append(" ON BF.BLLR_SRVC_ID = SRV.BLLR_SRVC_ID");
-			sql.append(" LEFT JOIN BILLER_FEE_MAST BFM");
-			sql.append(" ON BF.BLLR_FEE_MAST_ID = BFM.BLLR_FEE_MAST_ID");
-			sql.append(" WHERE BF.ACT_FLAG = 'A'");
+			sql.append("SELECT BF.*, SRV.BLLR_SRVC_NAME_EN, BFM.FEE_TYPE");
+			sql.append(", CASE WHEN UPPER(BFM.FEE_TYPE) = 'ABSORB' ");
+			sql.append("THEN CASE WHEN BF.FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FEE_AMOUNT END + ");
+			sql.append("CASE WHEN BF.FUNDAMO_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FUNDAMO_FEE_AMOUNT END ");
+			sql.append("WHEN UPPER(BFM.FEE_TYPE) = 'SHARING' ");
+			sql.append("THEN CASE WHEN BF.FUNDAMO_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FUNDAMO_FEE_AMOUNT END ");
+			sql.append("ELSE 0.00 END SRVC_FEE ");
+			sql.append("FROM BILLER_FEE BF ");
+			sql.append("LEFT JOIN BILLER_SERVICE SRV ON BF.BLLR_SRVC_ID = SRV.BLLR_SRVC_ID ");
+			sql.append("LEFT JOIN BILLER_FEE_MAST BFM ON BF.BLLR_FEE_MAST_ID = BFM.BLLR_FEE_MAST_ID ");
+			sql.append("WHERE BF.ACT_FLAG = 'A'");
 
 			Vector<String> v = new Vector<String>();
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))
-				v.add(" TRUNC(BF.EFFT_DATE) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" DATE_TRUNC('day',BF.EFFT_DATE) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" TRUNC(BF.EFFT_DATE) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" DATE_TRUNC('day',BF.EFFT_DATE) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getBLLR_SRVC_ID() != null && !"".equals(PARAM.getBLLR_SRVC_ID()))
 				v.add(" BF.BLLR_SRVC_ID = '" + PARAM.getBLLR_SRVC_ID() + "'");

@@ -68,11 +68,12 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 			log.info(user.getName() + "|" + page + "|insertBillerDenominate|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerDenominate|Param|" + bean.toString());
 
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_DENOMINATE.nextval from DUAL");
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_DENOMINATE')");
+			em.getTransaction().begin();
+			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			int BLLR_DENM_ID = result.intValue();
 
-			String sql = "INSERT INTO BILLER_DENOMINATE(BLLR_DENM_ID , BLLR_SRVC_ID , BLLR_DENM_RATE , BLLR_MAX_NO_MNTH , CRTD_BY , CRTD_DTTM , LAST_CHNG_BY , LAST_CHNG_DTTM, ACT_FLAG)" + "VALUES(?, ?, ?,  ?, ?, SYSDATE, ?, SYSDATE,?)";
+			String sql = "INSERT INTO BILLER_DENOMINATE(BLLR_DENM_ID , BLLR_SRVC_ID , BLLR_DENM_RATE , BLLR_MAX_NO_MNTH , CRTD_BY , CRTD_DTTM , LAST_CHNG_BY , LAST_CHNG_DTTM, ACT_FLAG)" + "VALUES(?, ?, ?,  ?, ?, CURRENT_DATE, ?, CURRENT_DATE,?)";
 			int i = 0;
 			Query query1 = em.createNativeQuery(sql);
 			query1.setParameter(++i, BLLR_DENM_ID);
@@ -93,6 +94,8 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 		} catch (Exception e) {
 			log.error(user.getName() + "|" + page + "|insertBillerDenominate|Exception:" + e.getMessage());
 			throw e;
+		} finally{
+			em.clear();
 		}
 	}
 
@@ -130,7 +133,7 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 			log.info(user.getName() + "|" + page + "|updateBillerDenominate|Param|" + bean.toString());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_DENOMINATE ").append("SET BLLR_DENM_RATE = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = SYSDATE ").
+			sb.append("UPDATE BILLER_DENOMINATE ").append("SET BLLR_DENM_RATE = ? ").append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = CURRENT_DATE ").
 			append(", ACT_FLAG = ? ").
 			append("WHERE BLLR_DENM_ID = ? ");
 
