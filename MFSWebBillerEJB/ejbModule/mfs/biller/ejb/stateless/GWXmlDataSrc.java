@@ -74,8 +74,9 @@ public class GWXmlDataSrc implements GWXmlDataSrcRemote, GWXmlDataSrcLocal {
 			log.info(user.getName() + "|" + page + "|insertGWXmlDataSrc|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertGWXmlDataSrc|Param|" + bean.toString());
 			
-			Query query = em.createNativeQuery("SELECT SEQ_GW_XML_DATA_SRC.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_XML_DATA_SRC')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int XML_DATA_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertGWXmlDataSrc|BARC_ID:" + XML_DATA_ID);
@@ -99,6 +100,8 @@ public class GWXmlDataSrc implements GWXmlDataSrcRemote, GWXmlDataSrcLocal {
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertGWXmlDataSrc|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -118,6 +121,7 @@ public class GWXmlDataSrc implements GWXmlDataSrcRemote, GWXmlDataSrcLocal {
 					.append(", XML_DATA_STTS = ? ")
 					.append("WHERE XML_DATA_ID = ? ");
 			
+			em.getTransaction().begin();
 			int i = 0;
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getXML_DATA_TYPE());
@@ -133,6 +137,8 @@ public class GWXmlDataSrc implements GWXmlDataSrcRemote, GWXmlDataSrcLocal {
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateGWXmlDataSrc|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 

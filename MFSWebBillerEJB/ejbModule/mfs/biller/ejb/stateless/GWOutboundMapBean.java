@@ -149,13 +149,14 @@ public class GWOutboundMapBean implements GWOutboundMapBeanRemote,
 			log.info(user.getName() + "|EJBOUTBOUNDMAP|insertGWOutboundMap|ObjMapGWxml|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|EJBOUTBOUNDMAP|insertGWOutboundMap|ObjMapGWxml|Param|" + bean.toString());
 
-			Query query = em.createNativeQuery("SELECT SEQ_GW_XML_DATA_SRC.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_XML_DATA_SRC')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int XML_DATA_ID = result.intValue();
 			
 			
-			Query query1 = em.createNativeQuery("SELECT SEQ_GW_OUTBOUND_MAP.nextval from DUAL");
-			BigDecimal result1 = (BigDecimal)query.getSingleResult();
+			Query query1 = em.createNativeQuery("SELECT nextval('SEQ_GW_OUTBOUND_MAP')");
+			BigDecimal result1 = new BigDecimal((Long)query.getSingleResult());
 			int DATA_MAP_ID = result1.intValue();
 			
 			
@@ -202,6 +203,8 @@ public class GWOutboundMapBean implements GWOutboundMapBeanRemote,
 			em.getTransaction().getRollbackOnly();
 			log.error(user.getName() + "|EJBOUTBOUNDMAP|insertGWOutboundMap|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 		
 	}
@@ -212,6 +215,7 @@ public class GWOutboundMapBean implements GWOutboundMapBeanRemote,
 			log.info(user.getName() + "|EJBOUTBOUNDMAP|updateGWOutboundMap|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|EJBOUTBOUNDMAP|updateGWOutboundMap|Param|" + bean.toString());
 
+			em.getTransaction().begin();
 			Query query1 = em.createNativeQuery("SELECT  T1.XML_DATA_ID  from GW_XML_DATA_SRC T1 join GW_OUTBOUND_MAP T2  on T1.XML_DATA_ID = T2.DATA_MAP_XML_SRC_ID  WHERE  T2.DATA_MAP_ID = "+bean.getDATA_MAP_ID()+"");
 			BigDecimal result = (BigDecimal)query1.getSingleResult();
 			int XML_DATA_ID = result.intValue();
@@ -257,6 +261,8 @@ public class GWOutboundMapBean implements GWOutboundMapBeanRemote,
 			em.getTransaction().rollback();
 			log.error(user.getName() + "|EJBOUTBOUNDMAP|updateGWOutboundMap|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 		
 	}

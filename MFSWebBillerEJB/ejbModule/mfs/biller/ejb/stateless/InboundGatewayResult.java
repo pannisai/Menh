@@ -3,6 +3,7 @@ package mfs.biller.ejb.stateless;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -245,24 +246,31 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 				throw new IsExistException("INBN_SRVC_ID");
 			}
 			
-			String sql = "INSERT INTO GW_INBOUND(INBN_SRVC_ID,SRCE_SRVC_ID,DEST_SRVC_ID,INBN_SRVC_NAME,GW_SRVC_ID,GW_INBN_MAP_ID,SEND_RCPT_FLAG,STRT_DATE,END_DATE,ACT_FLAG,CRTD_BY,CRTD_DTTM,LAST_CHNG_BY,LAST_CHNG_DTTM,GW_RCPT_CONF_ID)"
-					   + "VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?,?,SYSDATE,?,?,?)";
-			int i = 0;
-			Query query = em.createNativeQuery(sql);
-			query.setParameter(++i, bean.getINBN_SRVC_ID());
-			query.setParameter(++i, bean.getSRCE_SRVC_ID());
-			query.setParameter(++i, bean.getDEST_SRVC_ID());
-			query.setParameter(++i, bean.getINBN_SRVC_NAME());
-			query.setParameter(++i, bean.getGW_SRVC_ID());
-			query.setParameter(++i, bean.getGW_INBN_MAP_ID());
-			query.setParameter(++i, bean.getSEND_RCPT_FLAG());
-			query.setParameter(++i, bean.getSTRT_DATE());
-			query.setParameter(++i, bean.getEND_DATE());
-			query.setParameter(++i, bean.getACT_FLAG());
-			query.setParameter(++i, user.getName());
-			query.setParameter(++i, user.getName());
-			query.setParameter(++i, bean.getGW_RCPT_CONF_ID());
-			query.executeUpdate();
+//			String sql = "INSERT INTO GW_INBOUND(INBN_SRVC_ID,SRCE_SRVC_ID,DEST_SRVC_ID,INBN_SRVC_NAME,GW_SRVC_ID,GW_INBN_MAP_ID,SEND_RCPT_FLAG,STRT_DATE,END_DATE,ACT_FLAG,CRTD_BY,CRTD_DTTM,LAST_CHNG_BY,LAST_CHNG_DTTM,GW_RCPT_CONF_ID)"
+//					   + "VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?,?,current_timestamp,?,current_timestamp,?)";
+//			int i = 0;
+			em.getTransaction().begin();
+			bean.setLAST_CHNG_BY(user.getName());
+			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+			bean.setCRTD_BY(user.getName());
+			bean.setCRTD_DTTM(Calendar.getInstance().getTime());
+			em.persist(bean);
+			em.getTransaction().commit();
+//			Query query = em.createNativeQuery(sql);
+//			query.setParameter(++i, bean.getINBN_SRVC_ID());
+//			query.setParameter(++i, bean.getSRCE_SRVC_ID());
+//			query.setParameter(++i, bean.getDEST_SRVC_ID());
+//			query.setParameter(++i, bean.getINBN_SRVC_NAME());
+//			query.setParameter(++i, bean.getGW_SRVC_ID());
+//			query.setParameter(++i, bean.getGW_INBN_MAP_ID());
+//			query.setParameter(++i, bean.getSEND_RCPT_FLAG());
+//			query.setParameter(++i, bean.getSTRT_DATE());
+//			query.setParameter(++i, bean.getEND_DATE());
+//			query.setParameter(++i, bean.getACT_FLAG());
+//			query.setParameter(++i, user.getName());
+//			query.setParameter(++i, user.getName());
+//			query.setParameter(++i, bean.getGW_RCPT_CONF_ID());
+//			query.executeUpdate();
 			
 			GWInboundPK.setDEST_SRVC_ID(bean.getDEST_SRVC_ID());
 			GWInboundPK.setINBN_SRVC_ID(bean.getINBN_SRVC_ID());
@@ -273,6 +281,8 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertGW_INBOUND|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 		
 	}
@@ -293,10 +303,11 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 					.append(", GW_RCPT_CONF_ID = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE INBN_SRVC_ID = ?  AND SRCE_SRVC_ID = ? AND DEST_SRVC_ID = ? ");
 			
 			int i = 0;
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getSRCE_SRVC_ID());
 			query.setParameter(++i, bean.getINBN_SRVC_NAME());
@@ -314,6 +325,8 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateGW_INBOUND|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -327,7 +340,7 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql);
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{

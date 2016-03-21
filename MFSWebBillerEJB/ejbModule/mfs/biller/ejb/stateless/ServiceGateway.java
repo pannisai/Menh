@@ -3,6 +3,7 @@ package mfs.biller.ejb.stateless;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -239,29 +240,34 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 			log.info(user.getName() + "|" + page + "|insertServiceGateway|Param|" + bean.toString());
 			
 		
-			
-			Query query = em.createNativeQuery("SELECT SEQ_GW_SERVICE.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_SERVICE')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int GW_SRVC_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertServiceGateway|BLLR_CATG_ID:" + GW_SRVC_ID);
 			
-			String sql = "INSERT INTO GW_SERVICE(GW_SRVC_ID, GW_OUTB_ID, GW_SRVC_NAME, GW_SRVC_MAP_ID, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY,LAST_CHNG_DTTM,GW_CHCK_ACL_FLAG,GW_CHCK_AMNT_FLAG,GW_CHCK_DUE_DATE_FLAG )"
-					   + "VALUES(?, ?, ?, ?, ?, ?, ? , ? , SYSDATE, ?, ?, ?  )";
-			int i = 0;
-			query = em.createNativeQuery(sql);
-			query.setParameter(++i, GW_SRVC_ID);
-			query.setParameter(++i, bean.getGW_OUTB_ID());
-			query.setParameter(++i, bean.getGW_SRVC_NAME());
-			query.setParameter(++i, bean.getGW_SRVC_MAP_ID());
-			query.setParameter(++i, bean.getACT_FLAG());
-			query.setParameter(++i, bean.getCRTD_BY());
-			query.setParameter(++i, bean.getCRTD_DTTM());
-			query.setParameter(++i, user.getName());
-			query.setParameter(++i, bean.getGW_CHCK_ACL_FLAG());
-			query.setParameter(++i, bean.getGW_CHCK_AMNT_FLAG());
-			query.setParameter(++i, bean.getGW_CHCK_DUE_DATE_FLAG());
-			query.executeUpdate();
+			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+			bean.setCRTD_DTTM(Calendar.getInstance().getTime());
+			bean.setGW_SRVC_ID(GW_SRVC_ID);
+			em.persist(bean);
+			em.getTransaction().commit();
+//			String sql = "INSERT INTO GW_SERVICE(GW_SRVC_ID, GW_OUTB_ID, GW_SRVC_NAME, GW_SRVC_MAP_ID, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY,LAST_CHNG_DTTM,GW_CHCK_ACL_FLAG,GW_CHCK_AMNT_FLAG,GW_CHCK_DUE_DATE_FLAG )"
+//					   + "VALUES(?, ?, ?, ?, ?, ?, current_timestamp , ? , current_timestamp, ?, ?, ?  )";
+//			int i = 0;
+//			query = em.createNativeQuery(sql);
+//			query.setParameter(++i, GW_SRVC_ID);
+//			query.setParameter(++i, bean.getGW_OUTB_ID());
+//			query.setParameter(++i, bean.getGW_SRVC_NAME());
+//			query.setParameter(++i, bean.getGW_SRVC_MAP_ID());
+//			query.setParameter(++i, bean.getACT_FLAG());
+//			query.setParameter(++i, bean.getCRTD_BY());
+//			query.setParameter(++i, bean.getCRTD_DTTM());
+//			query.setParameter(++i, user.getName());
+//			query.setParameter(++i, bean.getGW_CHCK_ACL_FLAG());
+//			query.setParameter(++i, bean.getGW_CHCK_AMNT_FLAG());
+//			query.setParameter(++i, bean.getGW_CHCK_DUE_DATE_FLAG());
+//			query.executeUpdate();
 			
 			log.info(user.getName() + "|" + page + "|insertServiceGateway|Success");
 			log.info(user.getName() + "|" + page + "|insertServiceGateway|Time|" + timer.getStopTime());
@@ -270,6 +276,8 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertServiceGateway|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -315,10 +323,11 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 					.append(", GW_OUTB_ID = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE GW_SRVC_ID = ? ");
 			
 			int i = 0;
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getGW_SRVC_NAME());
 			query.setParameter(++i, bean.getGW_SRVC_MAP_ID());
@@ -333,6 +342,8 @@ public class ServiceGateway implements ServiceGatewayRemote, ServiceGatewayLocal
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateServiceGateway|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 

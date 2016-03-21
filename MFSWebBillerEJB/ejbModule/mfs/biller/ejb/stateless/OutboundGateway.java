@@ -181,15 +181,15 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 			log.info(user.getName() + "|" + page + "|insertOutboundGateway|Param|" + bean.toString());
 			
 		
-			
-			Query query = em.createNativeQuery("SELECT SEQ_GW_OUTBOUND.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_OUTBOUND')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int GW_OUTB_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertOutboundGateway|BLLR_CATG_ID:" + GW_OUTB_ID);
 			
 			String sql = "INSERT INTO GW_OUTBOUND(GW_OUTB_ID, GW_OUTB_NAME, GW_OUTB_MAP_ID, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM )"
-					   + "VALUES(?, ?, ?, ?, ?, ?, ? , SYSDATE )";
+					   + "VALUES(?, ?, ?, ?, ?, current_timestamp, ? , current_timestamp )";
 			int i = 0;
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, GW_OUTB_ID);
@@ -197,7 +197,6 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 			query.setParameter(++i, bean.getGW_OUTB_MAP_ID());
 			query.setParameter(++i, bean.getACT_FLAG());
 			query.setParameter(++i, user.getName());
-			query.setParameter(++i, bean.getCRTD_DTTM());
 			query.setParameter(++i, user.getName());
 			query.executeUpdate();
 			
@@ -208,6 +207,8 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertOutboundGateway|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -250,10 +251,11 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 					.append(", GW_OUTB_MAP_ID = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE GW_OUTB_ID = ? ");
 			
 			int i = 0;
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getGW_OUTB_NAME());
 			query.setParameter(++i, bean.getGW_OUTB_MAP_ID());
@@ -267,6 +269,8 @@ public class OutboundGateway implements OutboundGatewayRemote, OutboundGatewayLo
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateOutboundGateway|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 

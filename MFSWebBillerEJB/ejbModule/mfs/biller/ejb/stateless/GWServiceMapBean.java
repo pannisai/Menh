@@ -152,13 +152,13 @@ public class GWServiceMapBean implements GWServiceMapBeanRemote,
 			log.info(user.getName() + "|EJBSERVICEMAP|insertGWServiceMap|ObjMapGWxml|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|EJBSERVICEMAP|insertGWServiceMap|ObjMapGWxml|Param|" + bean.toString());
 
-			Query query = em.createNativeQuery("SELECT SEQ_GW_XML_DATA_SRC.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_XML_DATA_SRC')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int XML_DATA_ID = result.intValue();
 			
 			
-			Query query1 = em.createNativeQuery("SELECT SEQ_GW_SERCIVE_MAP.nextval from DUAL");
-			BigDecimal result1 = (BigDecimal)query.getSingleResult();
+			Query query1 = em.createNativeQuery("SELECT nextval('SEQ_GW_SERCIVE_MAP')");
+			BigDecimal result1 = new BigDecimal((Long)query.getSingleResult());
 			int DATA_MAP_ID = result1.intValue();
 			
 			

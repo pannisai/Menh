@@ -176,7 +176,7 @@ public class BW1710Controller extends EditPageController {
 			bw1710Form.setBllrFeeId(billerFee.getBLLR_FEE_ID());
 			bw1710Form.setBllrSrvcId(billerFee.getBLLR_SRVC_ID());
 			bw1710Form.setBllrFeeMastId(billerFee.getBLLR_FEE_MAST_ID());
-			bw1710Form.setSrvcFee(calSrvcFee(billerFee.getBLLR_FEE_MAST_ID(), billerFee.getFEE_AMOUNT(), billerFee.getFUNDAMO_FEE_AMOUNT()));
+			bw1710Form.setSrvcFee(calSrvcFee(billerFee.getBLLR_FEE_MAST_ID().toString(), billerFee.getFEE_AMOUNT(), billerFee.getFUNDAMO_FEE_AMOUNT()));
 			bw1710Form.setFeeAmount(billerFee.getFEE_AMOUNT());
 			bw1710Form.setFundamoFeeAmount(billerFee.getFUNDAMO_FEE_AMOUNT());
 			bw1710Form.setEfftDate(billerFee.getEFFT_DATE());
@@ -197,7 +197,7 @@ public class BW1710Controller extends EditPageController {
 		try {
 			billerServiceListModel = (BillerServiceListModel) lbBillerService.getModel();
 			if(AppUtil.isNotNull(bw1710Form.getBllrSrvcId())){				
-				int billerServiceIndex = billerServiceListModel.findIndexOfId(Integer.parseInt(bw1710Form.getBllrSrvcId()));
+				int billerServiceIndex = billerServiceListModel.findIndexOfId(bw1710Form.getBllrSrvcId());
 				if (billerServiceIndex > -1 && lbBillerService.getItemCount() > billerServiceIndex) {
 					billerServiceListModel.addDataToSelection(billerServiceIndex);
 				}
@@ -206,7 +206,7 @@ public class BW1710Controller extends EditPageController {
 			}
 			billerFeeMastListModel = (BillerFeeMastListModel) lbBllrFeeMastId.getModel();
 			if(AppUtil.isNotNull(bw1710Form.getBllrFeeMastId())){				
-				int billerFeeMastIndex = billerFeeMastListModel.findIndexOfId(Integer.parseInt(bw1710Form.getBllrFeeMastId()));
+				int billerFeeMastIndex = billerFeeMastListModel.findIndexOfId(bw1710Form.getBllrFeeMastId());
 				if (billerFeeMastIndex > -1 && lbBllrFeeMastId.getItemCount() > billerFeeMastIndex) {
 					billerFeeMastListModel.addDataToSelection(billerFeeMastIndex);
 				}
@@ -228,10 +228,10 @@ public class BW1710Controller extends EditPageController {
 		try {
 			if (oid == -1) {
 				DropdownlistBillservice billerService = lbBillerService.getSelectedItem().getValue();
-				bw1710Form.setBllrSrvcId(AppUtil.isNotNull(billerService.getBLLR_SRVC_ID())?billerService.getBLLR_SRVC_ID().toString():null);
+				bw1710Form.setBllrSrvcId(AppUtil.isNotNull(billerService.getBLLR_SRVC_ID())?billerService.getBLLR_SRVC_ID():null);
 			} 
 			BillerFeeMast billerFeeMast = lbBllrFeeMastId.getSelectedItem().getValue();
-			bw1710Form.setBllrFeeMastId(AppUtil.isNotNull(billerFeeMast.getBLLR_FEE_MAST_ID())?billerFeeMast.getBLLR_FEE_MAST_ID().toString():null);
+			bw1710Form.setBllrFeeMastId(AppUtil.isNotNull(billerFeeMast.getBLLR_FEE_MAST_ID())?billerFeeMast.getBLLR_FEE_MAST_ID():null);
 			bw1710Form.setFeeAmount(AppUtil.isNotNull(txFeeAmount.getValue())?new BigDecimal(txFeeAmount.getValue()):null);
 			bw1710Form.setFundamoFeeAmount(AppUtil.isNotNull(txFundamoFeeAmount.getValue())?new BigDecimal(txFundamoFeeAmount.getValue()):null);
 			bw1710Form.setEfftDate(dbEfftDate.getValue());
@@ -294,7 +294,7 @@ public class BW1710Controller extends EditPageController {
 							billerFee.setACT_FLAG("A");
 							try{
 								if(AppUtil.isNotNull(billerFee.getBLLR_SRVC_ID())){
-									billerFeeExpr = billerFeeService.getByServiceID(Integer.parseInt(billerFee.getBLLR_SRVC_ID()), getUserInfo());
+									billerFeeExpr = billerFeeService.getByServiceID(billerFee.getBLLR_SRVC_ID(), getUserInfo());
 								}
 							}catch (Exception e) {
 							}

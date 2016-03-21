@@ -10,7 +10,7 @@ public class BillerFeeParam implements Serializable {
 	private Date FROM_DTTM;
 	private Date TO_DTTM;
 	private String BLLR_SRVC_ID;
-	private String BLLR_FEE_ID;
+	private Integer BLLR_FEE_ID;
 	private Integer PAGE_NO; 
 	private Integer PAGE_SIZE;
 
@@ -61,11 +61,11 @@ public class BillerFeeParam implements Serializable {
 		PAGE_SIZE = pAGE_SIZE;
 	}
 
-	public String getBLLR_FEE_ID() {
+	public Integer getBLLR_FEE_ID() {
 		return BLLR_FEE_ID;
 	}
 
-	public void setBLLR_FEE_ID(String bLLR_FEE_ID) {
+	public void setBLLR_FEE_ID(Integer bLLR_FEE_ID) {
 		BLLR_FEE_ID = bLLR_FEE_ID;
 	}
 }

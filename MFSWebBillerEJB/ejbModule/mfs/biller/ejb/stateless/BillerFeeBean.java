@@ -1,6 +1,7 @@
 package mfs.biller.ejb.stateless;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -115,7 +116,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 
 			Timer timer = new Timer("-");
 			log.info(user.getName() + "|" + page + "|findBillerFee|Time:" + timer.getStartTime());
-			String sql = "SELECT * FROM BILLER_FEE WHERE EXPR_DATE IS NULL AND ROWNUM = 1 AND BLLR_SRVC_ID = " + BLLR_SRVC_ID;
+			String sql = "SELECT * FROM BILLER_FEE WHERE EXPR_DATE IS NULL AND BLLR_SRVC_ID = " + BLLR_SRVC_ID+" limit 1";
 			log.info(user.getName() + "|" + page + "|findBillerFee|SQL:" + sql);
 			
 			Query query = em.createNativeQuery(sql, BillerFee.class);
@@ -139,14 +140,23 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			log.info(user.getName() + "|" + page + "|insertBillerFee|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|insertBillerFee|Param|" + bean.toString());
 			
-			Query query = em.createNativeQuery("SELECT SEQ_BILLER_FEE.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_BILLER_FEE')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int BLLR_FEE_ID = result.intValue();
 			
 			log.info(user.getName() + "|" + page + "|insertBillerFee|BLLR_FEE_ID:" + BLLR_FEE_ID);
 			
+//			bean.setBLLR_FEE_ID(BLLR_FEE_ID);
+//			bean.setCRTD_BY(user.getName());
+//			bean.setCRTD_DTTM(Calendar.getInstance().getTime());
+//			bean.setLAST_CHNG_BY(user.getName());
+//			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+//			em.persist(bean);
+//			em.getTransaction().commit();
+			
 			String sql = "INSERT INTO BILLER_FEE(BLLR_FEE_ID, BLLR_SRVC_ID, BLLR_FEE_MAST_ID, FEE_AMOUNT, FUNDAMO_FEE_AMOUNT, EFFT_DATE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)"
-					   + "VALUES(?, ?, ?, ?, ?, ?, 'A', ?, SYSDATE, ?, SYSDATE)";
+					   + "VALUES(?, ?, ?, ?, ?, ?, 'A', ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;		
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, BLLR_FEE_ID);
@@ -166,6 +176,8 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|insertBillerFee|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -184,10 +196,11 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 					.append(", EFFT_DATE = ? ")
 					.append(", EXPR_DATE = ? ")
 					.append(", LAST_CHNG_BY = ? ")
-					.append(", LAST_CHNG_DTTM = SYSDATE ")
+					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE BLLR_FEE_ID = ? ");
 			
 			int i = 0;
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_FEE_MAST_ID());
 			query.setParameter(++i, bean.getFUNDAMO_FEE_AMOUNT());
@@ -204,6 +217,8 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateBillerFee|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	
@@ -220,10 +235,10 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			Vector<String> v = new Vector<String>();
 			// ### ADD ###
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))				
-				v.add(" NVL(TRUNC(BF.EXPR_DATE),TRUNC(BF.EFFT_DATE)) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" coalesce(date_trunc('day',BF.EXPR_DATE),date_trunc('day',BF.EFFT_DATE)) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 			// ### UPDATE ###
 			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" NVL(TRUNC(BF.EXPR_DATE),TRUNC(BF.EFFT_DATE)) > TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" coalesce(date_trunc('day',BF.EXPR_DATE),date_trunc('day',BF.EFFT_DATE)) > TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
 
 			if (PARAM.getBLLR_FEE_ID() != null && !"".equals(PARAM.getBLLR_FEE_ID()))
 				v.add(" BF.BLLR_FEE_ID <> '" + PARAM.getBLLR_FEE_ID() + "'");
@@ -241,7 +256,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			log.info(user.getName() + "|" + page + "|isExistBillerFee|SQL:" + sql);			
 			boolean bResult = true;
 			Query query = em.createNativeQuery(sql.toString());
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			if (result.intValue() > 0){
 				bResult = true;
 			}else{

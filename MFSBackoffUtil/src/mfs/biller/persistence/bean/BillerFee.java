@@ -22,13 +22,13 @@ public class BillerFee implements Serializable {
 	
 	@Id
 	@Column(name = "BLLR_FEE_ID", nullable = false)
-	private String BLLR_FEE_ID;
+	private Integer BLLR_FEE_ID;
 
 	@Column(name = "BLLR_SRVC_ID", nullable = true)
-	private String BLLR_SRVC_ID;
+	private Integer BLLR_SRVC_ID;
 
 	@Column(name = "BLLR_FEE_MAST_ID", nullable = true)
-	private String BLLR_FEE_MAST_ID;
+	private Integer BLLR_FEE_MAST_ID;
 
 	@Column(name = "FEE_AMOUNT", nullable = true)
 	private BigDecimal FEE_AMOUNT;
@@ -59,11 +59,12 @@ public class BillerFee implements Serializable {
 
 	@Column(name = "LAST_CHNG_DTTM", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date LAST_CHNG_DTTM;	
+	private Date LAST_CHNG_DTTM;
 	
 	private String BLLR_SRVC_NAME_EN;	
 	private String FEE_TYPE;
 	private BigDecimal SRVC_FEE;
+	
 	
 	public String toString() {
 		return "BLLR_FEE_ID:" + BLLR_FEE_ID 
@@ -80,27 +81,27 @@ public class BillerFee implements Serializable {
 				+ "|LAST_CHNG_DTTM:" + LAST_CHNG_DTTM;
 	}
 
-	public String getBLLR_FEE_ID() {
+	public Integer getBLLR_FEE_ID() {
 		return BLLR_FEE_ID;
 	}
 
-	public void setBLLR_FEE_ID(String bLLR_FEE_ID) {
+	public void setBLLR_FEE_ID(Integer bLLR_FEE_ID) {
 		BLLR_FEE_ID = bLLR_FEE_ID;
 	}
 
-	public String getBLLR_SRVC_ID() {
+	public Integer getBLLR_SRVC_ID() {
 		return BLLR_SRVC_ID;
 	}
 
-	public void setBLLR_SRVC_ID(String bLLR_SRVC_ID) {
+	public void setBLLR_SRVC_ID(Integer bLLR_SRVC_ID) {
 		BLLR_SRVC_ID = bLLR_SRVC_ID;
 	}
 
-	public String getBLLR_FEE_MAST_ID() {
+	public Integer getBLLR_FEE_MAST_ID() {
 		return BLLR_FEE_MAST_ID;
 	}
 
-	public void setBLLR_FEE_MAST_ID(String bLLR_FEE_MAST_ID) {
+	public void setBLLR_FEE_MAST_ID(Integer bLLR_FEE_MAST_ID) {
 		BLLR_FEE_MAST_ID = bLLR_FEE_MAST_ID;
 	}
 
@@ -199,4 +200,5 @@ public class BillerFee implements Serializable {
 	public void setSRVC_FEE(BigDecimal sRVC_FEE) {
 		SRVC_FEE = sRVC_FEE;
 	}
+
 }

@@ -11,9 +11,9 @@ public class BW1710Form extends BaseForm {
 
 	private static final long serialVersionUID = 1L;
 
-	private String bllrFeeId;
-	private String bllrSrvcId;
-	private String bllrFeeMastId;
+	private Integer bllrFeeId;
+	private Integer bllrSrvcId;
+	private Integer bllrFeeMastId;
 	private Date efftDate;
 	private Date exprDate;
 	private String actFlag;
@@ -35,19 +35,19 @@ public class BW1710Form extends BaseForm {
 		return bean;
 	}
 
-	public String getBllrSrvcId() {
+	public Integer getBllrSrvcId() {
 		return bllrSrvcId;
 	}
 
-	public void setBllrSrvcId(String bllrSrvcId) {
+	public void setBllrSrvcId(Integer bllrSrvcId) {
 		this.bllrSrvcId = bllrSrvcId;
 	}
 
-	public String getBllrFeeMastId() {
+	public Integer getBllrFeeMastId() {
 		return bllrFeeMastId;
 	}
 
-	public void setBllrFeeMastId(String bllrFeeMastId) {
+	public void setBllrFeeMastId(Integer bllrFeeMastId) {
 		this.bllrFeeMastId = bllrFeeMastId;
 	}
 
@@ -75,11 +75,11 @@ public class BW1710Form extends BaseForm {
 		this.fundamoFeeAmount = fundamoFeeAmount;
 	}
 
-	public String getBllrFeeId() {
+	public Integer getBllrFeeId() {
 		return bllrFeeId;
 	}
 
-	public void setBllrFeeId(String bllrFeeId) {
+	public void setBllrFeeId(Integer bllrFeeId) {
 		this.bllrFeeId = bllrFeeId;
 	}
 

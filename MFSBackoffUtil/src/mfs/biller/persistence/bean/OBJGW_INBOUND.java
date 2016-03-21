@@ -26,12 +26,13 @@ public class OBJGW_INBOUND  implements Serializable{
 	private static final long serialVersionUID = 812907950693125443L;
 
 	@Id
+	@Column(name="INBN_SRVC_ID", nullable=false)
 	private Integer INBN_SRVC_ID;
 	
-	@Column(name="SRCE_SRVC_ID")
+	@Column(name="SRCE_SRVC_ID", nullable=false)
 	private Integer SRCE_SRVC_ID;
 
-	@Column(name="DEST_SRVC_ID")
+	@Column(name="DEST_SRVC_ID", nullable=false)
 	private Integer DEST_SRVC_ID;
 
 	@Column(name="INBN_SRVC_NAME")

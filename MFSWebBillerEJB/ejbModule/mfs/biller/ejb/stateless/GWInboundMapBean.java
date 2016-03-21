@@ -151,13 +151,14 @@ public class GWInboundMapBean implements GWInboundMapBeanRemote,
 			log.info(user.getName() + "|GWInboundMapBean|ObjMapGWxml|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|GWInboundMapBean|ObjMapGWxml|Param|" + bean.toString());
 
-			Query query = em.createNativeQuery("SELECT SEQ_GW_XML_DATA_SRC.nextval from DUAL");
-			BigDecimal result = (BigDecimal)query.getSingleResult();
+			em.getTransaction().begin();
+			Query query = em.createNativeQuery("SELECT nextval('SEQ_GW_XML_DATA_SRC')");
+			BigDecimal result = new BigDecimal((Long)query.getSingleResult());
 			int XML_DATA_ID = result.intValue();
 			
 			
-			Query query1 = em.createNativeQuery("SELECT SEQ_GW_INBOUND_MAP.nextval from DUAL");
-			BigDecimal result1 = (BigDecimal)query.getSingleResult();
+			Query query1 = em.createNativeQuery("SELECT nextval('SEQ_GW_INBOUND_MAP')");
+			BigDecimal result1 = new BigDecimal((Long)query.getSingleResult());
 			int DATA_MAP_ID = result1.intValue();
 			
 			
@@ -204,6 +205,8 @@ public class GWInboundMapBean implements GWInboundMapBeanRemote,
 			em.getTransaction().rollback();
 			log.error(user.getName() + "|GWInboundMapBean|insertGWInboundMap|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 		
 	}
@@ -215,7 +218,7 @@ public class GWInboundMapBean implements GWInboundMapBeanRemote,
 			log.info(user.getName() + "|GWInboundMapBean|updateGWInboundMap|Time|" +timer.getStartTime());
 			log.info(user.getName() + "|GWInboundMapBean|updateGWInboundMap|Param|" + bean.toString());
 
-
+			em.getTransaction().begin();
 			Query query1 = em.createNativeQuery("SELECT  T1.XML_DATA_ID  from GW_XML_DATA_SRC T1 join GW_INBOUND_MAP T2  on T1.XML_DATA_ID = T2.DATA_MAP_XML_SRC_ID  WHERE  T2.DATA_MAP_ID = "+bean.getDATA_MAP_ID()+"");
 			BigDecimal result = (BigDecimal)query1.getSingleResult();
 			int XML_DATA_ID = result.intValue();
@@ -260,6 +263,8 @@ public class GWInboundMapBean implements GWInboundMapBeanRemote,
 			em.getTransaction().rollback();
 			log.error(user.getName() + "|GWInboundMapBean|updateGWInboundMap|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 	public static String OBJchkNull( Object value ) 

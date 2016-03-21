@@ -21,7 +21,7 @@ public class BillerFeeSO extends BaseDO {
 	private Date updateDate;
 
 	public BillerFeeSO toBillerFeeSO(BillerFee billerFee) {		
-		this.billerFeeId = billerFee.getBLLR_FEE_ID();
+		this.billerFeeId = billerFee.getBLLR_FEE_ID().toString();
 		this.billerSrvc = billerFee.getBLLR_SRVC_NAME_EN();
 		this.feeType = billerFee.getFEE_TYPE();		
 		this.efftDate = billerFee.getEFFT_DATE();
