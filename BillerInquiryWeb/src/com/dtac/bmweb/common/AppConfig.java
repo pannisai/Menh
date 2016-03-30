@@ -20,8 +20,7 @@ public class AppConfig {
 	private static long latestLastModified = 0;
 	static {
 //		FILE_PATH=org.zkoss.lang.Library.getProperty("app.billerInquiryWebConfig.location");
-		FILE_PATH = "C:/Users/Supakorn/conf/billerInquiryWeb/config/billerInquiryWebConfig.properties";
-	   //FILE_PATH=AppConstant.USER_HOME+org.zkoss.lang.Library.getProperty("app.billerInquiryWebConfig.location");
+	   FILE_PATH=AppConstant.USER_HOME+org.zkoss.lang.Library.getProperty("app.billerInquiryWebConfig.location");
 	}
 
 	private static Properties prop = new Properties();
