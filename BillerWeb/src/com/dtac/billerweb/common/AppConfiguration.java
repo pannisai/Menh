@@ -20,8 +20,7 @@ public class AppConfiguration {
 	private static long latestLastModified = 0;
 	static {
 //		FILE_PATH=org.zkoss.lang.Library.getProperty("app.backofficewebConfig.location");
-		FILE_PATH = "C:/Users/Supakorn/conf/billerweb/config/backofficewebConfig.properties";
-//		 FILE_PATH=AppConstant.USER_HOME+org.zkoss.lang.Library.getProperty("app.backofficewebConfig.location");
+		 FILE_PATH=AppConstant.USER_HOME+org.zkoss.lang.Library.getProperty("app.backofficewebConfig.location");
 	}
 
 	private static Properties prop = new Properties();
