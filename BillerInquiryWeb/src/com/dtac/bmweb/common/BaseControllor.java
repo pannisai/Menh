@@ -49,51 +49,51 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 	protected String pageName = "";
 
 	protected void checkSessionTimeOut(String operName) throws BillerWebSessionTimeOutException {
-//		String responseCode = "";
-//		Map<String, String> resultMap = null;
-//		Authorization auth = null;
-//		StringBuilder url = null;
-//		StringBuilder params = null;
-//		String responseDesc = null;
-//		auth = getAuthorization();
-//		if (auth == null || AppUtil.isEmpty(auth.getUsername())) {
-//			log.info("Session Timeout Authorization Is null");
-//			// throw new BillerWebSessionTimeOutException();
-//			// Executions.getCurrent().sendRedirect("../timeout.zul");
-//			goToSessionTimeOutPage();
-//			return;
-//		}
-//		try {
-//			url = new StringBuilder();
-//			url.append(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_URL));
-//			params = new StringBuilder();
-//			params.append("userName=" + URLEncoder.encode(auth.getUsername()));
-//			params.append("&refId=" + URLEncoder.encode(auth.getRefId()));
-//			operName = (operName != null && operName.length() > 29) ? operName.substring(0, 29) : operName;
-//			params.append("&operName=" + URLEncoder.encode(operName));
-//			params.append("&clientIpAddr=" + URLEncoder.encode(auth.getClientIP()));
-//			resultMap = HttpClient.get(url.toString() + "?" + params.toString());
-//			responseCode = resultMap.get(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_ERR_CODE_KEY));
-//			responseDesc = resultMap.get(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_ERR_DESC_KEY));
-//
-//		} catch (Exception ex) {
-//			removeSession(AppConstant.S_AUTHORIZATION);
-//			throw new BillerManageWebException(ex);
-//		} finally {
-//			resultMap = null;
-//
-//		}
-//		if (AppUtil.trim(responseCode).equalsIgnoreCase(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_SUCCESS_CODE))) {
-//		} else {
-//			log.info("URL::" + url.toString() + "?" + params.toString());
-//			log.info("Check Session Timeout::[Error Code:" + responseCode + ",Error Desc:" + responseDesc + ",refId:" + auth.getRefId() + ",OperName:" + operName);
-//			url = null;
-//			params = null;
-//			removeSession(AppConstant.S_AUTHORIZATION);
-//			goToSessionTimeOutPage();
-//			// Executions.getCurrent().sendRedirect("../timeout.zul");
-//			// throw new BillerWebSessionTimeOutException();
-//		}
+		String responseCode = "";
+		Map<String, String> resultMap = null;
+		Authorization auth = null;
+		StringBuilder url = null;
+		StringBuilder params = null;
+		String responseDesc = null;
+		auth = getAuthorization();
+		if (auth == null || AppUtil.isEmpty(auth.getUsername())) {
+			log.info("Session Timeout Authorization Is null");
+			// throw new BillerWebSessionTimeOutException();
+			// Executions.getCurrent().sendRedirect("../timeout.zul");
+			goToSessionTimeOutPage();
+			return;
+		}
+		try {
+			url = new StringBuilder();
+			url.append(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_URL));
+			params = new StringBuilder();
+			params.append("userName=" + URLEncoder.encode(auth.getUsername()));
+			params.append("&refId=" + URLEncoder.encode(auth.getRefId()));
+			operName = (operName != null && operName.length() > 29) ? operName.substring(0, 29) : operName;
+			params.append("&operName=" + URLEncoder.encode(operName));
+			params.append("&clientIpAddr=" + URLEncoder.encode(auth.getClientIP()));
+			resultMap = HttpClient.get(url.toString() + "?" + params.toString());
+			responseCode = resultMap.get(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_ERR_CODE_KEY));
+			responseDesc = resultMap.get(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_ERR_DESC_KEY));
+
+		} catch (Exception ex) {
+			removeSession(AppConstant.S_AUTHORIZATION);
+			throw new BillerManageWebException(ex);
+		} finally {
+			resultMap = null;
+
+		}
+		if (AppUtil.trim(responseCode).equalsIgnoreCase(AppConfig.getValue(AppConfig.CHK_SESS_TIMEOUT_SUCCESS_CODE))) {
+		} else {
+			log.info("URL::" + url.toString() + "?" + params.toString());
+			log.info("Check Session Timeout::[Error Code:" + responseCode + ",Error Desc:" + responseDesc + ",refId:" + auth.getRefId() + ",OperName:" + operName);
+			url = null;
+			params = null;
+			removeSession(AppConstant.S_AUTHORIZATION);
+			goToSessionTimeOutPage();
+			// Executions.getCurrent().sendRedirect("../timeout.zul");
+			// throw new BillerWebSessionTimeOutException();
+		}
 	}
 
 	private void goToSessionTimeOutPage() {
@@ -146,10 +146,10 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			}
 			
 			/* ### Set test Value ### */
-			username = "UserTest";
-			String permList = "1000,2000,3000,4000";
-			refId = "0000000000";
-			bllr_srvc_id_list = "12,37,32,31,13";
+//			username = "UserTest";
+//			String permList = "1000,2000,3000,4000";
+//			refId = "0000000000";
+		//	bllr_srvc_id_list = "12,37,32,31,13";
 //			serviceCode = "0007";
 //			accessTextFileFlag = "Y";
 //			accessReportFileFlag = "Y";
@@ -180,7 +180,7 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 				log.info("branch:" + branch);
 			}
 			
-//			auth = setPermission(auth);	
+			auth = setPermission(auth);	
 			Session session = Sessions.getCurrent();
 			session.setAttribute(AppConstant.S_AUTHORIZATION, auth);
 		} catch (Exception ex) {
