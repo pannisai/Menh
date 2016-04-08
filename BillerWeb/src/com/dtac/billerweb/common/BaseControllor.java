@@ -46,10 +46,12 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 	private Logger log = Logger.getLogger(BaseControllor.class);
 	private Logger txLog = Logger.getLogger("transaction");
 	private UserInfoBean userInfo = null;
+	private boolean chkTest = false;
 	protected String pageName = "";
 	protected String pageCode = "";
 
 	protected void checkSessionTimeOut(String operName) throws BillerWebSessionTimeOutException {
+		if(!chkTest){
 		String responseCode = "";
 		Map<String, String> resultMap = null;
 		Authorization auth = null;
@@ -93,6 +95,7 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			removeSession(AppConstant.S_AUTHORIZATION);
 			goToSessionTimeOutPage();
 		}
+		}
 	}
 
 	private void goToSessionTimeOutPage() {
@@ -114,7 +117,6 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 		String serviceCode = null;
 		String reportType = null;
 		String branch = null;
-		
 		Authorization auth = null;
 		Map<String, String> resultMap = null;	
 		try {
@@ -126,6 +128,7 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			}
 			log.info("Clien IP:" + ip);
 			boolean chk = Executions.getCurrent().getParameter("input") != null;
+			chkTest = Executions.getCurrent().getParameter("test") != null;
 			if(chk){
 				resultMap = HttpClient.getParameter(AppConfiguration.getValue(AppConfiguration.SECURITY_DECRYPTED_ENDPOINT), URLEncoder.encode(Executions.getCurrent().getParameter("input")));
 				refId = resultMap.get("refId");
@@ -144,8 +147,10 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			}
 
 			/* ### Set test Value ### */
-//			 username = "UserTest";
-//			 refId = "0000000000";
+			if(chkTest){
+			 username = "UserTest";
+			 refId = "0000000000";
+			}
 			/* #### */
 			
 			auth = new Authorization();
@@ -155,10 +160,12 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			auth.setClientIP(ip);
 			auth.setServiceIds(bllr_srvc_id_list);
 			//####### -----setTest
-//			auth.setSearch(true);
-//			auth.setDelete(true);
-//			auth.setExport(true);
-//			auth.setInsert(true);
+			if(chkTest){
+			auth.setSearch(true);
+			auth.setDelete(true);
+			auth.setExport(true);
+			auth.setInsert(true);
+			}
 			
 			log.info("username:" + username);
 			log.info("refId:" + refId);
@@ -174,8 +181,9 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 				log.info("branch:" + branch);
 				log.info("reportType:" + reportType);				
 			}
-						
+			if(!chkTest){		
 			auth = setPermission(auth);
+			}
 			Session session = Sessions.getCurrent();
 			session.setAttribute(AppConstant.S_AUTHORIZATION, auth);
 		} catch (Exception ex) {

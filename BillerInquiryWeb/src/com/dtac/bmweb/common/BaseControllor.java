@@ -46,9 +46,11 @@ import com.dtac.bmweb.util.HttpClient;
 public abstract class BaseControllor extends SelectorComposer<Component> {
 	private Logger log = Logger.getLogger(BaseControllor.class);
 	private UserInfoBean userInfo = null;
+	private boolean chkTest = false;
 	protected String pageName = "";
 
 	protected void checkSessionTimeOut(String operName) throws BillerWebSessionTimeOutException {
+		if(!chkTest){
 		String responseCode = "";
 		Map<String, String> resultMap = null;
 		Authorization auth = null;
@@ -94,6 +96,7 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			// Executions.getCurrent().sendRedirect("../timeout.zul");
 			// throw new BillerWebSessionTimeOutException();
 		}
+		}
 	}
 
 	private void goToSessionTimeOutPage() {
@@ -115,7 +118,6 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 		String accessTextFileFlag = null;
 		String accessReportFileFlag = null;
 		String branch = null;
-		
 		StringBuilder url = null;
 		Authorization auth = null;
 		Map<String, String> resultMap = null;		
@@ -128,7 +130,8 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			}
 			log.info("Clien IP:" + ip);			
 			boolean chk = Executions.getCurrent().getParameter("input") != null;
-			if(chk){				
+			chkTest = Executions.getCurrent().getParameter("test") != null;
+			if(chk){
 				resultMap = HttpClient.getParameter(AppConfig.getValue(AppConfig.SECURITY_DECRYPTED_ENDPOINT), URLEncoder.encode(Executions.getCurrent().getParameter("input")));				
 				refId = resultMap.get("refId");
 				username = resultMap.get("userName");
@@ -146,10 +149,12 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 			}
 			
 			/* ### Set test Value ### */
-//			username = "UserTest";
-//			String permList = "1000,2000,3000,4000";
-//			refId = "0000000000";
-		//	bllr_srvc_id_list = "12,37,32,31,13";
+			if(chkTest){
+				username = "UserTest";
+				String permList = "1000,2000,3000,4000";
+				refId = "0000000000";
+				//bllr_srvc_id_list = "12,37,32,31,13";
+			}
 //			serviceCode = "0007";
 //			accessTextFileFlag = "Y";
 //			accessReportFileFlag = "Y";
@@ -179,11 +184,13 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 				log.info("accessReportFileFlag:" + accessReportFileFlag);
 				log.info("branch:" + branch);
 			}
-			
-			auth = setPermission(auth);	
+			if(!chkTest){
+				auth = setPermission(auth);	
+			}
 			Session session = Sessions.getCurrent();
 			session.setAttribute(AppConstant.S_AUTHORIZATION, auth);
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			throw new BillerManageWebException("Set Session fail" + ex);
 		} finally {
 			ip = null;
