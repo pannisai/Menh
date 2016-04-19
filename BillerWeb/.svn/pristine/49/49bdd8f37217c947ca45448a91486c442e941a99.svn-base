@@ -1,6 +1,0 @@
-<?page title="Backoffice"?>
-<zk>
-	<zscript>
-	// Executions.getCurrent().sendRedirect("zulIndex.zul");
-	</zscript>
-</zk>

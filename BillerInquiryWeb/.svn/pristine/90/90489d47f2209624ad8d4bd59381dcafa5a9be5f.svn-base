@@ -1,3 +1,0 @@
-<columns sizable="true">
-	<column id="${each}" forEach="${arg.columns}" label="${each}" />
-</columns>

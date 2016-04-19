@@ -1,7 +1,0 @@
-<window width="80%" title="Session Timeout" border="normal">
-	<zscript>
-	Session session = Sessions.getCurrent();
-	session.removeAttribute(com.dtac.billerweb.common.AppConstant.S_AUTHORIZATION);
-	Executions.getCurrent().sendRedirect(com.dtac.billerweb.common.AppConfiguration.getValue(com.dtac.billerweb.common.AppConfiguration.SESS_TIMEOUT_ERR_PAGE_URL));
-</zscript>
-</window>
