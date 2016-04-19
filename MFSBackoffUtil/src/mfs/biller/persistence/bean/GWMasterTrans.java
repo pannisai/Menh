@@ -38,9 +38,6 @@ public class GWMasterTrans implements Serializable {
 	@Column(name = "TRNS_SRCE_CHNL_CODE", nullable = true)
 	private String TRNS_SRCE_CHNL_CODE;
 
-	@Column(name = "TRNS_TYPE_CODE", nullable = true)
-	private String TRNS_TYPE_CODE;
-
 	@Column(name = "TRNS_REF_ID", nullable = false)
 	private String TRNS_REF_ID;
 
@@ -79,29 +76,17 @@ public class GWMasterTrans implements Serializable {
 	@Column(name = "TRNS_PAID_AMNT", nullable = true)
 	private BigDecimal TRNS_PAID_AMNT;
 
-	@Column(name = "TRNS_VAT_AMNT", nullable = true)
-	private BigDecimal TRNS_VAT_AMNT;
-
 	@Column(name = "TRNS_MIN_AMNT", nullable = true)
 	private BigDecimal TRNS_MIN_AMNT;
 
 	@Column(name = "TRNS_MAX_AMNT", nullable = true)
 	private BigDecimal TRNS_MAX_AMNT;
 
-	@Column(name = "TRNS_VAT_RATE", nullable = true)
-	private BigDecimal TRNS_VAT_RATE;
-
 	@Column(name = "TRNS_FEE_AMNT", nullable = true)
 	private BigDecimal TRNS_FEE_AMNT;
 
 	@Column(name = "TRNS_FEE_TYPE", nullable = true)
 	private String TRNS_FEE_TYPE;
-
-	@Column(name = "TRNS_COMM_AMNT", nullable = true)
-	private BigDecimal TRNS_COMM_AMNT;
-
-	@Column(name = "TRNS_TOTL_AMNT", nullable = true)
-	private BigDecimal TRNS_TOTL_AMNT;
 
 	@Column(name = "TRNS_CRNT_BLNC", nullable = true)
 	private BigDecimal TRNS_CRNT_BLNC;
@@ -142,21 +127,9 @@ public class GWMasterTrans implements Serializable {
 	@Column(name = "TRNS_CUST_ADDR_2", nullable = true)
 	private String TRNS_CUST_ADDR_2;
 
-	@Column(name = "TRNS_CUST_ACCT", nullable = true)
-	private String TRNS_CUST_ACCT;
-
-	@Column(name = "TRNS_INV_NUMB", nullable = true)
-	private String TRNS_INV_NUMB;
-
 	@Column(name = "TRNS_DUE_DATE", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date TRNS_DUE_DATE;
-
-	@Column(name = "TRNS_INV_TAX_ID", nullable = true)
-	private String TRNS_INV_TAX_ID;
-
-	@Column(name = "TRNS_CHNL_CODE", nullable = true)
-	private String TRNS_CHNL_CODE;
 
 	@Column(name = "TRNS_RCPT_NUMB", nullable = true)
 	private String TRNS_RCPT_NUMB;
@@ -214,7 +187,7 @@ public class GWMasterTrans implements Serializable {
 	private String REV_STATUS;
 
 	public String toString() {
-		return TRNS_ID + "|" + TRNS_DTTM + "|" + TRNS_DEST_CODE + "|" + TRNS_SRCE_CODE + "|" + TRNS_SRCE_CHNL_CODE + "|" + TRNS_TYPE_CODE + "|" + TRNS_REF_ID + "|" + TRNS_SRVC_CODE + "|" + TRNS_FUNC_CODE + "|" + TRNS_COMP_CODE + "|" + TRNS_REF1 + "|" + TRNS_REF2 + "|" + TRNS_REF3 + "|" + TRNS_REF4 + "|" + TRNS_REF5 + "|" + TRNS_REF6 + "|" + TRNS_PAID_AMNT + "|" + TRNS_VAT_AMNT + "|" + TRNS_MIN_AMNT + "|" + TRNS_MAX_AMNT + "|" + TRNS_VAT_RATE + "|" + TRNS_FEE_AMNT + "|" + TRNS_FEE_TYPE + "|" + TRNS_COMM_AMNT + "|" + TRNS_TOTL_AMNT + "|" + TRNS_CRNT_BLNC + "|" + TRNS_PAID_AMNT_TYPE + "|" + TRNS_USER_CODE + "|" + TRNS_USER_GRUP_CODE + "|" + TRNS_USER_BRNC_CODE + "|" + TRNS_USER_TMNL_CODE + "|" + TRNS_ZONE_CODE + "|" + TRNS_BRNC_CODE + "|" + TRNS_SUB_BRNC_CODE + "|" + TRNS_CUST_NAME_TH + "|" + TRNS_CUST_NAME_EN + "|" + TRNS_CUST_ADDR_1 + "|" + TRNS_CUST_ADDR_2 + "|" + TRNS_CUST_ACCT + "|" + TRNS_INV_NUMB + "|" + TRNS_DUE_DATE + "|" + TRNS_INV_TAX_ID + "|" + TRNS_CHNL_CODE + "|" + TRNS_RCPT_NUMB + "|" + TRNS_RCPT_DTTM + "|" + TRNS_STTS_CODE + "|" + TRNS_BARC_CHK_DIGI + "|" + TRNS_PYMT_DTTM + "|" + TRNS_REVS_DTTM + "|" + TRNS_REMK + "|" + CRTD_BY + "|" + CRTD_DTTM + "|" + LAST_CHNG_BY + "|" + LAST_CHNG_DTTM + "|" + TRNS_EXTR_AMNT;
+		return TRNS_ID + "|" + TRNS_DTTM + "|" + TRNS_DEST_CODE + "|" + TRNS_SRCE_CODE + "|" + TRNS_SRCE_CHNL_CODE + "|" + TRNS_REF_ID + "|" + TRNS_SRVC_CODE + "|" + TRNS_FUNC_CODE + "|" + TRNS_COMP_CODE + "|" + TRNS_REF1 + "|" + TRNS_REF2 + "|" + TRNS_REF3 + "|" + TRNS_REF4 + "|" + TRNS_REF5 + "|" + TRNS_REF6 + "|" + TRNS_PAID_AMNT + "|" + TRNS_MIN_AMNT + "|" + TRNS_MAX_AMNT + "|" + TRNS_FEE_AMNT + "|" + TRNS_FEE_TYPE + "|" + TRNS_CRNT_BLNC + "|" + TRNS_PAID_AMNT_TYPE + "|" + TRNS_USER_CODE + "|" + TRNS_USER_GRUP_CODE + "|" + TRNS_USER_BRNC_CODE + "|" + TRNS_USER_TMNL_CODE + "|" + TRNS_ZONE_CODE + "|" + TRNS_BRNC_CODE + "|" + TRNS_SUB_BRNC_CODE + "|" + TRNS_CUST_NAME_TH + "|" + TRNS_CUST_NAME_EN + "|" + TRNS_CUST_ADDR_1 + "|" + TRNS_CUST_ADDR_2 + "|" + TRNS_DUE_DATE + "|" + TRNS_RCPT_NUMB + "|" + TRNS_RCPT_DTTM + "|" + TRNS_STTS_CODE + "|" + TRNS_BARC_CHK_DIGI + "|" + TRNS_PYMT_DTTM + "|" + TRNS_REVS_DTTM + "|" + TRNS_REMK + "|" + CRTD_BY + "|" + CRTD_DTTM + "|" + LAST_CHNG_BY + "|" + LAST_CHNG_DTTM + "|" + TRNS_EXTR_AMNT;
 	}
 
 	public BigDecimal getTRNS_MIN_AMNT() {
@@ -279,14 +252,6 @@ public class GWMasterTrans implements Serializable {
 
 	public void setTRNS_SRCE_CHNL_CODE(String tRNS_SRCE_CHNL_CODE) {
 		TRNS_SRCE_CHNL_CODE = tRNS_SRCE_CHNL_CODE;
-	}
-
-	public String getTRNS_TYPE_CODE() {
-		return TRNS_TYPE_CODE;
-	}
-
-	public void setTRNS_TYPE_CODE(String tRNS_TYPE_CODE) {
-		TRNS_TYPE_CODE = tRNS_TYPE_CODE;
 	}
 
 	public String getTRNS_REF_ID() {
@@ -369,22 +334,6 @@ public class GWMasterTrans implements Serializable {
 		TRNS_PAID_AMNT = tRNS_PAID_AMNT;
 	}
 
-	public BigDecimal getTRNS_VAT_AMNT() {
-		return TRNS_VAT_AMNT;
-	}
-
-	public void setTRNS_VAT_AMNT(BigDecimal tRNS_VAT_AMNT) {
-		TRNS_VAT_AMNT = tRNS_VAT_AMNT;
-	}
-
-	public BigDecimal getTRNS_VAT_RATE() {
-		return TRNS_VAT_RATE;
-	}
-
-	public void setTRNS_VAT_RATE(BigDecimal tRNS_VAT_RATE) {
-		TRNS_VAT_RATE = tRNS_VAT_RATE;
-	}
-
 	public BigDecimal getTRNS_FEE_AMNT() {
 		return TRNS_FEE_AMNT;
 	}
@@ -399,22 +348,6 @@ public class GWMasterTrans implements Serializable {
 
 	public void setTRNS_FEE_TYPE(String tRNS_FEE_TYPE) {
 		TRNS_FEE_TYPE = tRNS_FEE_TYPE;
-	}
-
-	public BigDecimal getTRNS_COMM_AMNT() {
-		return TRNS_COMM_AMNT;
-	}
-
-	public void setTRNS_COMM_AMNT(BigDecimal tRNS_COMM_AMNT) {
-		TRNS_COMM_AMNT = tRNS_COMM_AMNT;
-	}
-
-	public BigDecimal getTRNS_TOTL_AMNT() {
-		return TRNS_TOTL_AMNT;
-	}
-
-	public void setTRNS_TOTL_AMNT(BigDecimal tRNS_TOTL_AMNT) {
-		TRNS_TOTL_AMNT = tRNS_TOTL_AMNT;
 	}
 
 	public BigDecimal getTRNS_CRNT_BLNC() {
@@ -529,21 +462,6 @@ public class GWMasterTrans implements Serializable {
 	// TRNS_CUST_ADDR_3 = tRNS_CUST_ADDR_3;
 	// }
 
-	public String getTRNS_CUST_ACCT() {
-		return TRNS_CUST_ACCT;
-	}
-
-	public void setTRNS_CUST_ACCT(String tRNS_CUST_ACCT) {
-		TRNS_CUST_ACCT = tRNS_CUST_ACCT;
-	}
-
-	public String getTRNS_INV_NUMB() {
-		return TRNS_INV_NUMB;
-	}
-
-	public void setTRNS_INV_NUMB(String tRNS_INV_NUMB) {
-		TRNS_INV_NUMB = tRNS_INV_NUMB;
-	}
 
 	public Date getTRNS_DUE_DATE() {
 		return TRNS_DUE_DATE;
@@ -551,22 +469,6 @@ public class GWMasterTrans implements Serializable {
 
 	public void setTRNS_DUE_DATE(Date tRNS_DUE_DATE) {
 		TRNS_DUE_DATE = tRNS_DUE_DATE;
-	}
-
-	public String getTRNS_INV_TAX_ID() {
-		return TRNS_INV_TAX_ID;
-	}
-
-	public void setTRNS_INV_TAX_ID(String tRNS_INV_TAX_ID) {
-		TRNS_INV_TAX_ID = tRNS_INV_TAX_ID;
-	}
-
-	public String getTRNS_CHNL_CODE() {
-		return TRNS_CHNL_CODE;
-	}
-
-	public void setTRNS_CHNL_CODE(String tRNS_CHNL_CODE) {
-		TRNS_CHNL_CODE = tRNS_CHNL_CODE;
 	}
 
 	public String getTRNS_RCPT_NUMB() {

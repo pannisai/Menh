@@ -94,12 +94,12 @@ public class BillerInquiryServiceImpl extends BaseService implements BillerInqui
 //		}
 //	}
 	
-	private void setMobileCreditAmount(BillerInquirySO billerInquiryForm,
-			GWMasterTrans gwMasterTran) {
-		if ("MOB".equals(gwMasterTran.getCHNL_CODE())) {
-			billerInquiryForm.setPaidAmount(gwMasterTran.getTRNS_TOTL_AMNT());
-		}
-	}
+//	private void setMobileCreditAmount(BillerInquirySO billerInquiryForm,
+//			GWMasterTrans gwMasterTran) {
+//		if ("MOB".equals(gwMasterTran.getCHNL_CODE())) {
+//			billerInquiryForm.setPaidAmount(gwMasterTran.getTRNS_TOTL_AMNT());
+//		}
+//	}
 
 	@Override
 	public int getBillerInquiryRowCount(GWMasterTransParam condition) throws Exception {
