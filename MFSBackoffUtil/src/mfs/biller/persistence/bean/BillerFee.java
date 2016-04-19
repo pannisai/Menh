@@ -33,8 +33,8 @@ public class BillerFee implements Serializable {
 	@Column(name = "FEE_AMOUNT", nullable = true)
 	private BigDecimal FEE_AMOUNT;
 
-	@Column(name = "FUNDAMO_FEE_AMOUNT", nullable = true)
-	private BigDecimal FUNDAMO_FEE_AMOUNT;
+	@Column(name = "CUST_FEE_AMOUNT", nullable = true)
+	private BigDecimal CUST_FEE_AMOUNT;
 
 	@Column(name = "EFFT_DATE", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -71,7 +71,7 @@ public class BillerFee implements Serializable {
 				+ "|BLLR_SRVC_ID:" + BLLR_SRVC_ID 
 				+ "|BLLR_FEE_MAST_ID:" + BLLR_FEE_MAST_ID
 				+ "|FEE_AMOUNT:" + FEE_AMOUNT 				
-				+ "|FUNDAMO_FEE_AMOUNT:" + FUNDAMO_FEE_AMOUNT 
+				+ "|CUST_FEE_AMOUNT:" + CUST_FEE_AMOUNT 
 				+ "|EFFT_DATE:" + EFFT_DATE
 				+ "|EXPR_DATE:" + EXPR_DATE 
 				+ "|ACT_FLAG:" + ACT_FLAG 				
@@ -113,12 +113,12 @@ public class BillerFee implements Serializable {
 		FEE_AMOUNT = fEE_AMOUNT;
 	}
 
-	public BigDecimal getFUNDAMO_FEE_AMOUNT() {
-		return FUNDAMO_FEE_AMOUNT;
+	public BigDecimal getCUST_FEE_AMOUNT() {
+		return CUST_FEE_AMOUNT;
 	}
 
-	public void setFUNDAMO_FEE_AMOUNT(BigDecimal fUNDAMO_FEE_AMOUNT) {
-		FUNDAMO_FEE_AMOUNT = fUNDAMO_FEE_AMOUNT;
+	public void setCUST_FEE_AMOUNT(BigDecimal cUST_FEE_AMOUNT) {
+		CUST_FEE_AMOUNT = cUST_FEE_AMOUNT;
 	}
 
 	public Date getEFFT_DATE() {

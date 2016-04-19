@@ -220,7 +220,7 @@ public class GWInboundMapBean implements GWInboundMapBeanRemote,
 
 			em.getTransaction().begin();
 			Query query1 = em.createNativeQuery("SELECT  T1.XML_DATA_ID  from GW_XML_DATA_SRC T1 join GW_INBOUND_MAP T2  on T1.XML_DATA_ID = T2.DATA_MAP_XML_SRC_ID  WHERE  T2.DATA_MAP_ID = "+bean.getDATA_MAP_ID()+"");
-			BigDecimal result = (BigDecimal)query1.getSingleResult();
+			BigDecimal result = new BigDecimal(query1.getSingleResult().toString());
 			int XML_DATA_ID = result.intValue();
 			StringBuffer sb = new StringBuffer();
 			sb.append("UPDATE GW_INBOUND_MAP ")

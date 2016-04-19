@@ -1,7 +1,9 @@
 package mfs.biller.ejb.stateless;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,10 +18,12 @@ import mfs.biller.ejb.interfaces.BillerBarcodeBeanLocal;
 import mfs.biller.ejb.interfaces.BillerBarcodeBeanRemote;
 import mfs.biller.persistence.bean.BillerBarcode;
 import mfs.biller.persistence.bean.BillerBarcodeParam;
+import mfs.biller.persistence.bean.BillerBarcodeSearchBean;
 import mfs.biller.persistence.bean.UserInfoBean;
 import mfs.biller.util.Timer;
 import mfs.biller.util.ValidateUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 @Stateless(name = "BillerBarcodeBean", mappedName = "mfs.biller.ejb.BillerBarcodeBean")
@@ -52,9 +56,11 @@ public class BillerBarcodeBean implements BillerBarcodeBeanLocal, BillerBarcodeB
 
 		return list;
 	}
-
-	public List<BillerBarcode> searchBillerBarcode(BillerBarcodeParam PARAM, UserInfoBean user) throws Exception {
-		List<BillerBarcode> list = null;
+	public List<BillerBarcodeSearchBean> searchBillerBarcode(BillerBarcodeParam PARAM, UserInfoBean user) throws Exception {
+		
+//	public List<BillerBarcode> searchBillerBarcode(BillerBarcodeParam PARAM, UserInfoBean user) throws Exception {
+//		List<BillerBarcode> list = null;
+		List<BillerBarcodeSearchBean> barcodeSearchBeans = new ArrayList<BillerBarcodeSearchBean>();
 		try {
 
 			Timer timer = new Timer("-");
@@ -63,7 +69,8 @@ public class BillerBarcodeBean implements BillerBarcodeBeanLocal, BillerBarcodeB
 
 //			String sql = "SELECT * FROM BILLER_BARCODE ";
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT  bb.*,bs.BLLR_SRVC_NAME_EN " + " FROM " + " BILLER_BARCODE " + " bb");
+			sql.append("SELECT  bb.BARC_ID, bb.BARC_NAME, bb.BARC_CRRG_RETN_FLAG, bb.BARC_PERF_FLAG, bb.BARC_PERF_VALUE, bb.BARC_LINE_MAX, bb.BARC_EFFT_DATE, bb.BARC_LINE_NO, bb.BLLR_SRVC_ID, bb.BARC_NEW_LINE_POST, bb.BARC_SRVC_CODE, bb.ACT_FLAG, bb.CRTD_BY, bb.CRTD_DTTM, bb.LAST_CHNG_BY, bb.LAST_CHNG_DTTM, bb.BARC_TYPE, bb.BARC_EXPR_DATE,bs.BLLR_SRVC_NAME_EN " + " FROM " + " BILLER_BARCODE " + " bb");
+//			sql.append("SELECT  bb.*,bs.BLLR_SRVC_NAME_EN " + " FROM " + " BILLER_BARCODE " + " bb");
 
 			sql.append(" LEFT JOIN BILLER_SERVICE bs ON bb.BLLR_SRVC_ID=bs.BLLR_SRVC_ID");
 			sql.append(" WHERE 1=1");
@@ -93,9 +100,13 @@ public class BillerBarcodeBean implements BillerBarcodeBeanLocal, BillerBarcodeB
 			sql.append(" ORDER BY BARC_ID");
 
 			log.info(user.getName() + "|" + page + "|searchBillerBarcode|SQL:" + sql.toString());
-
-			Query query = em.createNativeQuery(sql.toString(), BillerBarcode.class);
-			list = query.getResultList();
+			
+			Query query = em.createNativeQuery(sql.toString());
+			List<Object[]>list = query.getResultList();
+			for (Object[] objects : list) {
+				barcodeSearchBeans.add(mapBarcodeBean(objects));
+			}
+			
 			log.info(user.getName() + "|" + page + "|searchBillerBarcode|List.Size:" + list.size());
 			log.info(user.getName() + "|" + page + "|searchBillerBarcode|Time|" + timer.getStopTime());
 		} catch (Exception e) {
@@ -103,7 +114,36 @@ public class BillerBarcodeBean implements BillerBarcodeBeanLocal, BillerBarcodeB
 			throw e;
 		}
 
-		return list;
+		return barcodeSearchBeans;
+	}
+	
+	private BillerBarcodeSearchBean mapBarcodeBean(Object[] obj){
+		
+		BillerBarcodeSearchBean bean = new BillerBarcodeSearchBean();
+		try{
+		bean.setBARC_ID(obj[0]!=null?Integer.parseInt(obj[0].toString()):null);
+		bean.setBARC_NAME(obj[1]!=null?(String)obj[1]:null);
+		bean.setBARC_CRRG_RETN_FLAG(obj[2]!=null?(String)obj[2]:null);
+		bean.setBARC_PERF_FLAG(obj[3]!=null?(String)obj[3]:null);
+		bean.setBARC_PERF_VALUE(obj[4]!=null?(String)obj[4]:null);
+		bean.setBARC_LINE_MAX(obj[5]!=null?Integer.parseInt(obj[5].toString()):null);
+		bean.setBARC_EFFT_DATE(obj[6]!=null?(Date)obj[6]:null);
+		bean.setBARC_LINE_NO(obj[7]!=null?new Double(obj[7].toString()).intValue():null);
+		bean.setBLLR_SRVC_ID(obj[8]!=null?(Integer)obj[8]:null);
+		bean.setBARC_NEW_LINE_POST(obj[9]!=null?(String)obj[9]:null);
+		bean.setBARC_SRVC_CODE(obj[10]!=null?(String)obj[10]:null);
+		bean.setACT_FLAG(obj[11]!=null?(String)obj[11]:null);
+		bean.setCRTD_BY(obj[12]!=null?(String)obj[12]:null);
+		bean.setCRTD_DTTM(obj[13]!=null?(Date)obj[13]:null);
+		bean.setLAST_CHNG_BY(obj[14]!=null?(String)obj[14]:null);
+		bean.setLAST_CHNG_DTTM(obj[15]!=null?(Date)obj[15]:null);
+		bean.setBARC_TYPE(obj[16]!=null?(String)obj[16]:null);
+		bean.setBARC_EXPR_DATE(obj[17]!=null?(Date)obj[17]:null);
+		bean.setBLLR_SRVC_NAME_EN(obj[18]!=null?(String)obj[18]:null);
+		}catch(Exception e){
+			log.error("Cannot Map BillerBarcode (barc_id=+"+obj[0].toString()+")");
+		}
+		return bean;
 	}
 
 	public BillerBarcode findBillerBarcode(int BARC_ID, UserInfoBean user) throws Exception {

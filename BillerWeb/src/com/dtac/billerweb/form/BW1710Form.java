@@ -19,7 +19,7 @@ public class BW1710Form extends BaseForm {
 	private String actFlag;
 	private BigDecimal srvcFee;	
 	private BigDecimal feeAmount;	
-	private BigDecimal fundamoFeeAmount;
+	private BigDecimal custFeeAmount;
 
 	public BillerFee toBillerFee() {
 		BillerFee bean = new BillerFee();
@@ -28,7 +28,7 @@ public class BW1710Form extends BaseForm {
 		bean.setBLLR_SRVC_ID(this.bllrSrvcId);
 		bean.setBLLR_FEE_MAST_ID(this.bllrFeeMastId);
 		bean.setFEE_AMOUNT(this.feeAmount);
-		bean.setFUNDAMO_FEE_AMOUNT(this.fundamoFeeAmount);
+		bean.setCUST_FEE_AMOUNT(this.custFeeAmount);
 		bean.setEFFT_DATE(this.efftDate);
 		bean.setEXPR_DATE(this.exprDate);
 		bean.setACT_FLAG(this.actFlag);
@@ -67,12 +67,12 @@ public class BW1710Form extends BaseForm {
 		this.feeAmount = feeAmount;
 	}
 
-	public BigDecimal getFundamoFeeAmount() {
-		return fundamoFeeAmount;
+	public BigDecimal getCustFeeAmount() {
+		return custFeeAmount;
 	}
 
-	public void setFundamoFeeAmount(BigDecimal fundamoFeeAmount) {
-		this.fundamoFeeAmount = fundamoFeeAmount;
+	public void setCustFeeAmount(BigDecimal custFeeAmount) {
+		this.custFeeAmount = custFeeAmount;
 	}
 
 	public Integer getBllrFeeId() {

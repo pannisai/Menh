@@ -110,7 +110,7 @@
 		<!-- Log4j Location -->
 	<library-property>
 		<name>app.log.location</name>
-		<value>/conf/billerInquiryWeb/billerInqWebLog4j.properties
+		<value>/conf/billerweb/billerWebLog4j.properties
 		</value>
 	</library-property>
 	

@@ -180,10 +180,10 @@
 								</hlayout>
 								<hlayout sclass="right">
 									<label
-										value="${c:formatNumber(each.fundamoFeeAmount, '###,###,##0.00')}"
-										if="${each.fundamoFeeAmount!=null}" />
+										value="${c:formatNumber(each.custFeeAmount, '###,###,##0.00')}"
+										if="${each.custFeeAmount!=null}" />
 									<label value=""
-										if="${each.fundamoFeeAmount==null}" />
+										if="${each.custFeeAmount==null}" />
 								</hlayout>
 								<hlayout sclass="right">
 									<label

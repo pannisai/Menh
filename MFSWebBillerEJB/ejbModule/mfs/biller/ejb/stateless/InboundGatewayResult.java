@@ -300,21 +300,28 @@ public class InboundGatewayResult implements InboundGatewayResultRemote, Inbound
 					.append(", GW_SRVC_ID = ? ")
 					.append(", GW_INBN_MAP_ID = ? ")
 					.append(", SEND_RCPT_FLAG = ? ")
-					.append(", GW_RCPT_CONF_ID = ? ")
+					.append(null!=bean.getGW_RCPT_CONF_ID()?", GW_RCPT_CONF_ID = ? ":"")
 					.append(", ACT_FLAG = ? ")
 					.append(", LAST_CHNG_BY = ? ")
 					.append(", LAST_CHNG_DTTM = current_timestamp ")
 					.append("WHERE INBN_SRVC_ID = ?  AND SRCE_SRVC_ID = ? AND DEST_SRVC_ID = ? ");
 			
 			int i = 0;
+			
 			em.getTransaction().begin();
+//			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+//			em.merge(bean);
+//			em.getTransaction().commit();
+			
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getSRCE_SRVC_ID());
 			query.setParameter(++i, bean.getINBN_SRVC_NAME());
 			query.setParameter(++i, bean.getGW_SRVC_ID());
 			query.setParameter(++i, bean.getGW_INBN_MAP_ID());
 			query.setParameter(++i, bean.getSEND_RCPT_FLAG());
+			if(null!=bean.getGW_RCPT_CONF_ID()){
 			query.setParameter(++i, bean.getGW_RCPT_CONF_ID());
+			}
 			query.setParameter(++i, bean.getACT_FLAG());
 			query.setParameter(++i, bean.getLAST_CHNG_BY());
 			query.setParameter(++i, bean.getINBN_SRVC_ID());

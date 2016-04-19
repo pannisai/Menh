@@ -46,9 +46,9 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			sql.append("SELECT BF.*, SRV.BLLR_SRVC_NAME_EN, BFM.FEE_TYPE");
 			sql.append(", CASE WHEN UPPER(BFM.FEE_TYPE) = 'ABSORB' ");
 			sql.append("THEN CASE WHEN BF.FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FEE_AMOUNT END + ");
-			sql.append("CASE WHEN BF.FUNDAMO_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FUNDAMO_FEE_AMOUNT END ");
+			sql.append("CASE WHEN BF.CUST_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.CUST_FEE_AMOUNT END ");
 			sql.append("WHEN UPPER(BFM.FEE_TYPE) = 'SHARING' ");
-			sql.append("THEN CASE WHEN BF.FUNDAMO_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.FUNDAMO_FEE_AMOUNT END ");
+			sql.append("THEN CASE WHEN BF.CUST_FEE_AMOUNT IS NULL THEN 0.00 ELSE BF.CUST_FEE_AMOUNT END ");
 			sql.append("ELSE 0.00 END SRVC_FEE ");
 			sql.append("FROM BILLER_FEE BF ");
 			sql.append("LEFT JOIN BILLER_SERVICE SRV ON BF.BLLR_SRVC_ID = SRV.BLLR_SRVC_ID ");
@@ -155,7 +155,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 //			em.persist(bean);
 //			em.getTransaction().commit();
 			
-			String sql = "INSERT INTO BILLER_FEE(BLLR_FEE_ID, BLLR_SRVC_ID, BLLR_FEE_MAST_ID, FEE_AMOUNT, FUNDAMO_FEE_AMOUNT, EFFT_DATE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)"
+			String sql = "INSERT INTO BILLER_FEE(BLLR_FEE_ID, BLLR_SRVC_ID, BLLR_FEE_MAST_ID, FEE_AMOUNT, CUST_FEE_AMOUNT, EFFT_DATE, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM)"
 					   + "VALUES(?, ?, ?, ?, ?, ?, 'A', ?, current_timestamp, ?, current_timestamp)";
 			int i = 0;		
 			query = em.createNativeQuery(sql);
@@ -163,7 +163,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			query.setParameter(++i, bean.getBLLR_SRVC_ID());
 			query.setParameter(++i, bean.getBLLR_FEE_MAST_ID());
 			query.setParameter(++i, bean.getFEE_AMOUNT());
-			query.setParameter(++i, bean.getFUNDAMO_FEE_AMOUNT());
+			query.setParameter(++i, bean.getCUST_FEE_AMOUNT());
 			query.setParameter(++i, bean.getEFFT_DATE());
 			query.setParameter(++i, user.getName());
 			query.setParameter(++i, user.getName());
@@ -190,7 +190,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			StringBuffer sb = new StringBuffer();
 			sb.append("UPDATE BILLER_FEE ")
 					.append("SET BLLR_FEE_MAST_ID = ? ")
-					.append(", FUNDAMO_FEE_AMOUNT = ? ")
+					.append(", CUST_FEE_AMOUNT = ? ")
 					.append(", FEE_AMOUNT = ? ")
 					.append(", ACT_FLAG = ? ")
 					.append(", EFFT_DATE = ? ")
@@ -203,7 +203,7 @@ public class BillerFeeBean implements BillerFeeBeanLocal, BillerFeeBeanRemote{
 			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter(++i, bean.getBLLR_FEE_MAST_ID());
-			query.setParameter(++i, bean.getFUNDAMO_FEE_AMOUNT());
+			query.setParameter(++i, bean.getCUST_FEE_AMOUNT());
 			query.setParameter(++i, bean.getFEE_AMOUNT());
 			query.setParameter(++i, bean.getACT_FLAG());
 			query.setParameter(++i, bean.getEFFT_DATE());

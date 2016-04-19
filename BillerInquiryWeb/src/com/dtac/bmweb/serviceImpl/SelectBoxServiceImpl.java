@@ -78,7 +78,6 @@ public class SelectBoxServiceImpl extends BaseService implements SelectBoxServic
 		BillerServiceListModel billerServiceListModel = new BillerServiceListModel(new ArrayList<DropdownlistBillservice>());
 		DropdownlistRemote dropdownlistRemote = null;
 		try {	
-			log.debug("eiei");
 			dropdownlistRemote = (DropdownlistRemote) EJBInitialContext.lookup(Constants.JNDI.dropdownlist);
 			if (dropdownlistRemote == null) {
 				return billerServiceListModel;

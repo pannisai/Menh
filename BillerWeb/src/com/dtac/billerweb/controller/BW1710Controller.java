@@ -176,9 +176,9 @@ public class BW1710Controller extends EditPageController {
 			bw1710Form.setBllrFeeId(billerFee.getBLLR_FEE_ID());
 			bw1710Form.setBllrSrvcId(billerFee.getBLLR_SRVC_ID());
 			bw1710Form.setBllrFeeMastId(billerFee.getBLLR_FEE_MAST_ID());
-			bw1710Form.setSrvcFee(calSrvcFee(billerFee.getBLLR_FEE_MAST_ID().toString(), billerFee.getFEE_AMOUNT(), billerFee.getFUNDAMO_FEE_AMOUNT()));
+			bw1710Form.setSrvcFee(calSrvcFee(billerFee.getBLLR_FEE_MAST_ID().toString(), billerFee.getFEE_AMOUNT(), billerFee.getCUST_FEE_AMOUNT()));
 			bw1710Form.setFeeAmount(billerFee.getFEE_AMOUNT());
-			bw1710Form.setFundamoFeeAmount(billerFee.getFUNDAMO_FEE_AMOUNT());
+			bw1710Form.setCustFeeAmount(billerFee.getCUST_FEE_AMOUNT());
 			bw1710Form.setEfftDate(billerFee.getEFFT_DATE());
 			bw1710Form.setExprDate(billerFee.getEXPR_DATE());
 			bw1710Form.setActFlag(billerFee.getACT_FLAG());
@@ -215,7 +215,7 @@ public class BW1710Controller extends EditPageController {
 			}
 			txServiceFeeAmount.setValue(AppUtil.isNotNull(bw1710Form.getSrvcFee())?bw1710Form.getSrvcFee().toString():"");
 			txFeeAmount.setValue(AppUtil.isNotNull(bw1710Form.getFeeAmount())?bw1710Form.getFeeAmount().toString():"");
-			txFundamoFeeAmount.setValue(AppUtil.isNotNull(bw1710Form.getFundamoFeeAmount())?bw1710Form.getFundamoFeeAmount().toString():"");
+			txFundamoFeeAmount.setValue(AppUtil.isNotNull(bw1710Form.getCustFeeAmount())?bw1710Form.getCustFeeAmount().toString():"");
 			dbEfftDate.setValue(bw1710Form.getEfftDate());
 		} catch (Exception ex) {
 			throw new BillerWebException(ex);
@@ -233,7 +233,7 @@ public class BW1710Controller extends EditPageController {
 			BillerFeeMast billerFeeMast = lbBllrFeeMastId.getSelectedItem().getValue();
 			bw1710Form.setBllrFeeMastId(AppUtil.isNotNull(billerFeeMast.getBLLR_FEE_MAST_ID())?billerFeeMast.getBLLR_FEE_MAST_ID():null);
 			bw1710Form.setFeeAmount(AppUtil.isNotNull(txFeeAmount.getValue())?new BigDecimal(txFeeAmount.getValue()):null);
-			bw1710Form.setFundamoFeeAmount(AppUtil.isNotNull(txFundamoFeeAmount.getValue())?new BigDecimal(txFundamoFeeAmount.getValue()):null);
+			bw1710Form.setCustFeeAmount(AppUtil.isNotNull(txFundamoFeeAmount.getValue())?new BigDecimal(txFundamoFeeAmount.getValue()):null);
 			bw1710Form.setEfftDate(dbEfftDate.getValue());
 		} catch (WrongValueException wve) {
 			throw wve;
@@ -451,7 +451,7 @@ public class BW1710Controller extends EditPageController {
 			params.put("BllrSrvcId", bw1710Form.getBllrSrvcId() + "");
 			params.put("BllrFeeMastId", bw1710Form.getBllrFeeMastId() + "");
 			params.put("FeeAmount", bw1710Form.getFeeAmount() + "");
-			params.put("FundamoFeeAmount", bw1710Form.getFundamoFeeAmount() + "");
+			params.put("CustFeeAmount", bw1710Form.getCustFeeAmount() + "");
 			params.put("EfftDate", bw1710Form.getEfftDate() + "");
 		} catch (Exception ex) {
 			throw new BillerWebException(ex);
@@ -472,7 +472,7 @@ public class BW1710Controller extends EditPageController {
 							bw1710Form.setBllrFeeMastId(null);
 							bw1710Form.setSrvcFee(null);
 							bw1710Form.setFeeAmount(null);
-							bw1710Form.setFundamoFeeAmount(null);
+							bw1710Form.setCustFeeAmount(null);
 							bw1710Form.setEfftDate(new Date());
 						}					
 						refreshForm();

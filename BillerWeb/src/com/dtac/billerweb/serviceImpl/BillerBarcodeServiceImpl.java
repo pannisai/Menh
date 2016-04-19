@@ -6,6 +6,7 @@ import java.util.List;
 import mfs.biller.ejb.interfaces.BillerBarcodeBeanRemote;
 import mfs.biller.persistence.bean.BillerBarcode;
 import mfs.biller.persistence.bean.BillerBarcodeParam;
+import mfs.biller.persistence.bean.BillerBarcodeSearchBean;
 import mfs.biller.persistence.bean.UserInfoBean;
 import mfs.constants.Constants;
 
@@ -49,16 +50,16 @@ public class BillerBarcodeServiceImpl extends BaseService implements BillerBarco
 		return billerBarcodeListModel;
 	}
 		
-	public List<BillerBarcode> searchBillerBarcode(BillerBarcodeParam condition, int currentPage, int pageSize, UserInfoBean userInfo){
+	public List<BillerBarcodeSearchBean> searchBillerBarcode(BillerBarcodeParam condition, int currentPage, int pageSize, UserInfoBean userInfo){
 		log.info("start searchBillerBarcode");
 		BillerBarcodeBeanRemote objRemote = null;
-		List<BillerBarcode> billerBarcode = null;
+		List<BillerBarcodeSearchBean> billerBarcode = null;
 		try {
 			objRemote = (BillerBarcodeBeanRemote) EJBInitialContext.lookup(Constants.JNDI.billerBarcodeBean);
 			billerBarcode = objRemote.searchBillerBarcode(condition, userInfo);
 			
 			if (AppUtil.isEmpty(billerBarcode)) {
-				billerBarcode = new ArrayList<BillerBarcode>();
+				billerBarcode = new ArrayList<BillerBarcodeSearchBean>();
 			}
 			
 			log.info("billerCategorys size::" + billerBarcode.size());

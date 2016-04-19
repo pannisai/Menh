@@ -51,50 +51,48 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 	protected String pageCode = "";
 
 	protected void checkSessionTimeOut(String operName) throws BillerWebSessionTimeOutException {
-		if(!chkTest){
-		String responseCode = "";
-		Map<String, String> resultMap = null;
-		Authorization auth = null;
-		StringBuilder url = null;
-		StringBuilder params = null;
-		String responseDesc = null;
-		auth = getAuthorization();
-		if (auth == null || AppUtil.isEmpty(auth.getUsername())) {
-			log.info("Session Timeout Authorization is null");
-			goToSessionTimeOutPage();
-			return;
-		}
-		try {
+		if (!chkTest) {
+			String responseCode = "";
+			Map<String, String> resultMap = null;
+			Authorization auth = null;
+			StringBuilder url = null;
+			StringBuilder params = null;
+			String responseDesc = null;
+			auth = getAuthorization();
+			if (auth == null || AppUtil.isEmpty(auth.getUsername())) {
+				log.info("Session Timeout Authorization is null");
+				goToSessionTimeOutPage();
+				return;
+			}
+			try {
+				url = new StringBuilder();
+				url.append(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_URL));
+				params = new StringBuilder();
+				params.append("userName=" + URLEncoder.encode(auth.getUsername()));
+				params.append("&refId=" + URLEncoder.encode(auth.getRefId()));
+				operName = (operName != null && operName.length() > 29) ? operName.substring(0, 29) : operName;
+				params.append("&operName=" + URLEncoder.encode(operName));
+				params.append("&clientIpAddr=" + URLEncoder.encode(auth.getClientIP()));
 
-			url = new StringBuilder();
-			url.append(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_URL));
-			params = new StringBuilder();
-			params.append("userName=" + URLEncoder.encode(auth.getUsername()));
-			params.append("&refId=" + URLEncoder.encode(auth.getRefId()));
-			operName = (operName != null && operName.length() > 29) ? operName.substring(0, 29) : operName;
-			params.append("&operName=" + URLEncoder.encode(operName));
-			params.append("&clientIpAddr=" + URLEncoder.encode(auth.getClientIP()));
+				resultMap = HttpClient.get(url.toString() + "?" + params.toString());
+				responseCode = resultMap.get(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_ERR_CODE_KEY));
+				responseDesc = resultMap.get(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_ERR_DESC_KEY));
 
-			resultMap = HttpClient.get(url.toString() + "?" + params.toString());
-			responseCode = resultMap.get(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_ERR_CODE_KEY));
-			responseDesc = resultMap.get(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_ERR_DESC_KEY));
+			} catch (Exception ex) {
+				removeSession(AppConstant.S_AUTHORIZATION);
+				throw new BillerWebException(ex);
+			} finally {
+				resultMap = null;
+			}
 
-		} catch (Exception ex) {
-			removeSession(AppConstant.S_AUTHORIZATION);
-			throw new BillerWebException(ex);
-		} finally {
-			resultMap = null;
-
-		}
-		if (AppUtil.trim(responseCode).equalsIgnoreCase(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_SUCCESS_CODE))) {
-		} else {
-			log.info("URL::" + url.toString() + "?" + params.toString());
-			log.info("Check Session Timeout::[Error Code:" + responseCode + ",Error Desc:" + responseDesc + ",refId:" + auth.getRefId() + ",OperName:" + operName);
-			url = null;
-			params = null;
-			removeSession(AppConstant.S_AUTHORIZATION);
-			goToSessionTimeOutPage();
-		}
+			if (AppUtil.trim(responseCode).equalsIgnoreCase(AppConfiguration.getValue(AppConfiguration.CHK_SESS_TIMEOUT_SUCCESS_CODE))) {
+			} else {
+				log.info("URL::" + url.toString() + "?" + params.toString());
+				log.info("Check Session Timeout::[Error Code:" + responseCode + ",Error Desc:" + responseDesc + ",refId:" + auth.getRefId() + ",OperName:" + operName);
+				url = null;
+				params = null;
+				removeSession(AppConstant.S_AUTHORIZATION);
+			}
 		}
 	}
 
@@ -122,6 +120,11 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 		try {
 			removeSession(AppConstant.S_AUTHORIZATION);
 			ip = Executions.getCurrent().getHeader("X-Forwarded-For");
+			
+			for (String headername : Executions.getCurrent().getHeaderNames()) {
+				log.debug("Executions Current: header="+headername+" value="+Executions.getCurrent().getHeader(headername));
+			}
+			
 			log.debug("X-Forwarded-For:" + ip);
 			if (ip==null||"".equals(ip)) {
 				ip = Executions.getCurrent().getRemoteAddr();

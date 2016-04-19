@@ -7,6 +7,7 @@ import java.util.Map;
 
 import mfs.biller.persistence.bean.BillerBarcode;
 import mfs.biller.persistence.bean.BillerBarcodeParam;
+import mfs.biller.persistence.bean.BillerBarcodeSearchBean;
 import mfs.biller.persistence.bean.DropdownlistBillservice;
 
 import org.apache.log4j.Logger;
@@ -142,8 +143,8 @@ public class BW1500Controller extends SearchPageController {
 		log.info(getOperationLogMessage(pageName, "Search", ""));
 		checkSessionTimeOut("Search " + pageName);
 		BillerBarcodeService billerBarcodeService = null;
-		List<BillerBarcode> billerBarcodeList = null;
-		ListModel<BillerBarcode> billerBarcodeListModel = null;
+		List<BillerBarcodeSearchBean> billerBarcodeList = null;
+		ListModel<BillerBarcodeSearchBean> billerBarcodeListModel = null;
 		DropdownlistBillservice dropdownlistBillservice=null;
 		BillerBarcode billerBarcode = null;
 		String status = "";
@@ -167,7 +168,7 @@ public class BW1500Controller extends SearchPageController {
 
 			}
 			billerBarcodeList = billerBarcodeService.searchBillerBarcode(criteria, 0, 0, getUserInfo());
-			billerBarcodeListModel = new SimpleListModel<BillerBarcode>(billerBarcodeList);
+			billerBarcodeListModel = new SimpleListModel<BillerBarcodeSearchBean>(billerBarcodeList);
 
 			setGridResultModel(billerBarcodeListModel);
 		} catch (Exception ex) {

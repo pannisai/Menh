@@ -124,6 +124,10 @@ public abstract class BaseControllor extends SelectorComposer<Component> {
 		try {
 			removeSession(AppConstant.S_AUTHORIZATION);			
 			ip = Executions.getCurrent().getHeader("X-Forwarded-For");
+			for (String headername : Executions.getCurrent().getHeaderNames()) {
+				log.debug("Executions Current: header="+headername+" value="+Executions.getCurrent().getHeader(headername));
+			}
+			
 			log.debug("X-Forwarded-For:" + ip);
 			if (ip==null||"".equals(ip)) {
 				ip = Executions.getCurrent().getRemoteAddr();

@@ -7,7 +7,7 @@
 	<persistence-unit name="mfs.db.MFSDAO"
 		transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>biller/db</jta-data-source>
+		<jta-data-source>backoff/db</jta-data-source>
 		<class>mfs.biller.persistence.bean.BillerService</class>
         <class>mfs.biller.persistence.bean.DropdownlistBillservice</class>
         <class>mfs.biller.persistence.bean.GWMasterTrans</class>
@@ -42,8 +42,9 @@
        	<class>mfs.biller.persistence.bean.GWOutboundMap</class>
        	<class>mfs.biller.persistence.bean.BillerFdmCode</class>
        	<class>mfs.biller.persistence.bean.BillerPymtCode</class>
+       	<class>mfs.biller.persistence.bean.BillerBarcodeSearchBean</class>
 		<properties>
-			<property name="javax.persistence.jtaDataSource" value="java:/biller/db" />
+			<property name="javax.persistence.jtaDataSource" value="java:/backoff/db" />
 		</properties>
 	</persistence-unit>
 </persistence>

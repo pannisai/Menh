@@ -231,7 +231,9 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 					.append("WHERE BLLR_CATG_ID = ? ");
 			
 			int i = 0;
+			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
+			
 			query.setParameter(++i, bean.getBLLR_CATG_NAME());
 			query.setParameter(++i, bean.getBLLR_CATG_DESC());
 			query.setParameter(++i, bean.getACT_FLAG());
@@ -239,6 +241,7 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 			query.setParameter(++i, bean.getLAST_CHNG_BY());
 			query.setParameter(++i, bean.getBLLR_CATG_ID());
 			query.executeUpdate();
+			
 			
 			log.info(user.getName() + "|" + page + "|updateBillerCatalog|Success");
 			log.info(user.getName() + "|" + page + "|updateBillerCatalog|Time|" + timer.getStopTime());
@@ -248,6 +251,8 @@ public class BillerCatalogBean implements BillerCatalogBeanLocal, BillerCatalogB
 		}catch(Exception e){
 			log.error(user.getName() + "|" + page + "|updateBillerCatalog|Exception:" + e.getMessage());
 			throw e;
+		}finally{
+			em.clear();
 		}
 	}
 }

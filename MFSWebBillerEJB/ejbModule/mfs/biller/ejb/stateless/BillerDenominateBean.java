@@ -73,13 +73,17 @@ public class BillerDenominateBean implements BillerDenominateBeanLocal, BillerDe
 			BigDecimal result = new BigDecimal(query.getSingleResult().toString());
 			int BLLR_DENM_ID = result.intValue();
 
-			String sql = "INSERT INTO BILLER_DENOMINATE(BLLR_DENM_ID , BLLR_SRVC_ID , BLLR_DENM_RATE , BLLR_MAX_NO_MNTH , CRTD_BY , CRTD_DTTM , LAST_CHNG_BY , LAST_CHNG_DTTM, ACT_FLAG)" + "VALUES(?, ?, ?,  ?, ?, CURRENT_DATE, ?, CURRENT_DATE,?)";
+			String sql = "INSERT INTO BILLER_DENOMINATE(BLLR_DENM_ID , BLLR_SRVC_ID , BLLR_DENM_RATE"+(null!=bean.getBLLR_MAX_NO_MNTH()?" , BLLR_MAX_NO_MNTH":"")+" , CRTD_BY , CRTD_DTTM , LAST_CHNG_BY , LAST_CHNG_DTTM, ACT_FLAG)" + "VALUES(?, ?, ?"+(null!=bean.getBLLR_MAX_NO_MNTH()?", ?":"")+", ?, CURRENT_DATE, ?, CURRENT_DATE,?)";
 			int i = 0;
+			
+			System.out.println(bean.toString());
 			Query query1 = em.createNativeQuery(sql);
 			query1.setParameter(++i, BLLR_DENM_ID);
 			query1.setParameter(++i, bean.getBLLR_SRVC_ID());
 			query1.setParameter(++i, bean.getBLLR_DENM_RATE());
-			query1.setParameter(++i, bean.getBLLR_MAX_NO_MNTH());
+			if (null!=bean.getBLLR_MAX_NO_MNTH()){
+				query1.setParameter(++i, bean.getBLLR_MAX_NO_MNTH());
+			}
 			query1.setParameter(++i, user.getName());
 			query1.setParameter(++i, user.getName());
 			query1.setParameter(++i, bean.getACT_FLAG());

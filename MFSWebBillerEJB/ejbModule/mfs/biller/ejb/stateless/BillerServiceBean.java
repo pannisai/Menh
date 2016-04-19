@@ -1,6 +1,7 @@
 package mfs.biller.ejb.stateless;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -717,36 +718,42 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			log.info(user.getName() + "|" + page + "|updateBillerService|Time|" + timer.getStartTime());
 			log.info(user.getName() + "|" + page + "|updateBillerService|Param|" + bean.toString());
 
-			StringBuffer sb = new StringBuffer();
-			sb.append("UPDATE BILLER_SERVICE ").append("SET BLLR_CATG_ID = ? ").append(", BLLR_SRVC_CODE = ? ").append(", BLLR_MSTR_ID = ? ").append(", BLLR_SRVC_NAME_EN = ? ").append(", BLLR_SRVC_NAME_FULL_EN = ? ").append(", BLLR_SRVC_NAME_TH = ? ").append(", BLLR_SRVC_NAME_FULL_TH = ? ").append(", BLLR_SRVC_STAT_DATE = ? ").append(", BLLR_SRVC_EXPR_DATE = ? ").append(", BLLR_SRVC_MENU_SEQ = ? ").append(", BLLR_SRVC_GUST_MOBN_FLAG = ? ").append(", BLLR_SRVC_BARC_FLAG = ? ").append(", BLLR_SERV_VAT_PERC = ? ")
-			// .append(", ACT_FLAG = ? ")			
-			.append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append(", BLLR_SRVC_FETR = ? ").append(", BLLR_INGT_ID = ? ")
-			.append(", BLLR_CNCL_ONLN_FLAG = ? ").append(", BLLR_FETR_ID = ? ")
-			.append("WHERE BLLR_SRVC_ID = ? ");
+//			StringBuffer sb = new StringBuffer();
+//			sb.append("UPDATE BILLER_SERVICE ").append("SET BLLR_CATG_ID = ? ").append(", BLLR_SRVC_CODE = ? ").append(", BLLR_MSTR_ID = ? ").append(", BLLR_SRVC_NAME_EN = ? ").append(", BLLR_SRVC_NAME_FULL_EN = ? ").append(", BLLR_SRVC_NAME_TH = ? ").append(", BLLR_SRVC_NAME_FULL_TH = ? ").append(", BLLR_SRVC_STAT_DATE = ? ").append(", BLLR_SRVC_EXPR_DATE = ? ").append(", BLLR_SRVC_MENU_SEQ = ? ").append(", BLLR_SRVC_GUST_MOBN_FLAG = ? ").append(", BLLR_SRVC_BARC_FLAG = ? ").append(", BLLR_SERV_VAT_PERC = ? ")
+//			// .append(", ACT_FLAG = ? ")			
+//			.append(", LAST_CHNG_BY = ? ").append(", LAST_CHNG_DTTM = current_timestamp ").append(", BLLR_SRVC_FETR = ? ").append(", BLLR_INGT_ID = ? ")
+//			.append(", BLLR_CNCL_ONLN_FLAG = ? ").append(", BLLR_FETR_ID = ? ")
+//			.append("WHERE BLLR_SRVC_ID = ? ");
 			em.getTransaction().begin();
-			int i = 0;
-			Query query = em.createNativeQuery(sb.toString());
-			query.setParameter(++i, bean.getBLLR_CATG_ID());
-			query.setParameter(++i, bean.getBLLR_SRVC_CODE());
-			query.setParameter(++i, bean.getBLLR_MSTR_ID());
-			query.setParameter(++i, bean.getBLLR_SRVC_NAME_EN());
-			query.setParameter(++i, bean.getBLLR_SRVC_NAME_FULL_EN());
-			query.setParameter(++i, bean.getBLLR_SRVC_NAME_TH());
-			query.setParameter(++i, bean.getBLLR_SRVC_NAME_FULL_TH());
-			query.setParameter(++i, bean.getBLLR_SRVC_STAT_DATE());
-			query.setParameter(++i, bean.getBLLR_SRVC_EXPR_DATE());
-			query.setParameter(++i, bean.getBLLR_SRVC_MENU_SEQ());
-			query.setParameter(++i, bean.getBLLR_SRVC_GUST_MOBN_FLAG());
-			query.setParameter(++i, bean.getBLLR_SRVC_BARC_FLAG());
-			query.setParameter(++i, bean.getBLLR_SERV_VAT_PERC());
-			// query.setParameter(++i, bean.getACT_FLAG());					
-			query.setParameter(++i, bean.getLAST_CHNG_BY());
-			query.setParameter(++i, bean.getBLLR_SRVC_FETR());
-			query.setParameter(++i, bean.getBLLR_INGT_ID());
-			query.setParameter(++i, bean.getBLLR_CNCL_ONLN_FLAG());
-			query.setParameter(++i, bean.getBLLR_FETR_ID());
-			query.setParameter(++i, bean.getBLLR_SRVC_ID());
-			query.executeUpdate();
+			bean.setLAST_CHNG_DTTM(Calendar.getInstance().getTime());
+			em.merge(bean);
+			
+//			int i = 0;
+//			Query query = em.createNativeQuery(sb.toString());
+//			query.setParameter(++i, bean.getBLLR_CATG_ID());
+//			query.setParameter(++i, bean.getBLLR_SRVC_CODE());
+//			query.setParameter(++i, bean.getBLLR_MSTR_ID());
+//			query.setParameter(++i, bean.getBLLR_SRVC_NAME_EN());
+//			query.setParameter(++i, bean.getBLLR_SRVC_NAME_FULL_EN());
+//			query.setParameter(++i, bean.getBLLR_SRVC_NAME_TH());
+//			query.setParameter(++i, bean.getBLLR_SRVC_NAME_FULL_TH());
+//			query.setParameter(++i, bean.getBLLR_SRVC_STAT_DATE());
+//			
+//			query.setParameter(++i, bean.getBLLR_SRVC_EXPR_DATE().getTime());
+//			
+//			query.setParameter(++i, bean.getBLLR_SRVC_MENU_SEQ());
+//			query.setParameter(++i, bean.getBLLR_SRVC_GUST_MOBN_FLAG());
+//			query.setParameter(++i, bean.getBLLR_SRVC_BARC_FLAG());
+//			query.setParameter(++i, bean.getBLLR_SERV_VAT_PERC());
+//			// query.setParameter(++i, bean.getACT_FLAG());					
+//			query.setParameter(++i, bean.getLAST_CHNG_BY());
+//			query.setParameter(++i, bean.getBLLR_SRVC_FETR());
+//			query.setParameter(++i, bean.getBLLR_INGT_ID());
+//			query.setParameter(++i, bean.getBLLR_CNCL_ONLN_FLAG());
+//			query.setParameter(++i, bean.getBLLR_FETR_ID());
+//			query.setParameter(++i, bean.getBLLR_SRVC_ID());
+//			query.executeUpdate();
+			em.getTransaction().commit();
 
 			log.info(user.getName() + "|" + page + "|updateBillerService|Success");
 			log.info(user.getName() + "|" + page + "|updateBillerService|Time|" + timer.getStopTime());

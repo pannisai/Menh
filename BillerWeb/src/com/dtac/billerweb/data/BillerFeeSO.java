@@ -16,7 +16,7 @@ public class BillerFeeSO extends BaseDO {
 	private Date exprDate;
 	private BigDecimal srvcFee;
 	private BigDecimal feeAmount;	
-	private BigDecimal fundamoFeeAmount;
+	private BigDecimal custFeeAmount;
 	private String updateBy;
 	private Date updateDate;
 
@@ -28,7 +28,7 @@ public class BillerFeeSO extends BaseDO {
 		this.exprDate = billerFee.getEXPR_DATE();	
 		this.srvcFee = billerFee.getSRVC_FEE();
 		this.feeAmount = billerFee.getFEE_AMOUNT();
-		this.fundamoFeeAmount = billerFee.getFUNDAMO_FEE_AMOUNT();	
+		this.custFeeAmount = billerFee.getCUST_FEE_AMOUNT();
 		this.updateBy = billerFee.getLAST_CHNG_BY();
 		this.updateDate = billerFee.getLAST_CHNG_DTTM();
 		return this;
@@ -74,12 +74,12 @@ public class BillerFeeSO extends BaseDO {
 		this.feeAmount = feeAmount;
 	}
 
-	public BigDecimal getFundamoFeeAmount() {
-		return fundamoFeeAmount;
+	public BigDecimal getCustFeeAmount() {
+		return custFeeAmount;
 	}
 
-	public void setFundamoFeeAmount(BigDecimal fundamoFeeAmount) {
-		this.fundamoFeeAmount = fundamoFeeAmount;
+	public void setCustFeeAmount(BigDecimal custFeeAmount) {
+		this.custFeeAmount = custFeeAmount;
 	}
 
 	public String getUpdateBy() {
