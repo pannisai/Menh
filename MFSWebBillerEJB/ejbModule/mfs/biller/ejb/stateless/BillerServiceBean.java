@@ -144,7 +144,7 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 
 			log.info(user.getName() + "|" + page + "|insertInformation|BLLR_SRVC_ID:" + BLLR_SRVC_ID);
 
-			String sql = "INSERT INTO BILLER_SERVICE(BLLR_SRVC_ID, BLLR_CATG_ID, BLLR_SRVC_CODE, BLLR_MSTR_ID, BLLR_SRVC_NAME_EN, BLLR_SRVC_NAME_FULL_EN, BLLR_SRVC_NAME_TH, BLLR_SRVC_NAME_FULL_TH, BLLR_SRVC_STAT_DATE, BLLR_SRVC_EXPR_DATE, BLLR_SRVC_MENU_SEQ, BLLR_SRVC_GUST_MOBN_FLAG, BLLR_SRVC_BARC_FLAG, BLLR_SERV_VAT_PERC, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_SRVC_FETR,BLLR_INGT_ID)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp,?,?)";
+			String sql = "INSERT INTO BILLER_SERVICE(BLLR_SRVC_ID, BLLR_CATG_ID, BLLR_SRVC_CODE, BLLR_MSTR_ID, BLLR_SRVC_NAME_EN, BLLR_SRVC_NAME_FULL_EN, BLLR_SRVC_NAME_TH, BLLR_SRVC_NAME_FULL_TH, BLLR_SRVC_STAT_DATE"+(null!=bean.getBLLR_SRVC_EXPR_DATE()?", BLLR_SRVC_EXPR_DATE":"")+", BLLR_SRVC_MENU_SEQ, BLLR_SRVC_GUST_MOBN_FLAG, BLLR_SRVC_BARC_FLAG, BLLR_SERV_VAT_PERC, ACT_FLAG, CRTD_BY, CRTD_DTTM, LAST_CHNG_BY, LAST_CHNG_DTTM ,BLLR_SRVC_FETR,BLLR_INGT_ID)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?"+(null!=bean.getBLLR_SRVC_EXPR_DATE()?", ?":"")+", ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp,?,?)";
 			int i = 0;
 			query = em.createNativeQuery(sql);
 			query.setParameter(++i, BLLR_SRVC_ID);
@@ -156,7 +156,9 @@ public class BillerServiceBean implements BillerServiceBeanRemote, BillerService
 			query.setParameter(++i, bean.getBLLR_SRVC_NAME_TH());
 			query.setParameter(++i, bean.getBLLR_SRVC_NAME_FULL_TH());
 			query.setParameter(++i, bean.getBLLR_SRVC_STAT_DATE());
-			query.setParameter(++i, bean.getBLLR_SRVC_EXPR_DATE());
+			if(bean.getBLLR_SRVC_EXPR_DATE()!=null){
+				query.setParameter(++i, bean.getBLLR_SRVC_EXPR_DATE());
+			}
 			query.setParameter(++i, bean.getBLLR_SRVC_MENU_SEQ());
 			query.setParameter(++i, bean.getBLLR_SRVC_GUST_MOBN_FLAG());
 			query.setParameter(++i, bean.getBLLR_SRVC_BARC_FLAG());
