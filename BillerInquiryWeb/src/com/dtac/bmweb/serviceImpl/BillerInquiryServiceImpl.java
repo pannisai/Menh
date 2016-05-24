@@ -78,7 +78,7 @@ public class BillerInquiryServiceImpl extends BaseService implements BillerInqui
 	
 	private void addChannelService(BillerInquirySO billerInquiryForm,
 			GWMasterTrans gwMasterTran) {
-		if ("PSBCC".equals(gwMasterTran.getTRNS_ID().substring(0, 5))) {
+		if (gwMasterTran.getTRNS_ID().length()>4 && "PSBCC".equals(gwMasterTran.getTRNS_ID().substring(0, 5))) {
 			billerInquiryForm.setChannelService("Mobile Credit Card");
 			billerInquiryForm.setCrtdDttm(gwMasterTran.getTRNS_DTTM());
 		} else {

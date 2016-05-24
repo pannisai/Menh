@@ -60,7 +60,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			log.info("RptTransBean|getMasterTransAll|Time:" + timer.getStartTime());
 
 			StringBuilder sb = new StringBuilder();			
-			sb.append("SELECT *,row_number() over() r FROM VIEW_BILLER_TRANSACTION ");
+			sb.append("SELECT *,row_number() over(order by TRNS_DTTM desc) r FROM VIEW_BILLER_TRANSACTION ");
 
 			Vector<String> v = new Vector<String>();
 			if (!AppUtil.isEmpty(Param.getTRNS_ID())) {
@@ -90,10 +90,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= TO_DATE('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= TO_DATE('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -260,10 +260,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= TO_DATE('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= TO_DATE('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -398,10 +398,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= TO_DATE('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= TO_DATE('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -428,7 +428,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 					sb.append("AND TRNS_SRVC_CODE in ('");
 					for (int i = 0; i < service1.size(); i++) {
 						if (i != 0) {
-							sb.append(" ',' ");
+							sb.append("','");
 						}
 						sb.append(service1.get(i));
 					}
@@ -518,7 +518,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			v.add("TRNS_ID='" + TRNS_ID + "'");
 
 		if (TRNS_DTTM != null && !"".equals(TRNS_DTTM))
-			v.add("TRNS_DTTM =TO_DATE('" + TRNS_DTTM + "', 'YYYY-MM-DD HH24:MI:SS')");
+			v.add("TRNS_DTTM =TO_TIMESTAMP('" + TRNS_DTTM + "', 'YYYY-MM-DD HH24:MI:SS')");
 
 		if (TRNS_DEST_CODE != null && !"".equals(TRNS_DEST_CODE))
 			v.add("TRNS_DEST_CODE='" + TRNS_DEST_CODE + "'");
@@ -711,7 +711,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 		Vector<String> v = new Vector<String>();
 		StringBuffer sb = new StringBuffer();
 		if ((PARAM.getFROM_TRNS_DTTM() != null) && (PARAM.getTO_TRNS_DTTM() != null)) {
-			v.add("TRNS_DTTM BETWEEN to_date('" + DateTimeUtil.parseToString(PARAM.getFROM_TRNS_DTTM(), "yyyy-MM-dd HH:mm:ss") + "', 'YYYY-MM-DD HH24:MI:SS') AND to_date('" + DateTimeUtil.parseToString(PARAM.getTO_TRNS_DTTM(), "yyyy-MM-dd HH:mm:ss") + "', 'YYYY-MM-DD HH24:MI:SS')");
+			v.add("TRNS_DTTM BETWEEN to_timestamp('" + DateTimeUtil.parseToString(PARAM.getFROM_TRNS_DTTM(), "yyyy-MM-dd HH:mm:ss") + "', 'YYYY-MM-DD HH24:MI:SS') AND to_timestamp('" + DateTimeUtil.parseToString(PARAM.getTO_TRNS_DTTM(), "yyyy-MM-dd HH:mm:ss") + "', 'YYYY-MM-DD HH24:MI:SS')");
 		}
 		if (!ValidateUtil.isEmpty(PARAM.getTRNS_SRVC_CODE()) && !PARAM.getTRNS_SRVC_CODE().equals("ALL")) {
 			v.add("TRNS_SRVC_CODE = '" + PARAM.getTRNS_SRVC_CODE() + "'");
@@ -777,7 +777,7 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 		BigDecimal item = new BigDecimal(0);
 		for (Object count : list) {
 			if(null != count){
-				item = item.add(new BigDecimal((Long)count));
+				item = item.add(new BigDecimal(count.toString()));
 			}
 		}
 		return item;
