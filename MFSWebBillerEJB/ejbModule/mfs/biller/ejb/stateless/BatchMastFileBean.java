@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.Vector;
 
 import javaee.CallByReference;
@@ -44,7 +46,8 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			BatchMastFileParam PARAM) throws Exception {
 
 		try {
-
+			em.getTransaction().begin();
+			
 			Timer timer = new Timer("-");
 			log.info("BatchMastFileBean|getBatchMastFileAll|Time:"
 					+ timer.getStartTime());
@@ -54,13 +57,16 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			String sql = "SELECT *,row_number() over() r " + " FROM BATCH_MAST_FILE ";
 
 			Vector<String> v = new Vector<String>();
-
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))
-				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
-
-			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
-
+				v.add(" BTCH_SEND_FILE_DTTM >= ?fromdate ");
+	//				v.add(" BTCH_SEND_FILE_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ " 00:00:00', 'YYYY-MM-DD HH24:MI:SS')");
+//					v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+	
+				if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
+					v.add(" BTCH_SEND_FILE_DTTM <= ?todate ");
+	//				v.add(" BTCH_SEND_FILE_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ " 23:59:59', 'YYYY-MM-DD HH24:MI:SS')");
+//					v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+			
 			if (PARAM.getBTCH_DEST_CODE() != null && !"".equals(PARAM.getBTCH_DEST_CODE()))
 				v.add(" BTCH_DEST_CODE = '" + PARAM.getBTCH_DEST_CODE() + "'");
 
@@ -151,9 +157,20 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 
 			Collection<BatchMastFile> colreturn = new Vector();
 
+			Date tempFromDttm = PARAM.getFROM_DTTM();
+			tempFromDttm.setHours(0);
+			tempFromDttm.setMinutes(0);
+			tempFromDttm.setSeconds(0);
+			Date tempToDttm = PARAM.getTO_DTTM();
+			tempToDttm.setHours(23);
+			tempToDttm.setMinutes(59);
+			tempToDttm.setSeconds(59);
 			Query query = em.createNativeQuery(sql, BatchMastFile.class);
-
+			query.setParameter("fromdate",tempFromDttm);
+			query.setParameter("todate",tempToDttm);
+			
 			List list = (List) query.getResultList();
+			
 			log.info("BatchMastFileBean|getBatchMastFileAll|list.size:"
 					+ list.size());
 
@@ -171,6 +188,7 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 
 				colreturn.add(BatchMastFile);
 			}
+			em.clear();
 			log.info("BatchMastFileBean|getBatchMastFileAll|Time:"
 					+ timer.getStopTime());
 			return colreturn;
@@ -244,10 +262,14 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 
 			Vector<String> v = new Vector<String>();				
 			if (PARAM.getFROM_DTTM() != null && !"".equals(PARAM.getFROM_DTTM()))
-				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+//				v.add(" BTCH_SEND_FILE_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ " 00:00:00', 'YYYY-MM-DD')");
+//				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) >= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getFROM_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" BTCH_SEND_FILE_DTTM >= ?fromdate ");
 
 			if (PARAM.getTO_DTTM() != null && !"".equals(PARAM.getTO_DTTM()))
-				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+//				v.add(" BTCH_SEND_FILE_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ " 23:59:59', 'YYYY-MM-DD')");
+//				v.add(" date_trunc('day',BTCH_SEND_FILE_DTTM) <= TO_DATE('"+DateTimeUtil.parseToString(PARAM.getTO_DTTM(), "yyyy-MM-dd")+ "', 'YYYY-MM-DD')");
+				v.add(" BTCH_SEND_FILE_DTTM <= ?todate ");
 
 			if (PARAM.getBTCH_DEST_CODE() != null && !"".equals(PARAM.getBTCH_DEST_CODE()))
 				v.add(" BTCH_DEST_CODE = '" + PARAM.getBTCH_DEST_CODE() + "'");
@@ -318,7 +340,17 @@ public class BatchMastFileBean implements BatchMastFileBeanRemote,
 			sql = sql + sb.toString();
 			log.info("BatchMastFileBean|countRowAll|sql:" + sql);
 
+			Date tempFromDttm = PARAM.getFROM_DTTM();
+			tempFromDttm.setHours(0);
+			tempFromDttm.setMinutes(0);
+			tempFromDttm.setSeconds(0);
+			Date tempToDttm = PARAM.getTO_DTTM();
+			tempToDttm.setHours(23);
+			tempToDttm.setMinutes(59);
+			tempToDttm.setSeconds(59);
 			Query query = em.createNativeQuery(sql);
+			query.setParameter("fromdate", tempFromDttm);
+			query.setParameter("todate", tempToDttm);
 
 			List list = query.getResultList();
 			BigDecimal numRow = new BigDecimal((Long)list.get(0));

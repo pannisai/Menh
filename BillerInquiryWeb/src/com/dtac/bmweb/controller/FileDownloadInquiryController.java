@@ -253,6 +253,7 @@ public class FileDownloadInquiryController extends SearchPageController {
 				if (!AppUtil.isEmpty(batchMastFile)) {
 					byte[] b = fileDownloadInquiryService.getFileFromBatchMastFileId(oid);
 					Filedownload.save(b, "text/html", batchMastFile.getBTCH_MAST_FILE_NAME());
+//					Filedownload.save((new String(b)).getBytes("UTF-8"), "text/html", batchMastFile.getBTCH_MAST_FILE_NAME());
 					log.debug("File Size::" + b.length);
 				}
 			}

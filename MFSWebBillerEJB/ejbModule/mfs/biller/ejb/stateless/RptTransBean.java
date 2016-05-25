@@ -90,10 +90,12 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= ?fromdate ");
+//m				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= ?todate ");
+//m				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -148,6 +150,8 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			
 			log.info("RptTransBean|getMasterTransAll|sql:" + sqlStr);
 			Query query = em.createNativeQuery(sqlStr,GWMasterTrans.class);
+			query.setParameter("fromdate", Param.getFROM_DTTM());
+			query.setParameter("todate", Param.getTO_DTTM());
 			listMastTrnsPrtn =  query.getResultList();
 			log.info("Results Size::"+listMastTrnsPrtn.size());
 			log.info("RptTransBean|getMasterTransAll|GWMasterTransParam:" + Param.toString());
@@ -260,10 +264,12 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= ?fromdate ");
+//m				v.add("TRNS_DTTM >= to_timestamp('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= ?todate ");
+//m				v.add("TRNS_DTTM <= to_timestamp('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -299,7 +305,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			}
 					
 			log.info("RptTransBean|countRowAll|sql:" + sb.toString());		
-			Query query = em.createNativeQuery(sb.toString());			
+			Query query = em.createNativeQuery(sb.toString());	
+			query.setParameter("fromdate", Param.getFROM_DTTM());
+			query.setParameter("todate", Param.getTO_DTTM());
+
 			List list = query.getResultList();
 			item = getCountList(list);
 			log.info("RptTransBean|countRowAll|numRow:" + item);
@@ -398,10 +407,12 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 				v.add("TRNS_DEST_CODE = '"+Param.getTRNS_DEST_CODE()+"'");
 			}		
 			if (Param.getFROM_DTTM() != null) {
-				v.add("TRNS_DTTM >= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM >= ?fromdate ");
+//				v.add("TRNS_DTTM >= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getFROM_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (Param.getTO_DTTM() != null) {
-				v.add("TRNS_DTTM <= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
+				v.add("TRNS_DTTM <= ?todate ");
+//				v.add("TRNS_DTTM <= TO_TIMESTAMP('"+DateTimeUtil.parseToString(Param.getTO_DTTM(), "yyyy-MM-dd HH:mm:ss")+"', 'YYYY-MM-DD HH24:MI:SS')");
 			}
 			if (!AppUtil.isEmpty(Param.getBRANCH())) {
 				v.add("SSO_LOCN_CODE_39 = '"+Param.getBRANCH()+"'");
@@ -437,7 +448,10 @@ public class RptTransBean implements RptTransBeanRemote, RptTransBeanLocal {
 			}
 			
 			log.info("RptTransBean|getTotalAmount|sql:" + sb.toString());		
-			Query query = em.createNativeQuery(sb.toString());			
+			Query query = em.createNativeQuery(sb.toString());	
+			query.setParameter("fromdate", Param.getFROM_DTTM());
+			query.setParameter("todate", Param.getTO_DTTM());
+
 			List list = query.getResultList();
 			item = getCountList(list);
 			log.info("RptTransBean|getTotalAmount|TotalAmount:" + item);

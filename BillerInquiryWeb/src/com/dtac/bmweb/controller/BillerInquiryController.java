@@ -115,8 +115,8 @@ public class BillerInquiryController extends SearchPageController {
 			}
 			billerService = billerInquiryService.getBillerServiceByID(serviceId, getUserInfo());
 			if (billerService != null && !AppUtil.isEmpty(billerService.getBLLR_SRVC_CODE())) {
-				log.info("Column::" + billerService.getBLLR_SRVC_CODE() + "_COLUMN");
-				log.info("Value::" + billerService.getBLLR_SRVC_CODE() + "_VALUE");
+//				log.info("Column::" + billerService.getBLLR_SRVC_CODE() + "_COLUMN");
+//				log.info("Value::" + billerService.getBLLR_SRVC_CODE() + "_VALUE");
 				billerColumn = BillerInquiryConfig.searchValue(billerService.getBLLR_SRVC_CODE() + "_COLUMN");
 				billerValue = BillerInquiryConfig.searchValue(billerService.getBLLR_SRVC_CODE() + "_VALUE");
 				log.info("billerColumn::" + billerColumn);
@@ -338,38 +338,38 @@ public class BillerInquiryController extends SearchPageController {
 				String varName = values.get(i);
 				log.debug("varName::" + varName);
 				if (varName.equalsIgnoreCase("NO.")) {
-					log.debug("Set NO." + index + 1);
+//					log.debug("Set NO." + index + 1);
 					Hlayout hlayout = new Hlayout();
 					hlayout.appendChild(new Label((index + 1) + (paging.getActivePage() * paging.getPageSize()) + ""));
 					hlayout.setSclass("center");
 					row.appendChild(hlayout);
 				} else if (varName.equalsIgnoreCase("TRNS_ID")) {
-					log.debug("Set TRNS_ID" + i);
+//					log.debug("Set TRNS_ID" + i);
 					row.appendChild(new Label(billerInquiryForm.getTransId()));
 				} else if (varName.equalsIgnoreCase("TRNS_DTTM")) {
-					log.debug("Set TRNS_DTTM." + i);
+//					log.debug("Set TRNS_DTTM." + i);
 					try {
 						row.appendChild(new Label(AppUtil.toString(billerInquiryForm.getTransDate())));
 					} catch (Exception npe) {
 
 					}
 				} else if (varName.equalsIgnoreCase("TRNS_REF1")) {
-					log.debug("Set TRNS_REF1" + i);
+//					log.debug("Set TRNS_REF1" + i);
 					row.appendChild(new Label(billerInquiryForm.getRef1()));
 				} else if (varName.equalsIgnoreCase("TRNS_REF2")) {
-					log.debug("Set TRNS_REF2" + i);
+//					log.debug("Set TRNS_REF2" + i);
 					row.appendChild(new Label(billerInquiryForm.getRef2()));
 				} else if (varName.equalsIgnoreCase("TRNS_REF3")) {
-					log.debug("Set TRNS_REF3" + i);
+//					log.debug("Set TRNS_REF3" + i);
 					row.appendChild(new Label(billerInquiryForm.getRef3()));
 				} else if (varName.equalsIgnoreCase("TRNS_REF4")) {
-					log.debug("Set TRNS_REF4" + i);
+//					log.debug("Set TRNS_REF4" + i);
 					row.appendChild(new Label(billerInquiryForm.getRef4()));
 				} else if (varName.equalsIgnoreCase("TRNS_REF5")) {
-					log.debug("Set TRNS_REF5" + i);
+//					log.debug("Set TRNS_REF5" + i);
 					row.appendChild(new Label(billerInquiryForm.getRef5()));
 				} else if (varName.equalsIgnoreCase("TRNS_PAID_AMNT")) {
-					log.debug("Set TRNS_PAID_AMNT" + i);
+//					log.debug("Set TRNS_PAID_AMNT" + i);
 					try {
 						Hlayout hlayout = new Hlayout();
 						hlayout.appendChild(new Label(AppUtil
@@ -380,25 +380,25 @@ public class BillerInquiryController extends SearchPageController {
 						log.info(ex.getMessage());
 					}
 				} else if (varName.equalsIgnoreCase("TRNS_CUST_NAME_TH")) {
-					log.debug("Set TRNS_CUST_NAME_TH" + i);
+//					log.debug("Set TRNS_CUST_NAME_TH" + i);
 					row.appendChild(new Label(billerInquiryForm.getCustNameTH()));
 				} else if (varName.equalsIgnoreCase("TRNS_FIELD2")) {
-					log.debug("Set TRNS_FIELD2" + i);
+//					log.debug("Set TRNS_FIELD2" + i);
 					row.appendChild(new Label(billerInquiryForm.getTransField2()));
 				} else if (varName.equalsIgnoreCase("TRNS_CRNT_BLNC")) {
-					log.debug("Set TRNS_CRNT_BLNC" + i);
+//					log.debug("Set TRNS_CRNT_BLNC" + i);
 					row.appendChild(new Label(AppUtil.toString(billerInquiryForm.getCRNCBLNC())));
 				} else if (varName.equalsIgnoreCase("TRNS_EXTR_AMNT")) {
-					log.debug("Set TRNS_EXTR_AMNT" + i);
+//					log.debug("Set TRNS_EXTR_AMNT" + i);
 					row.appendChild(new Label(billerInquiryForm.getExtraAmount()));
 				} else if (varName.equalsIgnoreCase("TRNS_SRVC_CODE")) {
-					log.debug("Set TRNS_SRVC_CODE" + i);
+//					log.debug("Set TRNS_SRVC_CODE" + i);
 					row.appendChild(new Label(billerInquiryForm.getServiceName()));
 				} else if (varName.equalsIgnoreCase("CHANNEL_SERVICE")) {
-					log.debug("Set TRNS_SRVC_CODE" + i);
+//					log.debug("Set TRNS_SRVC_CODE" + i);
 					row.appendChild(new Label(billerInquiryForm.getChannelService()));
 				}  else if (varName.equalsIgnoreCase("REVERSAL_FLAG")) {
-					log.debug("Set REVERSAL_FLAG" + i);
+//					log.debug("Set REVERSAL_FLAG" + i);
 					row.appendChild(new Label(billerInquiryForm.getReversalFlag()));
 				} else {
 					row.appendChild(new Label(""));

@@ -77,7 +77,7 @@ public class BillerInquiryConfig {
 		for(Object oKey:prop.keySet()){
 			 keyStr=oKey.toString();
 			
-			 log.debug(AppUtil.trim(key).indexOf(AppUtil.trim(keyStr)));
+//			 log.debug(AppUtil.trim(key).indexOf(AppUtil.trim(keyStr)));
 			 if(AppUtil.trim(key).indexOf(AppUtil.trim(keyStr))!=-1){
 				 value=prop.getProperty(keyStr);
 				 break;
